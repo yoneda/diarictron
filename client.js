@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import { Reset } from "styled-reset";
@@ -10,6 +10,7 @@ import {
   StoreProvider,
   useStoreState,
   useStoreActions,
+  useStore,
 } from "easy-peasy";
 import Editor from "./Editor";
 import NoteList from "./NoteList";
@@ -23,7 +24,9 @@ const store = createStore({
     { id: 2, body: "ccc", createdAt: "2020-11-15" },
   ],
   id: -1,
-  selected: computed(state=>state.notes.find(note=>note.id===state.id)),
+  selected: computed((state) =>
+    state.notes.find((note) => note.id === state.id)
+  ),
   tapNote: action((state, payload) => {
     const { id } = payload;
     state.id = id;
@@ -46,8 +49,6 @@ const store = createStore({
     state.notes = state.notes.filter((note) => note.id !== id);
   }),
 });
-
-const Button = styled.button``;
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -109,18 +110,38 @@ function Main() {
       <div>notes:</div>
       <NoteList />
       <Editor />
-      <Button>This is a button</Button>
     </Fragment>
   );
 }
 
+const Popup = styled.div`
+  width: 50px;
+  height: 50px;
+  background: tomato;
+  position: absolute;
+  left: ${props=>props.x}px;
+  top: ${props=>props.y}px;
+`;
+
 function App() {
+  const [show,setShow] = useState(false);
+  const [pos, setPos] = useState({x:0, y:0});
+  useEffect(() => {
+    window.addEventListener("contextmenu", event => {
+      event.preventDefault();
+      setShow(true);
+      setPos({x:event.clientX, y:event.clientY});
+    });
+  }, []);
   return (
     <Fragment>
       <StoreProvider store={store}>
         <Reset />
         <GlobalStyle />
         <Main />
+        {
+          show && <Popup x={pos.x} y={pos.y} />
+        }
       </StoreProvider>
     </Fragment>
   );
