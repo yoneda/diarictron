@@ -21,7 +21,7 @@ const store = createStore({
   notes: [
     { id: 0, body: "aaa", createdAt: "2020-11-15" },
     { id: 1, body: "bbb", createdAt: "2020-11-15" },
-    { id: 2, body: "ccc", createdAt: "2020-11-15" },
+    { id: 2, body: "ccc", createdAt: "2020-11-15" }
   ],
   id: -1,
   selected: computed((state) =>
@@ -110,6 +110,17 @@ function Main() {
       <div>notes:</div>
       <NoteList />
       <Editor />
+      <input
+        type="file"
+        multiple
+        onChange={(e) => {
+          let reader = new FileReader();
+          reader.onload = function (event) {
+            console.log(event.target.result);
+          };
+          reader.readAsText(e.target.files[0]);
+        }}
+      />
     </Fragment>
   );
 }
@@ -119,18 +130,18 @@ const Popup = styled.div`
   height: 50px;
   background: tomato;
   position: absolute;
-  left: ${props=>props.x}px;
-  top: ${props=>props.y}px;
+  left: ${(props) => props.x}px;
+  top: ${(props) => props.y}px;
 `;
 
 function App() {
-  const [show,setShow] = useState(false);
-  const [pos, setPos] = useState({x:0, y:0});
+  const [show, setShow] = useState(false);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
   useEffect(() => {
-    window.addEventListener("contextmenu", event => {
+    window.addEventListener("contextmenu", (event) => {
       event.preventDefault();
       setShow(true);
-      setPos({x:event.clientX, y:event.clientY});
+      setPos({ x: event.clientX, y: event.clientY });
     });
   }, []);
   return (
@@ -139,9 +150,7 @@ function App() {
         <Reset />
         <GlobalStyle />
         <Main />
-        {
-          show && <Popup x={pos.x} y={pos.y} />
-        }
+        {show && <Popup x={pos.x} y={pos.y} />}
       </StoreProvider>
     </Fragment>
   );
