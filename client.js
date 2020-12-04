@@ -10,7 +10,6 @@ import {
   StoreProvider,
   useStoreState,
   useStoreActions,
-  useStore,
 } from "easy-peasy";
 import Editor from "./Editor";
 import NoteList from "./NoteList";

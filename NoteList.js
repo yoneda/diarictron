@@ -1,15 +1,6 @@
-import React, { Fragment, useState } from "react";
-import ReactDOM from "react-dom";
-import styled, { keyframes } from "styled-components";
-import { Reset } from "styled-reset";
-import dayjs from "dayjs";
-import {
-  action,
-  createStore,
-  StoreProvider,
-  useStoreState,
-  useStoreActions,
-} from "easy-peasy";
+import React from "react";
+import styled from "styled-components";
+import { useStoreState, useStoreActions } from "easy-peasy";
 
 const Wrapper = styled.div`
   width: 200px;
