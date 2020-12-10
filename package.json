@@ -8,7 +8,7 @@
   "repository": "github:https://github.com/yoneda/easy-diary",
   "scripts": {
     "dev": "parcel index.html --out-dir build/output --cache-dir build/cache",
-    "dev:landing": "parcel landing.html --out-dir landing/output --cache-dir landing/cache",
+    "dev:web": "parcel page.html --out-dir web/output --cache-dir web/cache",
     "build": "parcel build index.html  --out-dir build/output --cache-dir build/cache --public-url ./",
     "electron": "electron main.js"
   },
