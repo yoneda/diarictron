@@ -5,4 +5,4 @@ node_modules
 // parcel generate some files
 .cache
 build
-landing
+web
