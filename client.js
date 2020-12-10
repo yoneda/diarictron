@@ -13,6 +13,7 @@ import {
 } from "easy-peasy";
 import Editor from "./Editor";
 import NoteList from "./NoteList";
+import Calendar from "./Calendar";
 
 let count = 3;
 
@@ -109,6 +110,7 @@ function Main() {
       <div>notes:</div>
       <NoteList />
       <Editor />
+      <Calendar />
       <input
         type="file"
         multiple
