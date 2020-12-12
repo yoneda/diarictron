@@ -7,9 +7,9 @@
   "author": "yoneda <nsshowdream@gmail.com>",
   "repository": "github:https://github.com/yoneda/easy-diary",
   "scripts": {
-    "dev": "parcel index.html --out-dir build/output --cache-dir build/cache",
+    "dev": "parcel index.html --out-dir dist/output --cache-dir dist/cache",
     "dev:web": "parcel page.html --out-dir web/output --cache-dir web/cache",
-    "build": "parcel build index.html  --out-dir build/output --cache-dir build/cache --public-url ./",
+    "build": "parcel build index.html  --out-dir dist/output --cache-dir dist/cache --public-url ./",
     "electron": "electron main.js"
   },
   "dependencies": {
