@@ -2,7 +2,10 @@ node_modules
 .env
 *.sqlite3
 
-// parcel generate some files
+// lowdb will generate a file
+db.json
+
+// parcel will generate some files
 cache
 output
 out
