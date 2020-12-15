@@ -17,7 +17,7 @@
     "dev": "parcel index.html --out-dir out/output --cache-dir out/cache",
     "dev:web": "parcel page.html --out-dir web/output --cache-dir web/cache",
     "build": "parcel build index.html  --out-dir out/output --cache-dir out/cache --public-url ./",
-    "electron": "electron main.js",
+    "electron": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
   },
@@ -26,6 +26,7 @@
     "dayjs": "^1.9.7",
     "easy-peasy": "^4.0.1",
     "electron": "^11.1.0",
+    "lowdb": "^1.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "styled-components": "^5.2.1",

@@ -10,23 +10,29 @@ import {
   StoreProvider,
   useStoreState,
   useStoreActions,
+  thunk,
 } from "easy-peasy";
 import Editor from "./Editor";
 import NoteList from "./NoteList";
 import Calendar from "./Calendar";
+const { ipcRenderer } = window.require("electron");
 
 let count = 3;
 
 const store = createStore({
-  notes: [
-    { id: 0, body: "aaa", createdAt: "2020-11-15" },
-    { id: 1, body: "bbb", createdAt: "2020-11-15" },
-    { id: 2, body: "ccc", createdAt: "2020-11-15" }
-  ],
+  notes: [],
   id: -1,
   selected: computed((state) =>
     state.notes.find((note) => note.id === state.id)
   ),
+  setNotes: action((state, payload) => {
+    state.notes = payload;
+  }),
+  initApp: thunk((actions, payload) => {
+    ipcRenderer.invoke("init").then((result) => {
+      actions.setNotes(result);
+    });
+  }),
   tapNote: action((state, payload) => {
     const { id } = payload;
     state.id = id;
@@ -58,6 +64,10 @@ const GlobalStyle = createGlobalStyle`
 
 function Main() {
   const notes = useStoreState((state) => state.notes);
+  const initApp = useStoreActions((actions) => actions.initApp);
+  useEffect(() => {
+    initApp();
+  }, []);
   const [addNote, editNote, removeNote] = useStoreActions((actions) => [
     actions.addNote,
     actions.editNote,
@@ -122,6 +132,8 @@ function Main() {
           reader.readAsText(e.target.files[0]);
         }}
       />
+      <br />
+      <button onClick={() => doTest()}>テストボタン</button>
     </Fragment>
   );
 }
@@ -139,6 +151,9 @@ function App() {
   const [show, setShow] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   useEffect(() => {
+    ipcRenderer.invoke("init").then((result) => {
+      actions.setNotes(result);
+    });
     window.addEventListener("contextmenu", (event) => {
       event.preventDefault();
       setShow(true);
