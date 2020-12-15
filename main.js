@@ -9,24 +9,32 @@ ipcMain.handle("init", async function (event, arg) {
   return notes;
 });
 
-ipcMain.handle("notes", async function(event, arg){
+ipcMain.handle("notes", async function (event, arg) {
   const notes = await db.get("notes").value();
   return notes;
 });
 
-ipcMain.handle("add-note", async function(event, arg){
-  const {note} = arg;
+ipcMain.handle("add-note", async function (event, arg) {
+  const { note } = arg;
+  const notes = await db.get("notes").push(note).write();
+  return notes;
 });
 
-ipcMain.handle("edit-note", async function(event, arg){
-  const {note} = arg;
+ipcMain.handle("edit-note", async function (event, arg) {
+  const { note } = arg;
 });
 
-ipcMain.handle("remove-note", async function(event, arg){
-  const {id} = arg;
+ipcMain.handle("remove-note", async function (event, arg) {
+  const { id } = arg;
+  await db
+    .get("notes")
+    .remove((note) => note.id === id)
+    .write();
+  const notes = await db.get("notes").value();
+  return notes;
 });
 
-ipcMain.handle("user", async function(event, arg){
+ipcMain.handle("user", async function (event, arg) {
   const user = await db.get("user").value();
   return user;
 });

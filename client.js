@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import { Reset } from "styled-reset";
 import dayjs from "dayjs";
+import { nanoid } from "nanoid";
 import {
   action,
   computed,
@@ -17,8 +18,6 @@ import NoteList from "./NoteList";
 import Calendar from "./Calendar";
 const { ipcRenderer } = window.require("electron");
 
-let count = 3;
-
 const store = createStore({
   notes: [],
   id: -1,
@@ -28,31 +27,35 @@ const store = createStore({
   setNotes: action((state, payload) => {
     state.notes = payload;
   }),
-  initApp: thunk((actions, payload) => {
-    ipcRenderer.invoke("init").then((result) => {
-      actions.setNotes(result);
-    });
-  }),
+  getAll: thunk((actions, payload) =>
+    ipcRenderer.invoke("notes").then((notes) => actions.setNotes(notes))
+  ),
   tapNote: action((state, payload) => {
     const { id } = payload;
     state.id = id;
   }),
-  addNote: action((state, payload) => {
+  addNote: thunk((actions, payload) => {
     const { body } = payload;
-    const today = dayjs().format("YYYY-M-D H:mm:ss");
-    const note = { id: count, body, createdAt: today };
-    state.notes.push(note);
-    count = count + 1;
+    const note = {
+      id: nanoid(8),
+      body,
+      createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss[Z]"),
+    };
+    ipcRenderer
+      .invoke("add-note", { note })
+      .then((notes) => actions.setNotes(notes));
   }),
-  editNote: action((state, payload) => {
+  editNote: thunk((actions, payload) => {
     const { id, body } = payload;
     state.notes = state.notes.map((note) =>
       note.id === id ? { ...note, body } : note
     );
   }),
-  removeNote: action((state, payload) => {
+  removeNote: thunk((actions, payload) => {
     const { id } = payload;
-    state.notes = state.notes.filter((note) => note.id !== id);
+    ipcRenderer
+      .invoke("remove-note", { id })
+      .then((notes) => actions.setNotes(notes));
   }),
 });
 
@@ -64,9 +67,9 @@ const GlobalStyle = createGlobalStyle`
 
 function Main() {
   const notes = useStoreState((state) => state.notes);
-  const initApp = useStoreActions((actions) => actions.initApp);
+  const getAll = useStoreActions((actions) => actions.getAll);
   useEffect(() => {
-    initApp();
+    getAll();
   }, []);
   const [addNote, editNote, removeNote] = useStoreActions((actions) => [
     actions.addNote,
