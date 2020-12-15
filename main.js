@@ -4,11 +4,6 @@ const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync("db.json");
 const db = low(adapter);
 
-ipcMain.handle("init", async function (event, arg) {
-  const notes = await db.get("notes").value();
-  return notes;
-});
-
 ipcMain.handle("notes", async function (event, arg) {
   const notes = await db.get("notes").value();
   return notes;
@@ -21,7 +16,10 @@ ipcMain.handle("add-note", async function (event, arg) {
 });
 
 ipcMain.handle("edit-note", async function (event, arg) {
-  const { note } = arg;
+  const { id, body } = arg;
+  await db.get("notes").find({ id }).set("body", body).write();
+  const notes = await db.get("notes").value();
+  return notes;
 });
 
 ipcMain.handle("remove-note", async function (event, arg) {

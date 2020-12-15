@@ -47,9 +47,9 @@ const store = createStore({
   }),
   editNote: thunk((actions, payload) => {
     const { id, body } = payload;
-    state.notes = state.notes.map((note) =>
-      note.id === id ? { ...note, body } : note
-    );
+    ipcRenderer
+      .invoke("edit-note", { id, body })
+      .then((notes) => actions.setNotes(notes));
   }),
   removeNote: thunk((actions, payload) => {
     const { id } = payload;
@@ -78,7 +78,7 @@ function Main() {
   ]);
   const [addText, setAddText] = useState("");
   const [editText, setEditText] = useState("");
-  const [editIndex, setEditIndex] = useState(0);
+  const [editIndex, setEditIndex] = useState("");
   const [removeIndex, setRemoveIndex] = useState(0);
   const onAddClick = () => {
     addNote({ body: addText });
@@ -154,9 +154,6 @@ function App() {
   const [show, setShow] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   useEffect(() => {
-    ipcRenderer.invoke("init").then((result) => {
-      actions.setNotes(result);
-    });
     window.addEventListener("contextmenu", (event) => {
       event.preventDefault();
       setShow(true);
