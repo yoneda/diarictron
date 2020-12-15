@@ -4,6 +4,7 @@ const adapter = new FileSync("db.json");
 const db = low(adapter);
 const faker = require("faker");
 const { nanoid } = require("nanoid");
+const dayjs = require("dayjs");
 
 db.defaults({ notes: [], user: {} }).write();
 
@@ -13,6 +14,6 @@ db.update("notes", () =>
   [...Array(3)].map(() => ({
     id: nanoid(8),
     body: faker.lorem.word(),
-    createdAt: "2020-12-15",
+    createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss[Z]"),
   }))
 ).write();
