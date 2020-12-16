@@ -10,6 +10,7 @@ const Wrapper = styled.div`
 `;
 
 function Setting() {
+  // TODO: 設定項目について lowdb および easypeasy と繋ぎこむ
   return (
     <Wrapper>
       <div>
