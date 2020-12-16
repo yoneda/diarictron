@@ -16,6 +16,7 @@ import {
 import Editor from "./Editor";
 import NoteList from "./NoteList";
 import Calendar from "./Calendar";
+import Setting from "./Setting";
 const { ipcRenderer } = window.require("electron");
 
 const store = createStore({
@@ -124,6 +125,7 @@ function Main() {
       <NoteList />
       <Editor />
       <Calendar />
+      <Setting />
       <input
         type="file"
         multiple
