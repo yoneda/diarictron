@@ -4,7 +4,7 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 
 const Wrapper = styled.div`
   width: 200px;
-  height: 50px;
+  height: 80px;
   border: solid 1px black;
   box-sizing: border-box;
 `;
@@ -19,6 +19,13 @@ function Setting() {
       <div>
         <input type="checkbox" id="showCal" />
         <label for="showCal">カレンダー表示</label>
+      </div>
+      <div>
+        <select id="startDay">
+          <option value="Monday">Monday</option>
+          <option value="Sunday">Sunday</option>
+        </select>
+        <label for="startDay">週のはじまり</label>
       </div>
     </Wrapper>
   );
