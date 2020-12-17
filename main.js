@@ -3,6 +3,10 @@ const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync("db.json");
 const db = low(adapter);
+const electronReload = require("electron-reload");
+const path = require("path");
+
+electronReload(path.join(__dirname, "out", "output"));
 
 ipcMain.handle("notes", async function (event, arg) {
   const notes = await db.get("notes").value();
