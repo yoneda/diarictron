@@ -6,7 +6,7 @@ const db = low(adapter);
 const electronReload = require("electron-reload");
 const path = require("path");
 
-electronReload(path.join(__dirname, "out", "output"));
+electronReload(path.join(__dirname, "watch", "output"));
 
 ipcMain.handle("notes", async function (event, arg) {
   const notes = await db.get("notes").value();
@@ -51,7 +51,7 @@ app.whenReady().then(() => {
       nodeIntegration: true,
     },
   });
-  win.loadFile("./out/output/index.html");
+  win.loadFile("./watch/output/index.html");
 });
 
 app.on("window-all-closed", () => {
