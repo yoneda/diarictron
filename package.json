@@ -20,7 +20,8 @@
     "watch": "parcel watch index.html --out-dir watch/output --cache-dir watch/cache --public-url ./",
     "electron": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "start": "npm run build && npm run electron"
   },
   "dependencies": {
     "@reach/router": "^1.3.4",
