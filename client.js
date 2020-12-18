@@ -87,9 +87,9 @@ function Main() {
         onChange={(e) => setAddText(e.target.value)}
       />
       <button onClick={onAddClick}>post</button>
+      <Calendar />
       <NoteList />
       <Editor />
-      <Calendar />
       <Setting />
       <input
         type="file"

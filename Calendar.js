@@ -4,7 +4,7 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 
 const Wrapper = styled.div`
   width: 200px;
-  height: 50px;
+  height: 200px;
   border: solid 1px black;
   box-sizing: border-box;
 `;
@@ -12,7 +12,9 @@ const Wrapper = styled.div`
 function Calendar() {
   return (
     <Wrapper>
-      calendar
+      <h2>calendar</h2>
+      <div>header</div>
+      <div>table</div>
     </Wrapper>
   );
 }
