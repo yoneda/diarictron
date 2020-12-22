@@ -23,14 +23,30 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const Flex = styled.div`
+  display: flex;
+  height: 100vh;
+  flex-flow: row wrap;
+`;
+
+const Left = styled.div`
+  background: salmon;
+  flex: 0 0 220px;
+`;
+
+const Right = styled.div`
+  background: skyblue;
+  flex: 1 0 auto;
+`;
+
 function Main() {
   const count = useStoreState((state) => state.count);
   const addCount = useStoreActions((actions) => actions.addCount);
   return (
-    <Fragment>
-      <div>count: {count}</div>
-      <button onClick={() => addCount()}>add</button>
-    </Fragment>
+    <Flex>
+      <Left>left</Left>
+      <Right>right</Right>
+    </Flex>
   );
 }
 
