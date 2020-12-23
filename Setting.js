@@ -15,18 +15,18 @@ function Setting() {
     <Wrapper>
       <div>
         <input type="checkbox" id="dark" />
-        <label for="dark">ダークモード</label>
+        <label htmlFor="dark">ダークモード</label>
       </div>
       <div>
         <input type="checkbox" id="showCal" />
-        <label for="showCal">カレンダー表示</label>
+        <label htmlFor="showCal">カレンダー表示</label>
       </div>
       <div>
         <select id="startDay">
           <option value="Monday">Monday</option>
           <option value="Sunday">Sunday</option>
         </select>
-        <label for="startDay">週のはじまり</label>
+        <label htmlFor="startDay">週のはじまり</label>
       </div>
     </Wrapper>
   );
