@@ -34,9 +34,14 @@ function Setting() {
         <label htmlFor="showCal">カレンダー表示</label>
       </div>
       <div>
-        <select id="startDay">
-          <option value="Monday">Monday</option>
-          <option value="Sunday">Sunday</option>
+        <select
+          id="startDay"
+          onChange={(e) => updateUser({ start: e.target.value })}
+          value={user.start}
+        >
+          <option value="saturday">Saturday</option>
+          <option value="sunday">Sunday</option>
+          <option value="monday">Monday</option>
         </select>
         <label htmlFor="startDay">週のはじまり</label>
       </div>
