@@ -8,7 +8,7 @@ const dayjs = require("dayjs");
 
 db.defaults({ notes: [], user: {} }).write();
 
-db.set("user", { showCal: true, dark: false }).write();
+db.set("user", { showCal: true, dark: false, start: "monday" }).write();
 
 db.update("notes", () =>
   [...Array(3)].map(() => ({
