@@ -28,9 +28,12 @@ const store = createStore({
   setNotes: action((state, payload) => {
     state.notes = payload;
   }),
-  getAll: thunk((actions, payload) =>
-    ipcRenderer.invoke("notes").then((notes) => actions.setNotes(notes))
-  ),
+  getAll: thunk((actions, payload) => {
+    ipcRenderer.invoke("all").then(({ notes, user }) => {
+      actions.setNotes(notes);
+      actions.setUser(user);
+    });
+  }),
   tapNote: action((state, payload) => {
     const { id } = payload;
     state.id = id;
@@ -58,6 +61,15 @@ const store = createStore({
       .invoke("remove-note", { id })
       .then((notes) => actions.setNotes(notes));
   }),
+  user: {},
+  setUser: action((state, payload) => {
+    state.user = payload;
+  }),
+  updateUser: thunk((actions, payload) => {
+    ipcRenderer
+      .invoke("update-user", payload)
+      .then((user) => actions.setUser(user));
+  }),
 });
 
 const GlobalStyle = createGlobalStyle`
@@ -67,7 +79,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function Main() {
-  const notes = useStoreState((state) => state.notes);
+  const [notes, user] = useStoreState((state) => [state.notes, state.user]);
   const getAll = useStoreActions((actions) => actions.getAll);
   useEffect(() => {
     getAll();
@@ -103,7 +115,18 @@ function Main() {
         }}
       />
       <br />
-      <button onClick={() => doTest()}>テストボタン</button>
+      <button
+        onClick={() => {
+          ipcRenderer
+            .invoke("update-user", {
+              dark: true,
+              start: "sunday",
+            })
+            .then((result) => console.log(result));
+        }}
+      >
+        テストボタン
+      </button>
     </Fragment>
   );
 }

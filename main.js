@@ -5,8 +5,14 @@ const adapter = new FileSync("db.json");
 const db = low(adapter);
 const electronReload = require("electron-reload");
 const path = require("path");
+const { chain } = require("lodash");
 
 electronReload(path.join(__dirname, "watch", "output"));
+
+ipcMain.handle("all", async function () {
+  const value = await db.value();
+  return value;
+});
 
 ipcMain.handle("notes", async function (event, arg) {
   const notes = await db.get("notes").value();
@@ -37,6 +43,16 @@ ipcMain.handle("remove-note", async function (event, arg) {
 });
 
 ipcMain.handle("user", async function (event, arg) {
+  const user = await db.get("user").value();
+  return user;
+});
+
+ipcMain.handle("update-user", async function (event, arg) {
+  const params = chain(arg)
+    .pick(["showCal", "dark", "start"])
+    .pickBy((value) => value !== undefined)
+    .value();
+  await db.get("user").assign(params).write();
   const user = await db.get("user").value();
   return user;
 });

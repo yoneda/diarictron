@@ -11,14 +11,26 @@ const Wrapper = styled.div`
 
 function Setting() {
   // TODO: 設定項目について lowdb および easypeasy と繋ぎこむ
+  const user = useStoreState((state) => state.user);
+  const updateUser = useStoreActions((actions) => actions.updateUser);
   return (
     <Wrapper>
       <div>
-        <input type="checkbox" id="dark" />
+        <input
+          type="checkbox"
+          id="dark"
+          checked={user.dark}
+          onChange={(e) => updateUser({ dark: e.target.checked })}
+        />
         <label htmlFor="dark">ダークモード</label>
       </div>
       <div>
-        <input type="checkbox" id="showCal" />
+        <input
+          type="checkbox"
+          id="showCal"
+          checked={user.showCal}
+          onChange={(e) => updateUser({ showCal: e.target.checked })}
+        />
         <label htmlFor="showCal">カレンダー表示</label>
       </div>
       <div>
