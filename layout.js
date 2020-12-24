@@ -9,6 +9,7 @@ import {
   useStoreState,
   useStoreActions,
 } from "easy-peasy";
+import Modal from "./Modal";
 
 const store = createStore({
   count: 0,
@@ -42,11 +43,16 @@ const Right = styled.div`
 function Main() {
   const count = useStoreState((state) => state.count);
   const addCount = useStoreActions((actions) => actions.addCount);
+  const [open, setOpen] = useState(false);
   return (
-    <Flex>
-      <Left>left</Left>
-      <Right>right</Right>
-    </Flex>
+    <Fragment>
+      <Flex>
+        <button onClick={()=>setOpen(true)}>open</button>
+        <Left />
+        <Right />
+      </Flex>
+      {open && <Modal onClose={() => setOpen(false)} />}
+    </Fragment>
   );
 }
 
