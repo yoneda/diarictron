@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   height: 200px;
   border: solid 1px black;
   box-sizing: border-box;
+  overflow: scroll;
 `;
 
 const Note = styled.div`
