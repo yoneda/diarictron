@@ -93,6 +93,9 @@ function Main() {
     setAddText("");
   };
   return (
+    <>
+      <Calendar />
+      {/*
     <Layout>
       <Layout.Calendar>
         <Calendar />
@@ -115,6 +118,8 @@ function Main() {
         <Editor />
       </Layout.Editor>
     </Layout>
+    */}
+    </>
   );
 }
 

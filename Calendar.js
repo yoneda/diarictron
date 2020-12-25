@@ -17,8 +17,9 @@ const Row = styled.div`
 const Cell = styled.div`
   width: 20px;
   height: 20px;
-  border: solid 1px black;
   box-sizing: border-box;
+  border: solid ${(props) => (props.none ? "0px" : "1px")} black;
+  background: ${(props) => (props.active ? "darkorange" : "white")};
 `;
 
 function Calendar() {
@@ -32,58 +33,13 @@ function Calendar() {
       </div>
       <div>
         <Row>
-          <div>月</div>
-          <div>火</div>
-          <div>水</div>
-          <div>木</div>
-          <div>金</div>
-          <div>土</div>
-          <div>日</div>
-        </Row>
-        <Row>
+          <Cell none />
+          <Cell none />
+          <Cell clear />
+          <Cell active />
+          <Cell active />
           <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-        </Row>
-        <Row>
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-        </Row>
-        <Row>
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-        </Row>
-        <Row>
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-        </Row>
-        <Row>
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
-          <Cell />
+          <Cell active />
         </Row>
       </div>
     </Wrapper>
