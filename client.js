@@ -17,6 +17,7 @@ import Editor from "./Editor";
 import NoteList from "./NoteList";
 import Calendar from "./Calendar";
 import Setting from "./Setting";
+import Layout from "./Layout";
 const { ipcRenderer } = window.require("electron");
 
 const store = createStore({
@@ -74,7 +75,8 @@ const store = createStore({
 
 const GlobalStyle = createGlobalStyle`
   body{
-    font-size: 15px;
+    font-size: 20px;
+    user-select: none;
   }
 `;
 
@@ -91,43 +93,28 @@ function Main() {
     setAddText("");
   };
   return (
-    <Fragment>
-      <div>add:</div>
-      <input
-        type="text"
-        value={addText}
-        onChange={(e) => setAddText(e.target.value)}
-      />
-      <button onClick={onAddClick}>post</button>
-      <Calendar />
-      <NoteList />
-      <Editor />
-      <Setting />
-      <input
-        type="file"
-        multiple
-        onChange={(e) => {
-          let reader = new FileReader();
-          reader.onload = function (event) {
-            console.log(event.target.result);
-          };
-          reader.readAsText(e.target.files[0]);
-        }}
-      />
-      <br />
-      <button
-        onClick={() => {
-          ipcRenderer
-            .invoke("update-user", {
-              dark: true,
-              start: "sunday",
-            })
-            .then((result) => console.log(result));
-        }}
-      >
-        テストボタン
-      </button>
-    </Fragment>
+    <Layout>
+      <Layout.Calendar>
+        <Calendar />
+      </Layout.Calendar>
+      <Layout.Notes>
+        <NoteList />
+      </Layout.Notes>
+      <Layout.Control>
+        <div>add:</div>
+        <input
+          type="text"
+          value={addText}
+          onChange={(e) => setAddText(e.target.value)}
+        />
+        <button onClick={onAddClick}>post</button>
+      </Layout.Control>
+
+      <Layout.Line />
+      <Layout.Editor>
+        <Editor />
+      </Layout.Editor>
+    </Layout>
   );
 }
 

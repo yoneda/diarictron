@@ -1,72 +1,48 @@
-import React, { Fragment, useEffect, useState } from "react";
-import ReactDOM from "react-dom";
-import styled, { createGlobalStyle } from "styled-components";
-import { Reset } from "styled-reset";
-import {
-  action,
-  createStore,
-  StoreProvider,
-  useStoreState,
-  useStoreActions,
-} from "easy-peasy";
-import Modal from "./Modal";
+import React from "react";
+import styled from "styled-components";
 
-const store = createStore({
-  count: 0,
-  addCount: action((state, payload) => {
-    state.count++;
-  }),
-});
-
-const GlobalStyle = createGlobalStyle`
-  body{
-    font-size: 15px;
-  }
-`;
-
-const Flex = styled.div`
-  display: flex;
+const Layout = styled.div`
+  background: darkorange;
   height: 100vh;
-  flex-flow: row wrap;
+  display: grid;
+  grid-template-rows: 250px 1fr 50px;
+  grid-template-columns: 250px 8px 1fr;
 `;
 
-const Left = styled.div`
-  background: salmon;
-  flex: 0 0 220px;
+const Calendar = styled.div`
+  background: violet;
+  grid-row: 1/2;
+  grid-column: 1/2;
 `;
 
-const Right = styled.div`
-  background: skyblue;
-  flex: 1 0 auto;
+const Notes = styled.div`
+  background: linen;
+  grid-row: 2/3;
+  grid-column: 1/2;
 `;
 
-function Main() {
-  const count = useStoreState((state) => state.count);
-  const addCount = useStoreActions((actions) => actions.addCount);
-  const [open, setOpen] = useState(false);
-  return (
-    <Fragment>
-      <Flex>
-        <button onClick={()=>setOpen(true)}>open</button>
-        <Left />
-        <Right />
-      </Flex>
-      {open && <Modal onClose={() => setOpen(false)} />}
-    </Fragment>
-  );
-}
+const Control = styled.div`
+  background: turquoise;
+  grid-row: 3/4;
+  grid-column: 1/2;
+`;
 
-function App() {
-  useEffect(() => {}, []);
-  return (
-    <Fragment>
-      <StoreProvider store={store}>
-        <Reset />
-        <GlobalStyle />
-        <Main />
-      </StoreProvider>
-    </Fragment>
-  );
-}
+const Line = styled.div`
+  background: chocolate;
+  cursor: col-resize;
+  grid-row: 1/4;
+  grid-column: 2/3;
+`;
 
-ReactDOM.render(<App />, document.getElementById("app"));
+const Editor = styled.div`
+  background: whitesmoke;
+  grid-row: 1/4;
+  grid-column: 3/4;
+`;
+
+Layout.Calendar = Calendar;
+Layout.Notes = Notes;
+Layout.Control = Control;
+Layout.Line = Line;
+Layout.Editor = Editor;
+export default Layout;
