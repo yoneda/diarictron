@@ -55,9 +55,10 @@ const store = createStore({
       body,
       createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss[Z]"),
     };
-    ipcRenderer
-      .invoke("add-note", { note })
-      .then((notes) => actions.setNotes(notes));
+    ipcRenderer.invoke("add-note", { note }).then((notes) => {
+      actions.setNotes(notes);
+      actions.tapNote({ id: note.id });
+    });
   }),
   editNote: thunk((actions, payload) => {
     const { id, body } = payload;

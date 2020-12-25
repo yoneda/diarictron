@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useStoreActions } from "easy-peasy";
 
 const Container = styled.div`
   display: flex;
@@ -65,10 +66,11 @@ function Plus() {
 }
 
 function Control() {
+  const addNote = useStoreActions((actions) => actions.addNote);
   return (
     <Container>
       <Settings />
-      <Clickable>
+      <Clickable onClick={() => addNote({ body: "new" })}>
         <Plus />
         New
       </Clickable>
