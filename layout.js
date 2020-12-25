@@ -10,7 +10,7 @@ const Layout = styled.div`
 `;
 
 const Calendar = styled.div`
-  background: violet;
+  background: lightyellow;
   grid-row: 1/2;
   grid-column: 1/2;
 `;
