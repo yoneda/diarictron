@@ -18,6 +18,7 @@ import NoteList from "./NoteList";
 import Calendar from "./Calendar";
 import Setting from "./Setting";
 import Layout from "./Layout";
+import { isSame } from "./helper";
 const { ipcRenderer } = window.require("electron");
 
 const store = createStore({
@@ -29,6 +30,13 @@ const store = createStore({
   setNotes: action((state, payload) => {
     state.notes = payload;
   }),
+  numByDate: computed((state) => (date) =>
+    state.notes.reduce(
+      (acc, note) =>
+        isSame(dayjs(note.createdAt), dayjs(date)) ? acc + 1 : acc,
+      0
+    )
+  ),
   getAll: thunk((actions, payload) => {
     ipcRenderer.invoke("all").then(({ notes, user }) => {
       actions.setNotes(notes);
@@ -93,9 +101,6 @@ function Main() {
     setAddText("");
   };
   return (
-    <>
-      <Calendar />
-      {/*
     <Layout>
       <Layout.Calendar>
         <Calendar />
@@ -118,8 +123,6 @@ function Main() {
         <Editor />
       </Layout.Editor>
     </Layout>
-    */}
-    </>
   );
 }
 

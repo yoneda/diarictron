@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
+import dayjs from "dayjs";
+import { isSame } from "./helper";
 
 const Wrapper = styled.div`
   width: 200px;
@@ -23,6 +25,10 @@ const Cell = styled.div`
 `;
 
 function Calendar() {
+  const [notes, numByDate] = useStoreState((state) => [
+    state.notes,
+    state.numByDate,
+  ]);
   return (
     <Wrapper>
       <h2>calendar</h2>
@@ -32,15 +38,17 @@ function Calendar() {
         <button>&gt;</button>
       </div>
       <div>
-        <Row>
-          <Cell none />
-          <Cell none />
-          <Cell clear />
-          <Cell active />
-          <Cell active />
-          <Cell />
-          <Cell active />
-        </Row>
+        {[...Array(5)].map((_, row) => (
+          <Row key={row}>
+            {[...Array(7)].map((_, column) => {
+              const m = 12 - 1;
+              const d = new Date(2020, m, 1);
+              const target = dayjs(d).day(column).add(row, "week");
+              const num = numByDate(target);
+              return <Cell active={num > 0} key={row * 7 + column} />;
+            })}
+          </Row>
+        ))}
       </div>
     </Wrapper>
   );
