@@ -20,6 +20,7 @@ import Setting from "./Setting";
 import Layout from "./Layout";
 import Control from "./Control";
 import { isSame } from "./helper";
+import Modal from "./Modal";
 const { ipcRenderer } = window.require("electron");
 
 const store = createStore({
@@ -81,6 +82,12 @@ const store = createStore({
       .invoke("update-user", payload)
       .then((user) => actions.setUser(user));
   }),
+  modal: false,
+  setModal: action((state, payload) => {
+    console.log({modal:state.modal});
+    console.log(payload);
+    state.modal = payload;
+  }),
 });
 
 const GlobalStyle = createGlobalStyle`
@@ -91,17 +98,20 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function Main() {
-  const [notes, user] = useStoreState((state) => [state.notes, state.user]);
-  const getAll = useStoreActions((actions) => actions.getAll);
+  const [notes, user, modal] = useStoreState((state) => [
+    state.notes,
+    state.user,
+    state.modal,
+  ]);
+  const [getAll, setModal] = useStoreActions((actions) => [
+    actions.getAll,
+    actions.setModal,
+  ]);
   useEffect(() => {
     getAll();
   }, []);
   const addNote = useStoreActions((actions) => actions.addNote);
   const [addText, setAddText] = useState("");
-  const onAddClick = () => {
-    addNote({ body: addText });
-    setAddText("");
-  };
   return (
     <Layout>
       <Layout.Calendar>
@@ -112,20 +122,18 @@ function Main() {
       </Layout.Notes>
       <Layout.Control>
         <Control />
-        {/*
-        <div>add:</div>
-        <input
-          type="text"
-          value={addText}
-          onChange={(e) => setAddText(e.target.value)}
-        />
-        <button onClick={onAddClick}>post</button>
-        */}
       </Layout.Control>
       <Layout.Line />
       <Layout.Editor>
         <Editor />
       </Layout.Editor>
+      {modal && (
+        <Layout.Modal>
+          <Modal onClose={() => setModal(false)}>
+            <Setting />
+          </Modal>
+        </Layout.Modal>
+      )}
     </Layout>
   );
 }

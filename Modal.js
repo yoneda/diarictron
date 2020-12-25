@@ -1,14 +1,10 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
+import { isInside } from "./helper";
 
 const Container = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  /* background: darkorange; */
-  background: rgba(0, 0, 0, 0.5);
   height: 100vh;
-  width: 100vw;
+  background: rgba(0, 0, 0, 0.5);
   display: grid;
   grid-template-rows: 1fr 200px 1fr;
   grid-template-columns: 1fr 400px 1fr;
@@ -21,28 +17,18 @@ const Item = styled.div`
 `;
 
 function Modal(props) {
-  const { onClose } = props;
+  const { onClose, children } = props;
   const ref = useRef(null);
   return (
     <Container
       onMouseDown={(event) => {
-        // TODO: isInside メソッドは helper.js に移動する予定
-        const isInside = (point, rect) =>
-          point.x > rect.x &&
-          point.x <= rect.x + rect.width &&
-          point.y > rect.y &&
-          point.y <= rect.y + rect.height;
-        if (
-          !isInside(
-            { x: event.clientX, y: event.clientY },
-            ref.current.getBoundingClientRect()
-          )
-        ) {
+        const rect = ref.current.getBoundingClientRect();
+        if (!isInside({ x: event.clientX, y: event.clientY }, rect)) {
           onClose();
         }
       }}
     >
-      <Item ref={ref}>item</Item>
+      <Item ref={ref}>{children}</Item>
     </Container>
   );
 }

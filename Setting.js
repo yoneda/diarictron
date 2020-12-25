@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 
 const Wrapper = styled.div`
-  width: 200px;
-  height: 80px;
+  width: 250px;
+  height: 120px;
   border: solid 1px black;
   box-sizing: border-box;
 `;
@@ -15,6 +15,7 @@ function Setting() {
   const updateUser = useStoreActions((actions) => actions.updateUser);
   return (
     <Wrapper>
+      <h2>Setting</h2>
       <div>
         <input
           type="checkbox"

@@ -25,6 +25,8 @@ const Control = styled.div`
   background: white;
   grid-row: 3/4;
   grid-column: 1/2;
+  border: solid 1px black;
+  box-sizing: border-box;
 `;
 
 const Line = styled.div`
@@ -40,9 +42,16 @@ const Editor = styled.div`
   grid-column: 3/4;
 `;
 
+const Modal = styled.div`
+  grid-row: 1/4;
+  grid-column: 1/4;
+  z-index: 1;
+`;
+
 Layout.Calendar = Calendar;
 Layout.Notes = Notes;
 Layout.Control = Control;
 Layout.Line = Line;
 Layout.Editor = Editor;
+Layout.Modal = Modal;
 export default Layout;
