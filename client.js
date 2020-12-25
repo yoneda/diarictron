@@ -18,6 +18,7 @@ import NoteList from "./NoteList";
 import Calendar from "./Calendar";
 import Setting from "./Setting";
 import Layout from "./Layout";
+import Control from "./Control";
 import { isSame } from "./helper";
 const { ipcRenderer } = window.require("electron");
 
@@ -109,6 +110,8 @@ function Main() {
         <NoteList />
       </Layout.Notes>
       <Layout.Control>
+        <Control />
+        {/*
         <div>add:</div>
         <input
           type="text"
@@ -116,8 +119,8 @@ function Main() {
           onChange={(e) => setAddText(e.target.value)}
         />
         <button onClick={onAddClick}>post</button>
+        */}
       </Layout.Control>
-
       <Layout.Line />
       <Layout.Editor>
         <Editor />

@@ -5,7 +5,7 @@ const Layout = styled.div`
   background: darkorange;
   height: 100vh;
   display: grid;
-  grid-template-rows: 250px 1fr 50px;
+  grid-template-rows: 250px 1fr 60px;
   grid-template-columns: 250px 8px 1fr;
 `;
 
@@ -22,7 +22,7 @@ const Notes = styled.div`
 `;
 
 const Control = styled.div`
-  background: turquoise;
+  background: white;
   grid-row: 3/4;
   grid-column: 1/2;
 `;
