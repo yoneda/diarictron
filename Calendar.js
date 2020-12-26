@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import dayjs from "dayjs";
@@ -25,6 +25,7 @@ const Cell = styled.div`
 `;
 
 function Calendar() {
+  const [target, setTarget] = useState(dayjs().format("YYYY-MM-DD"));
   const [notes, numByDate] = useStoreState((state) => [
     state.notes,
     state.numByDate,
@@ -33,9 +34,21 @@ function Calendar() {
     <Wrapper>
       <h2>calendar</h2>
       <div>
-        2020年12月
-        <button>&lt;</button>
-        <button>&gt;</button>
+        <button
+          onClick={() =>
+            setTarget(dayjs(target).subtract(1, "month").format("YYYY-MM-DD"))
+          }
+        >
+          &lt;
+        </button>
+        <button
+          onClick={() =>
+            setTarget(dayjs(target).add(1, "month").format("YYYY-MM-DD"))
+          }
+        >
+          &gt;
+        </button>
+        {`${dayjs(target).year()}年${dayjs(target).month() + 1}月`}
       </div>
       <div>
         {[...Array(5)].map((_, row) => (
