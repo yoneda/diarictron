@@ -21,7 +21,10 @@ if (arg === "year") {
       notes.push({
         id: nanoid(8),
         body: faker.lorem.word(),
-        createdAt: dayjs().add(-index, "day").format("YYYY-MM-DDTHH:mm:ss[Z]"),
+        createdAt: dayjs()
+          .subtract(356, "day")
+          .add(index, "day")
+          .format("YYYY-MM-DDTHH:mm:ss[Z]"),
       });
     });
   });

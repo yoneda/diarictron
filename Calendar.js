@@ -25,7 +25,7 @@ const Cell = styled.div`
 `;
 
 function Calendar() {
-  const [target, setTarget] = useState(dayjs().format("YYYY-MM-DD"));
+  const [day, setDay] = useState(dayjs().format("YYYY-MM-DD"));
   const [notes, numByDate] = useStoreState((state) => [
     state.notes,
     state.numByDate,
@@ -36,26 +36,28 @@ function Calendar() {
       <div>
         <button
           onClick={() =>
-            setTarget(dayjs(target).subtract(1, "month").format("YYYY-MM-DD"))
+            setDay(dayjs(day).subtract(1, "month").format("YYYY-MM-DD"))
           }
         >
           &lt;
         </button>
         <button
           onClick={() =>
-            setTarget(dayjs(target).add(1, "month").format("YYYY-MM-DD"))
+            setDay(dayjs(day).add(1, "month").format("YYYY-MM-DD"))
           }
         >
           &gt;
         </button>
-        {`${dayjs(target).year()}年${dayjs(target).month() + 1}月`}
+        {`${dayjs(day).year()}年${dayjs(day).month() + 1}月`}
       </div>
+      <div>日月火水木金土</div>
       <div>
         {[...Array(5)].map((_, row) => (
           <Row key={row}>
             {[...Array(7)].map((_, column) => {
-              const m = 12 - 1;
-              const d = new Date(2020, m, 1);
+              const y = dayjs(day).year();
+              const m = dayjs(day).month();
+              const d = new Date(y, m, 1);
               const target = dayjs(d).day(column).add(row, "week");
               const num = numByDate(target);
               return <Cell active={num > 0} key={row * 7 + column} />;
