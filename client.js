@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { Reset } from "styled-reset";
 import dayjs from "dayjs";
 import { nanoid } from "nanoid";
@@ -84,7 +84,7 @@ const store = createStore({
   }),
   modal: false,
   setModal: action((state, payload) => {
-    console.log({modal:state.modal});
+    console.log({ modal: state.modal });
     console.log(payload);
     state.modal = payload;
   }),
@@ -113,28 +113,30 @@ function Main() {
   const addNote = useStoreActions((actions) => actions.addNote);
   const [addText, setAddText] = useState("");
   return (
-    <Layout>
-      <Layout.Calendar>
-        <Calendar />
-      </Layout.Calendar>
-      <Layout.Notes>
-        <NoteList />
-      </Layout.Notes>
-      <Layout.Control>
-        <Control />
-      </Layout.Control>
-      <Layout.Line />
-      <Layout.Editor>
-        <Editor />
-      </Layout.Editor>
-      {modal && (
-        <Layout.Modal>
-          <Modal onClose={() => setModal(false)}>
-            <Setting />
-          </Modal>
-        </Layout.Modal>
-      )}
-    </Layout>
+    <ThemeProvider theme={{ dark: user.dark, showCal: user.showCal }}>
+      <Layout>
+        <Layout.Calendar>
+          <Calendar />
+        </Layout.Calendar>
+        <Layout.Notes>
+          <NoteList />
+        </Layout.Notes>
+        <Layout.Control>
+          <Control />
+        </Layout.Control>
+        <Layout.Line />
+        <Layout.Editor>
+          <Editor />
+        </Layout.Editor>
+        {modal && (
+          <Layout.Modal>
+            <Modal onClose={() => setModal(false)}>
+              <Setting />
+            </Modal>
+          </Layout.Modal>
+        )}
+      </Layout>
+    </ThemeProvider>
   );
 }
 
