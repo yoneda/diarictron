@@ -10,7 +10,6 @@ const Wrapper = styled.div`
 `;
 
 function Setting() {
-  // TODO: 設定項目について lowdb および easypeasy と繋ぎこむ
   const user = useStoreState((state) => state.user);
   const updateUser = useStoreActions((actions) => actions.updateUser);
   return (
