@@ -50,7 +50,7 @@ function Calendar() {
         </button>
         {`${dayjs(day).year()}年${dayjs(day).month() + 1}月`}
       </div>
-      <div>日月火水木金土</div>
+      <div>月火水木金土日</div>
       <div>
         {[...Array(5)].map((_, row) => (
           <Row key={row}>
