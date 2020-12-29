@@ -6,8 +6,8 @@ const Container = styled.div`
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   display: grid;
-  grid-template-rows: 1fr 200px 1fr;
-  grid-template-columns: 1fr 400px 1fr;
+  grid-template-rows: 1fr 300px 1fr;
+  grid-template-columns: 1fr 500px 1fr;
 `;
 
 const Item = styled.div`
