@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import dayjs from "dayjs";
-import { isSame } from "./helper";
 
 const Wrapper = styled.div`
   width: 200px;
