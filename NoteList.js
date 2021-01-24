@@ -12,12 +12,12 @@ const Wrapper = styled.div`
 
 const Note = styled.div`
   cursor: pointer;
-  background: ${(props) => (props.light ? "whitesmoke" : "white")};
+  background: ${props => (props.light ? "whitesmoke" : "white")};
 `;
 
 function NoteList() {
-  const [notes, id] = useStoreState((state) => [state.notes, state.id]);
-  const tapNote = useStoreActions((actions) => actions.tapNote);
+  const [notes, id] = useStoreState(state => [state.notes, state.id]);
+  const tapNote = useStoreActions(actions => actions.tapNote);
   return (
     <Wrapper>
       {notes.map((note, key) => (

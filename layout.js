@@ -17,7 +17,7 @@ const Calendar = styled.div`
 
 const Notes = styled.div`
   background: linen;
-  grid-row: ${(props) => (props.theme.showCal ? 1 : 2)} / 3;
+  grid-row: ${props => (props.theme.showCal ? 1 : 2)} / 3;
   grid-column: 1/2;
 `;
 

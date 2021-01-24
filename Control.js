@@ -58,9 +58,9 @@ function Plus() {
 }
 
 function Control() {
-  const [addNote, setModal] = useStoreActions((actions) => [
+  const [addNote, setModal] = useStoreActions(actions => [
     actions.addNote,
-    actions.setModal,
+    actions.setModal
   ]);
   return (
     <Container>

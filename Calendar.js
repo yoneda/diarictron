@@ -19,15 +19,15 @@ const Cell = styled.div`
   width: 20px;
   height: 20px;
   box-sizing: border-box;
-  border: solid ${(props) => (props.none ? "0px" : "1px")} black;
-  background: ${(props) => (props.active ? "darkorange" : "white")};
+  border: solid ${props => (props.none ? "0px" : "1px")} black;
+  background: ${props => (props.active ? "darkorange" : "white")};
 `;
 
 function Calendar() {
   const [day, setDay] = useState(dayjs().format("YYYY-MM-DD"));
-  const [notes, numByDate] = useStoreState((state) => [
+  const [notes, numByDate] = useStoreState(state => [
     state.notes,
-    state.numByDate,
+    state.numByDate
   ]);
   return (
     <Wrapper>

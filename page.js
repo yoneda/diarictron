@@ -37,7 +37,7 @@ function Page() {
         <Pencil />
         <h2>簡単日記</h2>
       </Logo>
-      <button onClick={()=>{}}>ダウンロード</button>
+      <button onClick={() => {}}>ダウンロード</button>
     </div>
   );
 }

@@ -36,7 +36,7 @@ ipcMain.handle("remove-note", async function (event, arg) {
   const { id } = arg;
   await db
     .get("notes")
-    .remove((note) => note.id === id)
+    .remove(note => note.id === id)
     .write();
   const notes = await db.get("notes").value();
   return notes;
@@ -50,7 +50,7 @@ ipcMain.handle("user", async function (event, arg) {
 ipcMain.handle("update-user", async function (event, arg) {
   const params = chain(arg)
     .pick(["showCal", "dark", "start"])
-    .pickBy((value) => value !== undefined)
+    .pickBy(value => value !== undefined)
     .value();
   await db.get("user").assign(params).write();
   const user = await db.get("user").value();
@@ -64,8 +64,8 @@ app.whenReady().then(() => {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true,
-    },
+      nodeIntegration: true
+    }
   });
   win.loadFile("./watch/output/index.html");
 });

@@ -10,8 +10,8 @@ const Wrapper = styled.div`
 `;
 
 function Setting() {
-  const user = useStoreState((state) => state.user);
-  const updateUser = useStoreActions((actions) => actions.updateUser);
+  const user = useStoreState(state => state.user);
+  const updateUser = useStoreActions(actions => actions.updateUser);
   return (
     <Wrapper>
       <h2>Setting</h2>
@@ -20,7 +20,7 @@ function Setting() {
           type="checkbox"
           id="dark"
           checked={user.dark}
-          onChange={(e) => updateUser({ dark: e.target.checked })}
+          onChange={e => updateUser({ dark: e.target.checked })}
         />
         <label htmlFor="dark">ダークモード</label>
       </div>
@@ -29,14 +29,14 @@ function Setting() {
           type="checkbox"
           id="showCal"
           checked={user.showCal}
-          onChange={(e) => updateUser({ showCal: e.target.checked })}
+          onChange={e => updateUser({ showCal: e.target.checked })}
         />
         <label htmlFor="showCal">カレンダー表示</label>
       </div>
       <div>
         <select
           id="startDay"
-          onChange={(e) => updateUser({ start: e.target.value })}
+          onChange={e => updateUser({ start: e.target.value })}
           value={user.start}
         >
           <option value="saturday">Saturday</option>

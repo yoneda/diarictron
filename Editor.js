@@ -8,7 +8,7 @@ import {
   createStore,
   StoreProvider,
   useStoreState,
-  useStoreActions,
+  useStoreActions
 } from "easy-peasy";
 
 const Wrapper = styled.div`
@@ -59,10 +59,10 @@ function Trash() {
 }
 
 function Editor() {
-  const note = useStoreState((state) => state.selected);
-  const [editNote, removeNote] = useStoreActions((actions) => [
+  const note = useStoreState(state => state.selected);
+  const [editNote, removeNote] = useStoreActions(actions => [
     actions.editNote,
-    actions.removeNote,
+    actions.removeNote
   ]);
   return (
     <Wrapper>
@@ -72,7 +72,7 @@ function Editor() {
             cols={12}
             rows={4}
             value={note.body}
-            onChange={(e) => editNote({ id: note.id, body: e.target.value })}
+            onChange={e => editNote({ id: note.id, body: e.target.value })}
           />
           <span onClick={() => removeNote({ id: note.id })}>
             <Trash />

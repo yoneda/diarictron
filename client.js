@@ -11,7 +11,7 @@ import {
   StoreProvider,
   useStoreState,
   useStoreActions,
-  thunk,
+  thunk
 } from "easy-peasy";
 import Editor from "./Editor";
 import NoteList from "./NoteList";
@@ -26,13 +26,11 @@ const { ipcRenderer } = window.require("electron");
 const store = createStore({
   notes: [],
   id: -1,
-  selected: computed((state) =>
-    state.notes.find((note) => note.id === state.id)
-  ),
+  selected: computed(state => state.notes.find(note => note.id === state.id)),
   setNotes: action((state, payload) => {
     state.notes = payload;
   }),
-  numByDate: computed((state) => (date) =>
+  numByDate: computed(state => date =>
     state.notes.reduce(
       (acc, note) =>
         isSame(dayjs(note.createdAt), dayjs(date)) ? acc + 1 : acc,
@@ -54,9 +52,9 @@ const store = createStore({
     const note = {
       id: nanoid(8),
       body,
-      createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss[Z]"),
+      createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss[Z]")
     };
-    ipcRenderer.invoke("add-note", { note }).then((notes) => {
+    ipcRenderer.invoke("add-note", { note }).then(notes => {
       actions.setNotes(notes);
       actions.tapNote({ id: note.id });
     });
@@ -65,13 +63,13 @@ const store = createStore({
     const { id, body } = payload;
     ipcRenderer
       .invoke("edit-note", { id, body })
-      .then((notes) => actions.setNotes(notes));
+      .then(notes => actions.setNotes(notes));
   }),
   removeNote: thunk((actions, payload) => {
     const { id } = payload;
     ipcRenderer
       .invoke("remove-note", { id })
-      .then((notes) => actions.setNotes(notes));
+      .then(notes => actions.setNotes(notes));
   }),
   user: {},
   setUser: action((state, payload) => {
@@ -80,14 +78,14 @@ const store = createStore({
   updateUser: thunk((actions, payload) => {
     ipcRenderer
       .invoke("update-user", payload)
-      .then((user) => actions.setUser(user));
+      .then(user => actions.setUser(user));
   }),
   modal: false,
   setModal: action((state, payload) => {
     console.log({ modal: state.modal });
     console.log(payload);
     state.modal = payload;
-  }),
+  })
 });
 
 const GlobalStyle = createGlobalStyle`
@@ -98,19 +96,19 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function Main() {
-  const [notes, user, modal] = useStoreState((state) => [
+  const [notes, user, modal] = useStoreState(state => [
     state.notes,
     state.user,
-    state.modal,
+    state.modal
   ]);
-  const [getAll, setModal] = useStoreActions((actions) => [
+  const [getAll, setModal] = useStoreActions(actions => [
     actions.getAll,
-    actions.setModal,
+    actions.setModal
   ]);
   useEffect(() => {
     getAll();
   }, []);
-  const addNote = useStoreActions((actions) => actions.addNote);
+  const addNote = useStoreActions(actions => actions.addNote);
   const [addText, setAddText] = useState("");
   return (
     <ThemeProvider theme={{ dark: user.dark, showCal: user.showCal }}>
@@ -145,15 +143,15 @@ const Popup = styled.div`
   height: 50px;
   background: tomato;
   position: absolute;
-  left: ${(props) => props.x}px;
-  top: ${(props) => props.y}px;
+  left: ${props => props.x}px;
+  top: ${props => props.y}px;
 `;
 
 function App() {
   const [show, setShow] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   useEffect(() => {
-    window.addEventListener("contextmenu", (event) => {
+    window.addEventListener("contextmenu", event => {
       event.preventDefault();
       setShow(true);
       setPos({ x: event.clientX, y: event.clientY });

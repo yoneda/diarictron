@@ -7,7 +7,7 @@ import {
   createStore,
   StoreProvider,
   useStoreState,
-  useStoreActions,
+  useStoreActions
 } from "easy-peasy";
 import Modal from "./Modal";
 
@@ -15,7 +15,7 @@ const store = createStore({
   count: 0,
   addCount: action((state, payload) => {
     state.count++;
-  }),
+  })
 });
 
 const GlobalStyle = createGlobalStyle`
@@ -41,13 +41,13 @@ const Right = styled.div`
 `;
 
 function Main() {
-  const count = useStoreState((state) => state.count);
-  const addCount = useStoreActions((actions) => actions.addCount);
+  const count = useStoreState(state => state.count);
+  const addCount = useStoreActions(actions => actions.addCount);
   const [open, setOpen] = useState(false);
   return (
     <Fragment>
       <Flex>
-        <button onClick={()=>setOpen(true)}>open</button>
+        <button onClick={() => setOpen(true)}>open</button>
         <Left />
         <Right />
       </Flex>

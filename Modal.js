@@ -21,7 +21,7 @@ function Modal(props) {
   const ref = useRef(null);
   return (
     <Container
-      onMouseDown={(event) => {
+      onMouseDown={event => {
         const rect = ref.current.getBoundingClientRect();
         if (!isInside({ x: event.clientX, y: event.clientY }, rect)) {
           onClose();

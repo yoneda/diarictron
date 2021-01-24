@@ -17,14 +17,14 @@ if (arg === "year") {
   let notes = [];
   [...Array(365)].forEach((_, index) => {
     const rand = Math.floor(Math.random() * 3);
-    [...Array(rand)].forEach((_) => {
+    [...Array(rand)].forEach(_ => {
       notes.push({
         id: nanoid(8),
         body: faker.lorem.word(),
         createdAt: dayjs()
           .subtract(356, "day")
           .add(index, "day")
-          .format("YYYY-MM-DDTHH:mm:ss[Z]"),
+          .format("YYYY-MM-DDTHH:mm:ss[Z]")
       });
     });
   });
@@ -34,7 +34,7 @@ if (arg === "year") {
     [...Array(3)].map(() => ({
       id: nanoid(8),
       body: faker.lorem.word(),
-      createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss[Z]"),
+      createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss[Z]")
     }))
   ).write();
 }
