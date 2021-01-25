@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { Reset } from "styled-reset";
@@ -10,6 +10,7 @@ import {
   useStoreState,
   useStoreActions
 } from "easy-peasy";
+import { isEmpty } from "lodash";
 
 const Wrapper = styled.div`
   width: 200px;
@@ -60,10 +61,16 @@ function Trash() {
 
 function Editor() {
   const note = useStoreState(state => state.selected);
+  const [text, setText] = useState("");
   const [editNote, removeNote] = useStoreActions(actions => [
     actions.editNote,
     actions.removeNote
   ]);
+  useEffect(() => {
+    if (!isEmpty(note)) {
+      setText(note.body);
+    }
+  }, [note]);
   return (
     <Wrapper>
       {note ? (
@@ -71,8 +78,13 @@ function Editor() {
           <EditArea
             cols={12}
             rows={4}
-            value={note.body}
-            onChange={e => editNote({ id: note.id, body: e.target.value })}
+            value={text}
+            onChange={e => setText(e.target.value)}
+            onKeyDown={e => {
+              if (e.code === "Enter") {
+                editNote({ id: note.id, body: e.target.value });
+              }
+            }}
           />
           <span onClick={() => removeNote({ id: note.id })}>
             <Trash />
