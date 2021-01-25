@@ -1,19 +1,32 @@
+const { app } = require("electron");
+const path = require("path");
+const dbPath = path.join(app.getPath("appData"), "Easy Diary", "db.json");
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
-const adapter = new FileSync("db.json");
+const adapter = new FileSync(dbPath);
 const db = low(adapter);
 const faker = require("faker");
 const { nanoid } = require("nanoid");
 const dayjs = require("dayjs");
 
-db.defaults({ notes: [], user: {} }).write();
-db.set("user", { showCal: false, dark: false, start: "saturday" }).write();
+app.whenReady().then(() => {
+  db.defaults({ notes: [], user: {} }).write();
+  db.set("user", { showCal: false, dark: false, start: "aaa" }).write();
+  generate365(db);
+  app.quit();
+});
 
-// process.argv is an array containing the command line arguments.
-// The first element will be 'node', the second element will be the name of the JavaScript file.
-// The next elements will be any additional command line arguments.
-const arg = process.argv.slice(2)[0];
-if (arg === "year") {
+function generate3(db) {
+  db.update("notes", () =>
+    [...Array(3)].map(() => ({
+      id: nanoid(8),
+      body: faker.lorem.word(),
+      createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss[Z]")
+    }))
+  ).write();
+}
+
+function generate365(db) {
   let notes = [];
   [...Array(365)].forEach((_, index) => {
     const rand = Math.floor(Math.random() * 3);
@@ -29,12 +42,4 @@ if (arg === "year") {
     });
   });
   db.set("notes", notes).write();
-} else {
-  db.update("notes", () =>
-    [...Array(3)].map(() => ({
-      id: nanoid(8),
-      body: faker.lorem.word(),
-      createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss[Z]")
-    }))
-  ).write();
 }
