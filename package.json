@@ -1,5 +1,6 @@
 {
   "name": "easy-diary",
+  "productName": "Easy Diary",
   "version": "0.0.1",
   "description": "simple diary application for your mac.",
   "homepage": "https://github.com/yoneda/easy-diary#readme",
