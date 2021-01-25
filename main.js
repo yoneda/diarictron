@@ -1,10 +1,11 @@
 const { ipcMain, app, BrowserWindow } = require("electron");
+const path = require('path');
+const dbPath = path.join(app.getPath("userData"),"db.json");
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
-const adapter = new FileSync("db.json");
+const adapter = new FileSync(dbPath);
 const db = low(adapter);
 const electronReload = require("electron-reload");
-const path = require("path");
 const { chain } = require("lodash");
 
 electronReload(path.join(__dirname, "watch", "output"));
