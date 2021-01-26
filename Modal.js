@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const Item = styled.div`
-  background: skyblue;
+  background: white;
   grid-row: 2/3;
   grid-column: 2/3;
 `;

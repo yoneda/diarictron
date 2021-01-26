@@ -129,7 +129,7 @@ function Main() {
         {modal && (
           <Layout.Modal>
             <Modal onClose={() => setModal(false)}>
-              <Setting />
+              <Setting onClose={() => setModal(false)} />
             </Modal>
           </Layout.Modal>
         )}
