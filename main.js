@@ -5,10 +5,10 @@ const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync(dbPath);
 const db = low(adapter);
-const electronReload = require("electron-reload");
+// const electronReload = require("electron-reload");
 const { chain } = require("lodash");
 
-electronReload(path.join(__dirname, "watch", "output"));
+// electronReload(path.join(__dirname, "watch", "output"));
 
 ipcMain.handle("all", async function () {
   const value = await db.value();
