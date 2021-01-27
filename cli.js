@@ -12,7 +12,7 @@ const dayjs = require("dayjs");
 app.whenReady().then(() => {
   db.defaults({ notes: [], user: {} }).write();
   db.set("user", { showCal: false, dark: false, start: "aaa" }).write();
-  generate365(db);
+  generate3(db);
   app.quit();
 });
 

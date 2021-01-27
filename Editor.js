@@ -118,54 +118,53 @@ function TrashIcon() {
 }
 
 function Editor() {
-  const note = useStoreState(state => state.selected);
+  const notes = useStoreState(state => state.selecteds);
   const [text, setText] = useState("");
   const [editNote, removeNote] = useStoreActions(actions => [
     actions.editNote,
     actions.removeNote
   ]);
-
   useEffect(() => {
-    if (!isEmpty(note)) {
-      setText(note.body);
+    if (notes.length === 1) {
+      setText(notes[0].body);
     }
-  }, [note]);
-  return (
-    <Wrapper>
-      {note ? (
-        <>
-          <Datetime>{humanDate(note.createdAt)}</Datetime>
-          <Main>
-            <EditArea
-              cols={34}
-              rows={6}
-              value={text}
-              onChange={e => setText(e.target.value)}
-              onKeyDown={e => {
-                if (e.code === "Enter") {
-                  editNote({ id: note.id, body: e.target.value });
-                }
-              }}
-            />
-          </Main>
-          <Tags>
-            <Tag>仕事</Tag>
-            <Tag>恋愛</Tag>
-            <Tag>料理</Tag>
-            <Tag>友人関係</Tag>
-          </Tags>
-          <Control>
-            <span onClick={() => removeNote({ id: note.id })}>
-              <TrashIcon />
-            </span>
-            <TagIcon />
-          </Control>
-        </>
-      ) : (
-        "empty"
-      )}
-    </Wrapper>
-  );
+  }, [notes]);
+  if (notes.length === 0) {
+    return <Wrapper>empty</Wrapper>;
+  } else if (notes.length === 1) {
+    return (
+      <Wrapper>
+        <Datetime>{humanDate(notes[0].createdAt)}</Datetime>
+        <Main>
+          <EditArea
+            cols={34}
+            rows={6}
+            value={text}
+            onChange={e => setText(e.target.value)}
+            onKeyDown={e => {
+              if (e.code === "Enter") {
+                editNote({ id: notes[0].id, body: e.target.value });
+              }
+            }}
+          />
+        </Main>
+        <Tags>
+          <Tag>仕事</Tag>
+          <Tag>恋愛</Tag>
+          <Tag>料理</Tag>
+          <Tag>友人関係</Tag>
+        </Tags>
+        <Control>
+          <span onClick={() => removeNote({ id: notes[0].id })}>
+            <TrashIcon />
+          </span>
+          <TagIcon />
+        </Control>
+      </Wrapper>
+    );
+  } else {
+    return <Wrapper>{notes.length} notes selected</Wrapper>;
+  }
 }
 
 export default Editor;
