@@ -3,16 +3,17 @@ import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 
 const Wrapper = styled.div`
-  width: 200px;
-  height: 200px;
   border: solid 1px black;
   box-sizing: border-box;
   overflow: scroll;
 `;
 
 const Note = styled.div`
-  cursor: pointer;
-  background: ${props => (props.light ? "whitesmoke" : "white")};
+  background: ${props => (props.light ? "lightgreen" : "white")};
+  height: 100px;
+  border-bottom: 1px solid rgb(200, 200, 200);
+  box-sizing: border-box;
+  padding: 20px;
 `;
 
 function NoteList() {
@@ -26,7 +27,7 @@ function NoteList() {
           onClick={() => tapNote({ id: note.id })}
           light={note.id === id}
         >
-          {note.body}
+          <span>{note.body}</span>
         </Note>
       ))}
     </Wrapper>
