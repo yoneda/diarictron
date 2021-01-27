@@ -6,6 +6,8 @@ const Wrapper = styled.div`
   border: solid 1px black;
   box-sizing: border-box;
   overflow: scroll;
+  height: 500px;
+  background: aliceblue;
 `;
 
 const Note = styled.div`
@@ -17,15 +19,17 @@ const Note = styled.div`
 `;
 
 function NoteList() {
-  const [notes, id] = useStoreState(state => [state.notes, state.id]);
-  const tapNote = useStoreActions(actions => actions.tapNote);
+  const [notes, ids] = useStoreState(state => [state.notes, state.ids]);
+  const touch = useStoreActions(actions => actions.touch);
   return (
     <Wrapper>
       {notes.map((note, key) => (
         <Note
           key={key}
-          onClick={() => tapNote({ id: note.id })}
-          light={note.id === id}
+          onClick={event => {
+            touch({ id: note.id });
+          }}
+          light={ids.some(id => note.id === id)}
         >
           <span>{note.body}</span>
         </Note>

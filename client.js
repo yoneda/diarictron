@@ -25,8 +25,10 @@ const { ipcRenderer } = window.require("electron");
 
 const store = createStore({
   notes: [],
-  id: -1,
-  selected: computed(state => state.notes.find(note => note.id === state.id)),
+  ids: [],
+  selected: computed(state =>
+    state.notes.find(note => note.id === state.ids[0])
+  ),
   setNotes: action((state, payload) => {
     state.notes = payload;
   }),
@@ -43,9 +45,13 @@ const store = createStore({
       actions.setUser(user);
     });
   }),
-  tapNote: action((state, payload) => {
+  touch: action((state, payload) => {
     const { id } = payload;
-    state.id = id;
+    state.ids = [id];
+  }),
+  append: action((state, payload) => {
+    const { id } = payload;
+    state.ids.push(id);
   }),
   addNote: thunk((actions, payload) => {
     const { body } = payload;
@@ -56,7 +62,7 @@ const store = createStore({
     };
     ipcRenderer.invoke("add-note", { note }).then(notes => {
       actions.setNotes(notes);
-      actions.tapNote({ id: note.id });
+      actions.touch({ id: note.id });
     });
   }),
   editNote: thunk((actions, payload) => {
@@ -82,8 +88,6 @@ const store = createStore({
   }),
   modal: false,
   setModal: action((state, payload) => {
-    console.log({ modal: state.modal });
-    console.log(payload);
     state.modal = payload;
   })
 });
