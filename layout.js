@@ -37,7 +37,7 @@ const Line = styled.div`
 `;
 
 const Editor = styled.div`
-  background: whitesmoke;
+  background: white;
   grid-row: 1/4;
   grid-column: 3/4;
 `;

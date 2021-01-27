@@ -1,29 +1,67 @@
 import React, { Fragment, useEffect, useState } from "react";
-import ReactDOM from "react-dom";
 import styled from "styled-components";
-import { Reset } from "styled-reset";
-import dayjs from "dayjs";
-import {
-  action,
-  createStore,
-  StoreProvider,
-  useStoreState,
-  useStoreActions
-} from "easy-peasy";
+import { useStoreState, useStoreActions } from "easy-peasy";
 import { isEmpty } from "lodash";
 
 const Wrapper = styled.div`
-  width: 200px;
-  height: 200px;
-  border: solid 1px black;
-  padding: 10px;
+  border: 1px solid black;
+  height: 100vh;
+  display: grid;
   box-sizing: border-box;
+  padding: 20px;
+
+  display: grid;
+  grid-template-rows: 40px 1fr 40px;
+  grid-template-columns: 1fr 80px;
+`;
+
+const Datetime = styled.div`
+  grid-row: 1/2;
+  grid-column: 1/3;
+
+  display: flex;
+  align-items: center;
+`;
+
+const Main = styled.div`
+  grid-row: 2/3;
+  grid-column: 1/3;
+
+  display: flex;
+`;
+
+const Tags = styled.div`
+  grid-row: 3/4;
+  grid-column: 1/2;
+
+  display: flex;
+  align-items: center;
+`;
+
+const Control = styled.div`
+  grid-row: 3/4;
+  grid-column: 2/3;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const EditArea = styled.textarea`
   resize: none;
   line-height: 1;
-  font-size: 1.5rem;
+  font-size: 2rem;
+
+  border: none;
+  outline: none;
+  box-shadow: none;
+`;
+
+const Tag = styled.div`
+  border-radius: 16px;
+  background: rgb(220, 220, 220);
+  padding: 4px 8px;
+  margin-right: 8px;
 `;
 
 const Svg = styled.svg`
@@ -36,12 +74,31 @@ const Svg = styled.svg`
   }
 `;
 
-function Trash() {
+function TagIcon() {
+  return (
+    <Svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="36"
+      height="36"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M11 3l9 9a1.5 1.5 0 0 1 0 2l-6 6a1.5 1.5 0 0 1 -2 0l-9 -9v-4a4 4 0 0 1 4 -4h4" />
+      <circle cx="9" cy="9" r="2" />
+    </Svg>
+  );
+}
+function TrashIcon() {
   return (
     <Svg
       className="icon icon-tabler icon-tabler-trash"
-      height="24"
-      width="24"
+      height="36"
+      width="36"
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
@@ -74,22 +131,34 @@ function Editor() {
   return (
     <Wrapper>
       {note ? (
-        <Fragment>
-          <EditArea
-            cols={12}
-            rows={4}
-            value={text}
-            onChange={e => setText(e.target.value)}
-            onKeyDown={e => {
-              if (e.code === "Enter") {
-                editNote({ id: note.id, body: e.target.value });
-              }
-            }}
-          />
-          <span onClick={() => removeNote({ id: note.id })}>
-            <Trash />
-          </span>
-        </Fragment>
+        <>
+          <Datetime>{note.createdAt}</Datetime>
+          <Main>
+            <EditArea
+              cols={34}
+              rows={6}
+              value={text}
+              onChange={e => setText(e.target.value)}
+              onKeyDown={e => {
+                if (e.code === "Enter") {
+                  editNote({ id: note.id, body: e.target.value });
+                }
+              }}
+            />
+          </Main>
+          <Tags>
+            <Tag>仕事</Tag>
+            <Tag>恋愛</Tag>
+            <Tag>料理</Tag>
+            <Tag>友人関係</Tag>
+          </Tags>
+          <Control>
+            <span onClick={() => removeNote({ id: note.id })}>
+              <TrashIcon />
+            </span>
+            <TagIcon />
+          </Control>
+        </>
       ) : (
         "empty"
       )}
