@@ -113,9 +113,6 @@ function Main() {
   return (
     <ThemeProvider theme={{ dark: user.dark, showCal: user.showCal }}>
       <Layout>
-        <Layout.Calendar>
-          <Calendar />
-        </Layout.Calendar>
         <Layout.Notes>
           <NoteList />
         </Layout.Notes>
