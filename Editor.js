@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { isEmpty } from "lodash";
+import { humanDate } from "./helper";
 
 const Wrapper = styled.div`
   border: 1px solid black;
@@ -123,6 +124,7 @@ function Editor() {
     actions.editNote,
     actions.removeNote
   ]);
+
   useEffect(() => {
     if (!isEmpty(note)) {
       setText(note.body);
@@ -132,7 +134,7 @@ function Editor() {
     <Wrapper>
       {note ? (
         <>
-          <Datetime>{note.createdAt}</Datetime>
+          <Datetime>{humanDate(note.createdAt)}</Datetime>
           <Main>
             <EditArea
               cols={34}
