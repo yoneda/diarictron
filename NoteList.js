@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
-import { appendFile } from "fs";
 
 const Wrapper = styled.div`
   border: solid 1px black;
@@ -20,19 +19,30 @@ const Note = styled.div`
 `;
 
 function NoteList() {
-  const [notes, ids] = useStoreState(state => [state.notes, state.ids]);
-  const [touch, append] = useStoreActions(actions => [
+  const [notes, ids, recentId] = useStoreState(state => [
+    state.notes,
+    state.ids,
+    state.recentId
+  ]);
+  const [touch, append, drag] = useStoreActions(actions => [
     actions.touch,
-    actions.append
+    actions.append,
+    actions.drag
   ]);
   return (
     <Wrapper>
       {notes.map((note, key) => (
         <Note
           key={key}
-          onClick={event =>
-            event.metaKey ? append({ id: note.id }) : touch({ id: note.id })
-          }
+          onClick={event => {
+            if (event.metaKey) {
+              return append({ id: note.id });
+            } else if (event.shiftKey) {
+              return drag({ start: recentId, end: note.id });
+            } else {
+              return touch({ id: note.id });
+            }
+          }}
           light={ids.some(id => note.id === id)}
         >
           <span>{note.body}</span>
