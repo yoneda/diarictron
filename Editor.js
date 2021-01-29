@@ -9,13 +9,21 @@ import TagIcon from "./TagIcon";
 const Wrapper = styled.div`
   border: 1px solid black;
   height: 100vh;
-  display: grid;
   box-sizing: border-box;
   padding: 20px;
 
   display: grid;
   grid-template-rows: 40px 1fr 40px;
   grid-template-columns: 1fr 80px;
+`;
+
+const CenterWrapper = styled.div`
+  border: 1px solid black;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Datetime = styled.div`
@@ -68,7 +76,7 @@ const Tag = styled.div`
 `;
 
 function Editor() {
-  const notes = useStoreState(state => state.selecteds);
+  const [notes, ids] = useStoreState(state => [state.selecteds, state.ids]);
   const [text, setText] = useState("");
   const [editNote, removeNote] = useStoreActions(actions => [
     actions.editNote,
@@ -80,7 +88,7 @@ function Editor() {
     }
   }, [notes]);
   if (notes.length === 0) {
-    return <Wrapper>empty</Wrapper>;
+    return <CenterWrapper>empty</CenterWrapper>;
   } else if (notes.length === 1) {
     return (
       <Wrapper>
@@ -105,7 +113,7 @@ function Editor() {
           <Tag>友人関係</Tag>
         </Tags>
         <Control>
-          <span onClick={() => removeNote({ ids: [notes[0].id] })}>
+          <span onClick={() => removeNote({ ids: ids })}>
             <TrashIcon />
           </span>
           <TagIcon />
@@ -113,7 +121,14 @@ function Editor() {
       </Wrapper>
     );
   } else {
-    return <Wrapper>{notes.length} notes selected</Wrapper>;
+    return (
+      <CenterWrapper>
+        {notes.length} notes selected
+        <span onClick={() => removeNote({ ids: ids })}>
+          <TrashIcon />
+        </span>
+      </CenterWrapper>
+    );
   }
 }
 
