@@ -21,6 +21,7 @@ const CenterWrapper = styled.div`
   border: 1px solid black;
   height: 100vh;
   display: flex;
+  box-sizing: border-box;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
