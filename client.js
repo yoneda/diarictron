@@ -26,8 +26,8 @@ const { ipcRenderer } = window.require("electron");
 const store = createStore({
   notes: [],
   ids: [],
-  selected: computed(state =>
-    state.notes.find(note => note.id === state.ids[0])
+  selecteds: computed(state =>
+    state.notes.filter(note => state.ids.some(id => id === note.id))
   ),
   setNotes: action((state, payload) => {
     state.notes = payload;
