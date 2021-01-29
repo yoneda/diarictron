@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
-import { appendFile } from "fs";
 
 const Wrapper = styled.div`
   border: solid 1px black;
