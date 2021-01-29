@@ -26,17 +26,8 @@ const { ipcRenderer } = window.require("electron");
 const store = createStore({
   notes: [],
   ids: [],
-  recentId: computed(state => {
-    if (state.ids.length > 0) {
-      const reducer = (acc, value) =>
-        dayjs(acc.createdAt).isBefore(dayjs(value.createdAt)) ? acc : value;
-      return state.selecteds.reduce(reducer).id;
-    } else {
-      return false;
-    }
-  }),
-  selecteds: computed(state =>
-    state.notes.filter(note => state.ids.some(id => note.id === id))
+  selected: computed(state =>
+    state.notes.find(note => note.id === state.ids[0])
   ),
   setNotes: action((state, payload) => {
     state.notes = payload;
@@ -61,14 +52,6 @@ const store = createStore({
   append: action((state, payload) => {
     const { id } = payload;
     state.ids.push(id);
-  }),
-  drag: action((state, payload) => {
-    const { start, end } = payload;
-    const startDate = state.notes.find(note => note.id === start).createdAt;
-    const endDate = state.notes.find(note => note.id === end).createdAt;
-    state.ids = state.notes
-      .filter(note => note.createdAt >= startDate && note.createdAt <= endDate)
-      .map(note => note.id);
   }),
   addNote: thunk((actions, payload) => {
     const { body } = payload;
