@@ -37,6 +37,7 @@ const Card = styled.div`
 
 const Text = styled.div`
   margin-left: 20px;
+  width: 130px;
   box-sizing: border-box;
 `;
 
