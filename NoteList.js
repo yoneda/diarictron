@@ -17,6 +17,7 @@ const Note = styled.div`
   border-bottom: 1px solid rgb(200, 200, 200);
   box-sizing: border-box;
   padding: 20px;
+  overflow: hidden;
 `;
 
 function NoteList() {
