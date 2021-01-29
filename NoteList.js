@@ -38,7 +38,7 @@ const Card = styled.div`
 
 const Text = styled.div`
   margin-left: 20px;
-  width: 130px;
+  width: ${props => (props.isMin ? "130px" : `${130 + 60}px`)};
   box-sizing: border-box;
 `;
 
@@ -54,16 +54,34 @@ const MonthLabel = styled.div`
 `;
 
 function Note(props) {
-  const { onClick, light, isCard, children } = props;
+  const { onClick, light, isCard, date, children } = props;
+  const showDay = () => {
+    switch (dayjs(date).get("day")) {
+      case 0:
+        return "日";
+      case 1:
+        return "月";
+      case 2:
+        return "火";
+      case 3:
+        return "水";
+      case 4:
+        return "木";
+      case 5:
+        return "金";
+      case 6:
+        return "土";
+    }
+  };
   return (
     <NoteWrapper light={light} onClick={event => onClick(event)}>
       {isCard && (
         <Card>
-          <div>月</div>
-          <div>28</div>
+          <div>{showDay()}</div>
+          <div>{dayjs(date).get("date")}</div>
         </Card>
       )}
-      <Text>{children}</Text>
+      <Text isMin={isCard}>{children}</Text>
     </NoteWrapper>
   );
 }
@@ -81,7 +99,12 @@ function NoteList() {
               <MonthLabel>{dayjs(note.createdAt).format("YYYY年MM月")}</MonthLabel>
             )}
           <Note
-            isCard={true}
+            isCard={
+              key === 0 ||
+              (key > 0 &&
+                dayjs(array[key - 1].createdAt).isAfter(dayjs(array[key].createdAt), "day"))
+            }
+            date={note.createdAt}
             key={key}
             onClick={event => (event.metaKey ? append({ id: note.id }) : touch({ id: note.id }))}
             light={ids.some(id => note.id === id)}
