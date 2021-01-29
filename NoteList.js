@@ -1,6 +1,7 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
+import dayjs from "dayjs";
 
 const Wrapper = styled.div`
   border: solid 1px black;
@@ -69,24 +70,25 @@ function Note(props) {
 
 function NoteList() {
   const [notes, ids] = useStoreState(state => [state.notes, state.ids]);
-  const [touch, append] = useStoreActions(actions => [
-    actions.touch,
-    actions.append
-  ]);
+  const [touch, append] = useStoreActions(actions => [actions.touch, actions.append]);
   return (
     <Wrapper>
-      <MonthLabel>2021年1月</MonthLabel>
-      {notes.map((note, key) => (
-        <Note
-          isCard={true}
-          key={key}
-          onClick={event =>
-            event.metaKey ? append({ id: note.id }) : touch({ id: note.id })
-          }
-          light={ids.some(id => note.id === id)}
-        >
-          {note.body}
-        </Note>
+      {notes.map((note, key, array) => (
+        <Fragment>
+          {key === 0 && <MonthLabel>{dayjs(note.createdAt).format("YYYY年MM月")}</MonthLabel>}
+          {key > 0 &&
+            dayjs(array[key - 1].createdAt).isAfter(dayjs(array[key].createdAt), "month") && (
+              <MonthLabel>{dayjs(note.createdAt).format("YYYY年MM月")}</MonthLabel>
+            )}
+          <Note
+            isCard={true}
+            key={key}
+            onClick={event => (event.metaKey ? append({ id: note.id }) : touch({ id: note.id }))}
+            light={ids.some(id => note.id === id)}
+          >
+            {note.body}
+          </Note>
+        </Fragment>
       ))}
     </Wrapper>
   );
