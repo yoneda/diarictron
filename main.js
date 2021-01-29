@@ -1,6 +1,6 @@
 const { ipcMain, app, BrowserWindow } = require("electron");
-const path = require('path');
-const dbPath = path.join(app.getPath("userData"),"db.json");
+const path = require("path");
+const dbPath = path.join(app.getPath("userData"), "db.json");
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync(dbPath);
@@ -34,10 +34,10 @@ ipcMain.handle("edit-note", async function (event, arg) {
 });
 
 ipcMain.handle("remove-note", async function (event, arg) {
-  const { id } = arg;
+  const { ids } = arg;
   await db
     .get("notes")
-    .remove(note => note.id === id)
+    .remove(note => ids.some(id => id === note.id))
     .write();
   const notes = await db.get("notes").value();
   return notes;

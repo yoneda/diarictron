@@ -72,9 +72,9 @@ const store = createStore({
       .then(notes => actions.setNotes(notes));
   }),
   removeNote: thunk((actions, payload) => {
-    const { id } = payload;
+    const { ids } = payload;
     ipcRenderer
-      .invoke("remove-note", { id })
+      .invoke("remove-note", { ids })
       .then(notes => actions.setNotes(notes));
   }),
   user: {},

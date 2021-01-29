@@ -155,7 +155,7 @@ function Editor() {
           <Tag>友人関係</Tag>
         </Tags>
         <Control>
-          <span onClick={() => removeNote({ id: notes[0].id })}>
+          <span onClick={() => removeNote({ ids: [notes[0].id] })}>
             <TrashIcon />
           </span>
           <TagIcon />
