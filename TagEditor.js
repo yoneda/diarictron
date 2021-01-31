@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { isEmpty } from "lodash";
 import { humanDate } from "./helper";
+import ToolIcon from "./Tool";
 
 // TODO:
 // 分割されたコンポーネントがGridLayoutの子要素になっているのは少し読みづらい気がするので後で修正
-const Tags = styled.div`
+const Wrapper = styled.div`
   grid-row: 3/4;
   grid-column: 1/2;
 
@@ -22,13 +23,16 @@ const Tag = styled.div`
 `;
 
 function TagEditor() {
+  const [open, isOpen] = useState(false);
+  const [text, setText] = useState("仕事 恋愛 料理 友人関係");
+  const renderTags = () => text.split(" ").map(tag => <Tag>{tag}</Tag>);
   return (
-    <Tags>
-      <Tag>仕事</Tag>
-      <Tag>恋愛</Tag>
-      <Tag>料理</Tag>
-      <Tag>友人関係</Tag>
-    </Tags>
+    <Wrapper>
+      <span onClick={() => isOpen(!open)}>
+        <ToolIcon />
+      </span>
+      {open ? <input value={text} onChange={e => setText(e.target.value)} /> : renderTags()}
+    </Wrapper>
   );
 }
 
