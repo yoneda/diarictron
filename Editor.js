@@ -5,6 +5,7 @@ import { isEmpty } from "lodash";
 import { humanDate } from "./helper";
 import TrashIcon from "./TrashIcon";
 import TagIcon from "./TagIcon";
+import TagEditor from "./TagEditor";
 
 const Wrapper = styled.div`
   border: 1px solid black;
@@ -42,14 +43,6 @@ const Main = styled.div`
   display: flex;
 `;
 
-const Tags = styled.div`
-  grid-row: 3/4;
-  grid-column: 1/2;
-
-  display: flex;
-  align-items: center;
-`;
-
 const Control = styled.div`
   grid-row: 3/4;
   grid-column: 2/3;
@@ -67,13 +60,6 @@ const EditArea = styled.textarea`
   border: none;
   outline: none;
   box-shadow: none;
-`;
-
-const Tag = styled.div`
-  border-radius: 16px;
-  background: rgb(220, 220, 220);
-  padding: 4px 8px;
-  margin-right: 8px;
 `;
 
 function Editor() {
@@ -107,12 +93,7 @@ function Editor() {
             }}
           />
         </Main>
-        <Tags>
-          <Tag>仕事</Tag>
-          <Tag>恋愛</Tag>
-          <Tag>料理</Tag>
-          <Tag>友人関係</Tag>
-        </Tags>
+        <TagEditor />
         <Control>
           <span onClick={() => removeNote({ ids: ids })}>
             <TrashIcon />
