@@ -23,12 +23,29 @@ const Tag = styled.div`
 `;
 
 function TagEditor() {
-  const [open, isOpen] = useState(false);
-  const [text, setText] = useState("仕事 恋愛 料理 友人関係");
-  const renderTags = () => text.split(" ").map(tag => <Tag>{tag}</Tag>);
+  const [notes, ids] = useStoreState(state => [state.selecteds, state.ids]);
+  const editNote = useStoreActions(actions => actions.editNote);
+  const [open, setOpen] = useState(false);
+  const [text, setText] = useState("");
+  const renderTags = () => (text === "" ? "" : text.split(" ").map(tag => <Tag>{tag}</Tag>));
+  const onClick = () => {
+    if (open === true) {
+      editNote({ id: ids[0], body: notes[0].body, tags: text.split(" ") });
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  };
+  useEffect(() => {
+    if (notes[0].tags !== undefined) {
+      setText(notes[0].tags.reduce((acc, tag) => `${acc} ${tag}`));
+    } else {
+      setText("");
+    }
+  }, [notes]);
   return (
     <Wrapper>
-      <span onClick={() => isOpen(!open)}>
+      <span onClick={onClick}>
         <ToolIcon />
       </span>
       {open ? <input value={text} onChange={e => setText(e.target.value)} /> : renderTags()}

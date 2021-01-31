@@ -66,9 +66,9 @@ const store = createStore({
     });
   }),
   editNote: thunk((actions, payload) => {
-    const { id, body } = payload;
+    const { id, body, tags} = payload;
     ipcRenderer
-      .invoke("edit-note", { id, body })
+      .invoke("edit-note", { id, body, tags})
       .then(notes => actions.setNotes(notes));
   }),
   removeNote: thunk((actions, payload) => {

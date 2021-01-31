@@ -88,7 +88,7 @@ function Editor() {
             onChange={e => setText(e.target.value)}
             onKeyDown={e => {
               if (e.code === "Enter") {
-                editNote({ id: notes[0].id, body: e.target.value });
+                editNote({ id: notes[0].id, body: e.target.value, tags: ""});
               }
             }}
           />

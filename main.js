@@ -27,8 +27,8 @@ ipcMain.handle("add-note", async function (event, arg) {
 });
 
 ipcMain.handle("edit-note", async function (event, arg) {
-  const { id, body } = arg;
-  await db.get("notes").find({ id }).set("body", body).write();
+  const { id, body, tags } = arg;
+  await db.get("notes").find({ id }).set("body", body).set("tags", tags).write();
   const notes = await db.get("notes").value();
   return notes;
 });
