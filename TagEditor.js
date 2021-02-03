@@ -37,7 +37,7 @@ function TagEditor() {
     }
   };
   useEffect(() => {
-    if (notes[0].tags !== undefined) {
+    if (notes[0].tags.length > 0) {
       setText(notes[0].tags.reduce((acc, tag) => `${acc} ${tag}`));
     } else {
       setText("");
