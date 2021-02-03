@@ -50,7 +50,7 @@ ipcMain.handle("user", async function (event, arg) {
 
 ipcMain.handle("update-user", async function (event, arg) {
   const params = chain(arg)
-    .pick(["showCal", "dark", "start"])
+    .pick(["uiStyle", "fontSize", "dark"])
     .pickBy(value => value !== undefined)
     .value();
   await db.get("user").assign(params).write();
