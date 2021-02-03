@@ -51,6 +51,14 @@ const Body = styled.div`
   grid-column: 2/3;
 `;
 
+const FontSelect = styled.select`
+  width: 100%;
+`;
+
+const ExportButton = styled.button`
+  width: 100%;
+`;
+
 function CloseIcon() {
   return (
     <svg
@@ -87,33 +95,30 @@ function Setting(props) {
         </Icon>
       </Close>
       <Body>
-        <input
-          type="checkbox"
-          id="dark"
-          checked={user.dark}
-          onChange={e => updateUser({ dark: e.target.checked })}
-        />
-        <label htmlFor="dark">ダークモード</label>
+        <p>スタイル</p>
+        <div>
+          <input type="radio" id="normal" />
+          <label for="normal">通常</label>
+        </div>
+        <div>
+          <input type="radio" id="dayone" />
+          <label for="dayone">Day One</label>
+        </div>
         <br />
-        <input
-          type="checkbox"
-          id="showCal"
-          checked={user.showCal}
-          onChange={e => updateUser({ showCal: e.target.checked })}
-        />
-        <label htmlFor="showCal">カレンダー表示</label>
+        <label htmlFor="fontSize">フォントサイズ</label>
         <br />
-        <label htmlFor="startDay">週のはじまり</label>
-        <br />
-        <select
-          id="startDay"
-          onChange={e => updateUser({ start: e.target.value })}
-          value={user.start}
+        <FontSelect
+          id="fontSize"
+          onChange={e => updateUser({ fontSize: e.target.value })}
+          value={user.fontSize}
         >
-          <option value="saturday">土曜日</option>
-          <option value="sunday">日曜日</option>
-          <option value="monday">月曜日</option>
-        </select>
+          <option value="small">小</option>
+          <option value="midium">中</option>
+          <option value="large">大</option>
+        </FontSelect>
+        <br />
+        <br />
+        <ExportButton>エクスポートノート</ExportButton>
         <br />
       </Body>
     </Wrapper>
