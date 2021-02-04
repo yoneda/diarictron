@@ -85,6 +85,7 @@ function Setting(props) {
   const { onClose } = props;
   const user = useStoreState(state => state.user);
   const updateUser = useStoreActions(actions => actions.updateUser);
+  const onChange = e => updateUser({ uiStyle: e.target.value });
   return (
     <Wrapper>
       <H2>設定</H2>
@@ -96,14 +97,23 @@ function Setting(props) {
       </Close>
       <Body>
         <p>スタイル</p>
-        <div>
-          <input type="radio" id="normal" />
-          <label for="normal">通常</label>
-        </div>
-        <div>
-          <input type="radio" id="dayone" />
-          <label for="dayone">Day One</label>
-        </div>
+        <input
+          type="radio"
+          id="normal"
+          value="normal"
+          checked={user.uiStyle === "normal"}
+          onChange={onChange}
+        />
+        <label htmlFor="normal">通常</label>
+        <br />
+        <input
+          type="radio"
+          id="dayone"
+          value="dayone"
+          checked={user.uiStyle === "dayone"}
+          onChange={onChange}
+        />
+        <label htmlFor="dayone">Day One</label>
         <br />
         <label htmlFor="fontSize">フォントサイズ</label>
         <br />
