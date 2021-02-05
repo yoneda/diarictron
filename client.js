@@ -15,7 +15,6 @@ import {
 } from "easy-peasy";
 import Editor from "./Editor";
 import NoteList from "./NoteList";
-import Calendar from "./Calendar";
 import Setting from "./Setting";
 import Layout from "./Layout";
 import Control from "./Control";
@@ -123,7 +122,6 @@ function Main() {
         <Layout.Control>
           <Control />
         </Layout.Control>
-        <Layout.Line />
         <Layout.Editor>
           <Editor />
         </Layout.Editor>
