@@ -25,16 +25,13 @@ const { ipcRenderer } = window.require("electron");
 const store = createStore({
   notes: [],
   ids: [],
-  selecteds: computed(state =>
-    state.notes.filter(note => state.ids.some(id => id === note.id))
-  ),
+  selecteds: computed(state => state.notes.filter(note => state.ids.some(id => id === note.id))),
   setNotes: action((state, payload) => {
     state.notes = payload;
   }),
   numByDate: computed(state => date =>
     state.notes.reduce(
-      (acc, note) =>
-        isSame(dayjs(note.createdAt), dayjs(date)) ? acc + 1 : acc,
+      (acc, note) => (isSame(dayjs(note.createdAt), dayjs(date)) ? acc + 1 : acc),
       0
     )
   ),
@@ -65,25 +62,19 @@ const store = createStore({
     });
   }),
   editNote: thunk((actions, payload) => {
-    const { id, body, tags} = payload;
-    ipcRenderer
-      .invoke("edit-note", { id, body, tags})
-      .then(notes => actions.setNotes(notes));
+    const { id, body, tags } = payload;
+    ipcRenderer.invoke("edit-note", { id, body, tags }).then(notes => actions.setNotes(notes));
   }),
   removeNote: thunk((actions, payload) => {
     const { ids } = payload;
-    ipcRenderer
-      .invoke("remove-note", { ids })
-      .then(notes => actions.setNotes(notes));
+    ipcRenderer.invoke("remove-note", { ids }).then(notes => actions.setNotes(notes));
   }),
   user: {},
   setUser: action((state, payload) => {
     state.user = payload;
   }),
   updateUser: thunk((actions, payload) => {
-    ipcRenderer
-      .invoke("update-user", payload)
-      .then(user => actions.setUser(user));
+    ipcRenderer.invoke("update-user", payload).then(user => actions.setUser(user));
   }),
   modal: false,
   setModal: action((state, payload) => {
@@ -92,29 +83,29 @@ const store = createStore({
 });
 
 const GlobalStyle = createGlobalStyle`
+  html{
+    font-size: ${props => {
+      if (props.theme.fontSize === "large") return 26;
+      else if (props.theme.fontSize === "midium") return 18;
+      else return 10;
+    }}px;
+  }
   body{
-    font-size: 20px;
     user-select: none;
   }
 `;
 
 function Main() {
-  const [notes, user, modal] = useStoreState(state => [
-    state.notes,
-    state.user,
-    state.modal
-  ]);
-  const [getAll, setModal] = useStoreActions(actions => [
-    actions.getAll,
-    actions.setModal
-  ]);
+  const [notes, user, modal] = useStoreState(state => [state.notes, state.user, state.modal]);
+  const [getAll, setModal] = useStoreActions(actions => [actions.getAll, actions.setModal]);
   useEffect(() => {
     getAll();
   }, []);
   const addNote = useStoreActions(actions => actions.addNote);
   const [addText, setAddText] = useState("");
   return (
-    <ThemeProvider theme={{ dark: user.dark, showCal: user.showCal }}>
+    <ThemeProvider theme={{ fontSize: user.fontSize, dark: user.dark, showCal: user.showCal }}>
+      <GlobalStyle />
       <Layout>
         <Layout.Notes>
           <NoteList />
@@ -160,7 +151,6 @@ function App() {
     <Fragment>
       <StoreProvider store={store}>
         <Reset />
-        <GlobalStyle />
         <Main />
         {show && <Popup x={pos.x} y={pos.y} />}
       </StoreProvider>

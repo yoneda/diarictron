@@ -7,6 +7,8 @@ const Layout = styled.div`
   display: grid;
   grid-template-rows: 1fr 60px;
   grid-template-columns: 250px 1fr;
+
+  font-size: 1rem;
 `;
 
 const Notes = styled.div`
