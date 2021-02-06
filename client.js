@@ -117,7 +117,6 @@ function Main() {
     actions.removeNote,
     actions.getAll,
     actions.setModal,
-    actions.removeNote,
     actions.setContextPoint
   ]);
   useEffect(() => {
