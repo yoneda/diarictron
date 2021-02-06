@@ -54,6 +54,16 @@ const store = createStore({
     const { id } = payload;
     state.ids.push(id);
   }),
+  grep: action((state, payload) => {
+    const { date } = payload;
+    state.ids = state.notes
+      .filter(
+        note =>
+          dayjs(note.createdAt).isSame(dayjs(date), "year") &&
+          dayjs(note.createdAt).isSame(dayjs(date), "month")
+      )
+      .map(note => note.id);
+  }),
   addNote: thunk((actions, payload) => {
     const { body } = payload;
     const note = {
