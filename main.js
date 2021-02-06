@@ -22,7 +22,8 @@ ipcMain.handle("notes", async function (event, arg) {
 
 ipcMain.handle("add-note", async function (event, arg) {
   const { note } = arg;
-  const notes = await db.get("notes").push(note).write();
+  await db.get("notes").splice(0, 0, note).write();
+  const notes = await db.get("notes").value();
   return notes;
 });
 
