@@ -25,9 +25,13 @@ const { ipcRenderer } = window.require("electron");
 const store = createStore({
   notes: [],
   ids: [],
+  creation: "",
   selecteds: computed(state => state.notes.filter(note => state.ids.some(id => id === note.id))),
   setNotes: action((state, payload) => {
     state.notes = payload;
+  }),
+  setCreation: action(state => {
+    state.creation = nanoid(8);
   }),
   numByDate: computed(state => date =>
     state.notes.reduce(
@@ -57,6 +61,7 @@ const store = createStore({
       createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss[Z]")
     };
     ipcRenderer.invoke("add-note", { note }).then(notes => {
+      actions.setCreation();
       actions.setNotes(notes);
       actions.touch({ id: note.id });
     });

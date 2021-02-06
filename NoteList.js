@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import dayjs from "dayjs";
@@ -87,10 +87,15 @@ function Note(props) {
 }
 
 function NoteList() {
-  const [notes, ids] = useStoreState(state => [state.notes, state.ids]);
+  const ref = useRef(null);
+  const [notes, ids, creation] = useStoreState(state => [state.notes, state.ids, state.creation]);
   const [touch, append] = useStoreActions(actions => [actions.touch, actions.append]);
+
+  useEffect(() => {
+    ref.current.scrollTo(0, 0);
+  }, [creation]);
   return (
-    <Wrapper>
+    <Wrapper ref={ref}>
       {notes.map((note, key, array) => (
         <Fragment>
           {key === 0 && <MonthLabel>{dayjs(note.createdAt).format("YYYY年MM月")}</MonthLabel>}
