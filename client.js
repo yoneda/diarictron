@@ -20,6 +20,7 @@ import Layout from "./Layout";
 import Control from "./Control";
 import { isSame } from "./helper";
 import Modal from "./Modal";
+import Popup from "./Popup";
 const { ipcRenderer } = window.require("electron");
 
 const store = createStore({
@@ -81,9 +82,13 @@ const store = createStore({
   updateUser: thunk((actions, payload) => {
     ipcRenderer.invoke("update-user", payload).then(user => actions.setUser(user));
   }),
-  modal: false,
+  modal: "",
+  contextPoint: { x: 0, y: 0 },
   setModal: action((state, payload) => {
     state.modal = payload;
+  }),
+  setContextPoint: action((state, payload) => {
+    state.contextPoint = payload;
   })
 });
 
@@ -101,13 +106,23 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function Main() {
-  const [notes, user, modal] = useStoreState(state => [state.notes, state.user, state.modal]);
-  const [getAll, setModal] = useStoreActions(actions => [actions.getAll, actions.setModal]);
+  const [ids, notes, user, modal, contextPoint] = useStoreState(state => [
+    state.ids,
+    state.notes,
+    state.user,
+    state.modal,
+    state.contextPoint
+  ]);
+  const [removeNote, getAll, setModal, setContextPoint] = useStoreActions(actions => [
+    actions.removeNote,
+    actions.getAll,
+    actions.setModal,
+    actions.removeNote,
+    actions.setContextPoint
+  ]);
   useEffect(() => {
     getAll();
   }, []);
-  const addNote = useStoreActions(actions => actions.addNote);
-  const [addText, setAddText] = useState("");
   return (
     <ThemeProvider theme={{ fontSize: user.fontSize, dark: user.dark, showCal: user.showCal }}>
       <GlobalStyle />
@@ -121,11 +136,33 @@ function Main() {
         <Layout.Editor>
           <Editor />
         </Layout.Editor>
-        {modal && (
+        {modal === "SETTING_MODAL" && (
           <Layout.Modal>
-            <Modal onClose={() => setModal(false)}>
-              <Setting onClose={() => setModal(false)} />
+            <Modal onClose={() => setModal("")}>
+              <Setting onClose={() => setModal("")} />
             </Modal>
+          </Layout.Modal>
+        )}
+        {modal === "POPUP_MODAL" && (
+          <Layout.Modal>
+            <Popup
+              onClose={() => {
+                setModal("");
+                setContextPoint({ x: 0, y: 0 });
+              }}
+              left={contextPoint.x}
+              top={contextPoint.y}
+            >
+              <button
+                onClick={() => {
+                  removeNote({ ids: ids });
+                  setModal("");
+                  setContextPoint({ x: 0, y: 0 });
+                }}
+              >
+                削除
+              </button>
+            </Popup>
           </Layout.Modal>
         )}
       </Layout>
@@ -133,31 +170,12 @@ function Main() {
   );
 }
 
-const Popup = styled.div`
-  width: 50px;
-  height: 50px;
-  background: tomato;
-  position: absolute;
-  left: ${props => props.x}px;
-  top: ${props => props.y}px;
-`;
-
 function App() {
-  const [show, setShow] = useState(false);
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-  useEffect(() => {
-    window.addEventListener("contextmenu", event => {
-      event.preventDefault();
-      setShow(true);
-      setPos({ x: event.clientX, y: event.clientY });
-    });
-  }, []);
   return (
     <Fragment>
       <StoreProvider store={store}>
         <Reset />
         <Main />
-        {show && <Popup x={pos.x} y={pos.y} />}
       </StoreProvider>
     </Fragment>
   );

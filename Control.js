@@ -64,7 +64,7 @@ function Control() {
   ]);
   return (
     <Container>
-      <Clickable onClick={() => setModal(true)}>
+      <Clickable onClick={() => setModal("SETTING_MODAL")}>
         <Settings />
       </Clickable>
       <Clickable onClick={() => addNote({ body: "new" })}>

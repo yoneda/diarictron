@@ -54,7 +54,7 @@ const MonthLabel = styled.div`
 `;
 
 function Note(props) {
-  const { onClick, light, isCard, date, children } = props;
+  const { onClick, onContextMenu, light, isCard, date, children } = props;
   const showDay = () => {
     switch (dayjs(date).get("day")) {
       case 0:
@@ -74,7 +74,11 @@ function Note(props) {
     }
   };
   return (
-    <NoteWrapper light={light} onClick={event => onClick(event)}>
+    <NoteWrapper
+      light={light}
+      onClick={event => onClick(event)}
+      onContextMenu={event => onContextMenu(event)}
+    >
       {isCard && (
         <Card>
           <div>{showDay()}</div>
@@ -89,7 +93,12 @@ function Note(props) {
 function NoteList() {
   const ref = useRef(null);
   const [notes, ids, creation] = useStoreState(state => [state.notes, state.ids, state.creation]);
-  const [touch, append] = useStoreActions(actions => [actions.touch, actions.append]);
+  const [touch, append, setModal, setContextPoint] = useStoreActions(actions => [
+    actions.touch,
+    actions.append,
+    actions.setModal,
+    actions.setContextPoint
+  ]);
 
   useEffect(() => {
     ref.current.scrollTo(0, 0);
@@ -112,6 +121,11 @@ function NoteList() {
             date={note.createdAt}
             key={key}
             onClick={event => (event.metaKey ? append({ id: note.id }) : touch({ id: note.id }))}
+            onContextMenu={event => {
+              setModal("POPUP_MODAL");
+              touch({ id: note.id });
+              setContextPoint({ x: event.clientX, y: event.clientY });
+            }}
             light={ids.some(id => note.id === id)}
           >
             {note.body}
