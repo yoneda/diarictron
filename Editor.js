@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { humanDate } from "./helper";
 import TrashIcon from "./TrashIcon";
-import TagIcon from "./TagIcon";
 import TagEditor from "./TagEditor";
 
 const Wrapper = styled.div`
@@ -14,7 +13,7 @@ const Wrapper = styled.div`
 
   display: grid;
   grid-template-rows: 40px 1fr 40px;
-  grid-template-columns: 1fr 80px;
+  grid-template-columns: 1fr 40px;
 `;
 
 const CenterWrapper = styled.div`
@@ -97,7 +96,6 @@ function Editor() {
           <span onClick={() => removeNote({ ids: ids })}>
             <TrashIcon />
           </span>
-          <TagIcon />
         </Control>
       </Wrapper>
     );
