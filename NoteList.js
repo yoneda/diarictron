@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   border: solid 1px black;
   box-sizing: border-box;
   overflow: scroll;
-  height: 500px;
+  height: calc(100vh - 60px);
   background: aliceblue;
 `;
 
