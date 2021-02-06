@@ -92,7 +92,12 @@ function Note(props) {
 
 function NoteList() {
   const ref = useRef(null);
-  const [notes, ids, creation] = useStoreState(state => [state.notes, state.ids, state.creation]);
+  const [notes, ids, creation, user] = useStoreState(state => [
+    state.notes,
+    state.ids,
+    state.creation,
+    state.user
+  ]);
   const [touch, append, grep, setModal, setContextPoint] = useStoreActions(actions => [
     actions.touch,
     actions.append,
@@ -108,12 +113,13 @@ function NoteList() {
     <Wrapper ref={ref}>
       {notes.map((note, key, array) => (
         <Fragment>
-          {key === 0 && (
+          {user.uiStyle === "dayone" && key === 0 && (
             <MonthLabel onClick={() => grep({ date: note.createdAt })}>
               {dayjs(note.createdAt).format("YYYY年MM月")}
             </MonthLabel>
           )}
-          {key > 0 &&
+          {user.uiStyle === "dayone" &&
+            key > 0 &&
             dayjs(array[key - 1].createdAt).isAfter(dayjs(array[key].createdAt), "month") && (
               <MonthLabel onClick={() => grep({ date: note.createdAt })}>
                 {dayjs(note.createdAt).format("YYYY年MM月")}
@@ -121,9 +127,10 @@ function NoteList() {
             )}
           <Note
             isCard={
-              key === 0 ||
-              (key > 0 &&
-                dayjs(array[key - 1].createdAt).isAfter(dayjs(array[key].createdAt), "day"))
+              (user.uiStyle === "dayone" &&
+                key > 0 &&
+                dayjs(array[key - 1].createdAt).isAfter(dayjs(array[key].createdAt), "day")) ||
+              (user.uiStyle === "dayone" && key === 0)
             }
             date={note.createdAt}
             key={key}
