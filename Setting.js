@@ -70,7 +70,7 @@ function Setting(props) {
       <H2>設定</H2>
       <Close>
         <Icon onClick={() => onClose()}>
-          <CloseIcon />
+          <CloseIcon size={24}/>
           閉じる
         </Icon>
       </Close>
