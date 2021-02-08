@@ -27,40 +27,46 @@ const Tag = styled.div`
 `;
 
 function TagEditor() {
-  const [notes, ids] = useStoreState(state => [state.selecteds, state.ids]);
+  const notes = useStoreState(state => state.selecteds);
   const editNote = useStoreActions(actions => actions.editNote);
-  const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
-  const renderTags = () =>
-    text === ""
-      ? ""
-      : text.split(" ").map(tag => (
-          <Tag>
-            {tag}
-            <CloseIcon size={21} />
-          </Tag>
-        ));
-  const onClick = () => {
-    if (open === true) {
-      editNote({ id: ids[0], body: notes[0].body, tags: text.split(" ") });
-      setOpen(false);
-    } else {
-      setOpen(true);
-    }
-  };
-  useEffect(() => {
-    if (notes[0].tags !== undefined && notes[0].tags.length > 0) {
-      setText(notes[0].tags.reduce((acc, tag) => `${acc} ${tag}`));
-    } else {
-      setText("");
-    }
-  }, [notes]);
   return (
     <Wrapper>
-      <span onClick={onClick}>
-        <ToolIcon />
-      </span>
-      {open ? <input value={text} onChange={e => setText(e.target.value)} /> : renderTags()}
+      {notes[0].tags !== undefined &&
+        notes[0].tags.length > 0 &&
+        notes[0].tags.map((tag, key) => (
+          <Tag>
+            {tag}
+            <span
+              onClick={() => {
+                editNote({
+                  id: notes[0].id,
+                  body: notes[0].body,
+                  tags: notes[0].tags.filter(target => tag !== target)
+                });
+              }}
+            >
+              <CloseIcon size={21} />
+            </span>
+          </Tag>
+        ))}
+      <input
+        type="text"
+        value={text}
+        placeholder="タグを追加…"
+        onChange={e => setText(e.target.value)}
+        onKeyDown={e => {
+          if (e.code === "Enter") {
+            editNote({
+              id: notes[0].id,
+              body: notes[0].body,
+              tags:
+                notes[0].tags === undefined ? [e.target.value] : [...notes[0].tags, e.target.value]
+            });
+            setText("");
+          }
+        }}
+      />
     </Wrapper>
   );
 }
