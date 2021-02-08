@@ -42,7 +42,7 @@ function TagEditor() {
                 editNote({
                   id: notes[0].id,
                   body: notes[0].body,
-                  tags: notes[0].tags.filter(target => tag !== target)
+                  tags: notes[0].tags.filter((_, index) => key !== index)
                 });
               }}
             >
