@@ -69,7 +69,7 @@ const store = createStore({
     const note = {
       id: nanoid(8),
       body,
-      createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss[Z]")
+      createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss")
     };
     ipcRenderer.invoke("add-note", { note }).then(notes => {
       actions.setCreation();

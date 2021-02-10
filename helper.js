@@ -13,7 +13,7 @@ export const isInside = (point, rect) =>
 
 export const humanDate = date =>
   dayjs(date)
-    .format("YYYY年MM月DD日(dddd) h:m")
+    .format("YYYY年MM月DD日(dddd) H:m")
     .replace(
       /Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday/,
       match => {

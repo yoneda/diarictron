@@ -12,7 +12,7 @@ const dayjs = require("dayjs");
 app.whenReady().then(() => {
   db.defaults({ notes: [], user: {} }).write();
   db.set("user", { uiStyle: "dayone", fontSize: "midium", dark: false }).write();
-  generate365(db);
+  generate3(db);
   app.quit();
 });
 
@@ -21,7 +21,7 @@ function generate3(db) {
     [...Array(3)].map(() => ({
       id: nanoid(8),
       body: faker.lorem.word(),
-      createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss[Z]")
+      createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss")
     }))
   ).write();
 }
@@ -34,7 +34,7 @@ function generate365(db) {
       notes.push({
         id: nanoid(8),
         body: faker.lorem.word(),
-        createdAt: dayjs().subtract(index, "day").format("YYYY-MM-DDTHH:mm:ss[Z]")
+        createdAt: dayjs().subtract(index, "day").format("YYYY-MM-DDTHH:mm:ss")
       });
     });
   });
