@@ -16,7 +16,6 @@
   },
   "scripts": {
     "dev": "parcel index.html --out-dir out/output --cache-dir out/cache",
-    "dev:web": "parcel page.html --out-dir web/output --cache-dir web/cache",
     "build": "parcel build index.html  --out-dir out/output --cache-dir out/cache --public-url ./",
     "watch": "parcel watch index.html --out-dir watch/output --cache-dir watch/cache --public-url ./",
     "electron": "electron .",
