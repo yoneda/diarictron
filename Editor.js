@@ -83,12 +83,24 @@ function Editor() {
             cols={34}
             rows={6}
             value={text}
-            onChange={e => setText(e.target.value)}
-            onKeyDown={e => {
-              if (e.code === "Enter") {
-                editNote({ id: notes[0].id, body: e.target.value, tags: ""});
+            onInput={e => {
+              if (e.nativeEvent.isComposing === false) {
+                return editNote({
+                  id: notes[0].id,
+                  body: e.target.value,
+                  tags: ""
+                });
+              } else {
+                return setText(e.target.value);
               }
             }}
+            onCompositionEnd={e =>
+              editNote({
+                id: notes[0].id,
+                body: e.target.value,
+                tags: ""
+              })
+            }
           />
         </Main>
         <TagEditor />
