@@ -9,6 +9,7 @@ const faker = require("faker");
 const { nanoid } = require("nanoid");
 const dayjs = require("dayjs");
 
+// TODO: electron のパッケージを使わなくとも直接appdataフォルダにデータを追加できるか検証
 app.whenReady().then(() => {
   db.defaults({ notes: [], user: {} }).write();
   db.set("user", { uiStyle: "dayone", fontSize: "midium", dark: false }).write();
