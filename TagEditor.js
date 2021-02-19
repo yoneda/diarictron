@@ -17,9 +17,11 @@ const Wrapper = styled.div`
 `;
 
 const Tag = styled.div`
+  height: 32px;
   border-radius: 16px;
-  background: rgb(220, 220, 220);
-  padding: 8px 12px;
+  padding: 0 8px;
+  background-color: #dedede;
+  color: rgba(0, 0, 0, 0.87);
   margin-right: 8px;
 
   display: flex;
