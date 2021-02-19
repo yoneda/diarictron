@@ -4,7 +4,7 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 import { isEmpty } from "lodash";
 import { humanDate } from "./helper";
 import ToolIcon from "./Tool";
-import CloseIcon from "./CloseIcon";
+import Cancel from "./Cancel";
 
 // TODO:
 // 分割されたコンポーネントがGridLayoutの子要素になっているのは少し読みづらい気がするので後で修正
@@ -46,7 +46,7 @@ function TagEditor() {
                 });
               }}
             >
-              <CloseIcon size={21} />
+              <Cancel />
             </span>
           </Tag>
         ))}
