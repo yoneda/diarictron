@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useStoreActions } from "easy-peasy";
+import Button from "./Button";
 
 const Container = styled.div`
   display: flex;
@@ -64,12 +65,12 @@ function Control() {
   ]);
   return (
     <Container>
-      <Clickable onClick={() => setModal("SETTING_MODAL")}>
-        <Settings />
-      </Clickable>
-      <Clickable onClick={() => addNote({ body: "new" })}>
-        <Plus />
-      </Clickable>
+      <Button type="contained" onClick={() => addNote({ body: "new" })}>
+        NEW
+      </Button>
+      <Button type="outlined" onClick={() => setModal("SETTING_MODAL")}>
+        SETTING
+      </Button>
     </Container>
   );
 }
