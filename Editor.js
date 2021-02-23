@@ -4,6 +4,10 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 import { humanDate } from "./helper";
 import TrashIcon from "./TrashIcon";
 import TagEditor from "./TagEditor";
+import Button from "./Button";
+import Menu from "./Menu";
+import IconButton from "./IconButton";
+import MoreVert from "./MoreVert";
 
 const Wrapper = styled.div`
   border: 1px solid black;
@@ -60,6 +64,15 @@ const EditArea = styled.textarea`
   box-shadow: none;
 `;
 
+const ActionArea = styled.div`
+  grid-row: 1/2;
+  grid-column: 2/3;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 function Editor() {
   const [notes, ids] = useStoreState(state => [state.selecteds, state.ids]);
   const [text, setText] = useState("");
@@ -73,7 +86,11 @@ function Editor() {
     }
   }, [notes]);
   if (notes.length === 0) {
-    return <CenterWrapper>empty</CenterWrapper>;
+    return (
+      <CenterWrapper>
+        empty
+      </CenterWrapper>
+    );
   } else if (notes.length === 1) {
     return (
       <Wrapper>
@@ -109,6 +126,12 @@ function Editor() {
             <TrashIcon />
           </span>
         </Control>
+        <ActionArea>
+          <IconButton
+            icon={<MoreVert />}
+            onClick={() => console.log("click")}
+          />
+        </ActionArea>
       </Wrapper>
     );
   } else {
