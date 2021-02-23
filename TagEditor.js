@@ -5,6 +5,7 @@ import { isEmpty } from "lodash";
 import { humanDate } from "./helper";
 import ToolIcon from "./Tool";
 import Cancel from "./Cancel";
+import Chip from "./Chip";
 
 // TODO:
 // 分割されたコンポーネントがGridLayoutの子要素になっているのは少し読みづらい気がするので後で修正
@@ -37,20 +38,18 @@ function TagEditor() {
       {notes[0].tags !== undefined &&
         notes[0].tags.length > 0 &&
         notes[0].tags.map((tag, key) => (
-          <Tag>
+          <Chip
+            type="normal"
+            onClose={() =>
+              editNote({
+                id: notes[0].id,
+                body: notes[0].body,
+                tags: notes[0].tags.filter((_, index) => key !== index)
+              })
+            }
+          >
             {tag}
-            <span
-              onClick={() => {
-                editNote({
-                  id: notes[0].id,
-                  body: notes[0].body,
-                  tags: notes[0].tags.filter((_, index) => key !== index)
-                });
-              }}
-            >
-              <Cancel />
-            </span>
-          </Tag>
+          </Chip>
         ))}
       <input
         type="text"
@@ -63,7 +62,9 @@ function TagEditor() {
               id: notes[0].id,
               body: notes[0].body,
               tags:
-                notes[0].tags === undefined ? [e.target.value] : [...notes[0].tags, e.target.value]
+                notes[0].tags === undefined
+                  ? [e.target.value]
+                  : [...notes[0].tags, e.target.value]
             });
             setText("");
           }
