@@ -21,13 +21,17 @@ import Control from "./Control";
 import { isSame } from "./helper";
 import Modal from "./Modal";
 import Popup from "./Popup";
+import Dialog from "./Dialog";
+import Button from "./Button";
 const { ipcRenderer } = window.require("electron");
 
 const store = createStore({
   notes: [],
   ids: [],
   creation: "",
-  selecteds: computed(state => state.notes.filter(note => state.ids.some(id => id === note.id))),
+  selecteds: computed(state =>
+    state.notes.filter(note => state.ids.some(id => id === note.id))
+  ),
   setNotes: action((state, payload) => {
     state.notes = payload;
   }),
@@ -36,7 +40,8 @@ const store = createStore({
   }),
   numByDate: computed(state => date =>
     state.notes.reduce(
-      (acc, note) => (isSame(dayjs(note.createdAt), dayjs(date)) ? acc + 1 : acc),
+      (acc, note) =>
+        isSame(dayjs(note.createdAt), dayjs(date)) ? acc + 1 : acc,
       0
     )
   ),
@@ -79,18 +84,24 @@ const store = createStore({
   }),
   editNote: thunk((actions, payload) => {
     const { id, body, tags } = payload;
-    ipcRenderer.invoke("edit-note", { id, body, tags }).then(notes => actions.setNotes(notes));
+    ipcRenderer
+      .invoke("edit-note", { id, body, tags })
+      .then(notes => actions.setNotes(notes));
   }),
   removeNote: thunk((actions, payload) => {
     const { ids } = payload;
-    ipcRenderer.invoke("remove-note", { ids }).then(notes => actions.setNotes(notes));
+    ipcRenderer
+      .invoke("remove-note", { ids })
+      .then(notes => actions.setNotes(notes));
   }),
   user: {},
   setUser: action((state, payload) => {
     state.user = payload;
   }),
   updateUser: thunk((actions, payload) => {
-    ipcRenderer.invoke("update-user", payload).then(user => actions.setUser(user));
+    ipcRenderer
+      .invoke("update-user", payload)
+      .then(user => actions.setUser(user));
   }),
   modal: "",
   contextPoint: { x: 0, y: 0 },
@@ -123,7 +134,12 @@ function Main() {
     state.modal,
     state.contextPoint
   ]);
-  const [removeNote, getAll, setModal, setContextPoint] = useStoreActions(actions => [
+  const [
+    removeNote,
+    getAll,
+    setModal,
+    setContextPoint
+  ] = useStoreActions(actions => [
     actions.removeNote,
     actions.getAll,
     actions.setModal,
@@ -133,7 +149,13 @@ function Main() {
     getAll();
   }, []);
   return (
-    <ThemeProvider theme={{ fontSize: user.fontSize, dark: user.dark, showCal: user.showCal }}>
+    <ThemeProvider
+      theme={{
+        fontSize: user.fontSize,
+        dark: user.dark,
+        showCal: user.showCal
+      }}
+    >
       <GlobalStyle />
       <Layout>
         <Layout.Notes>
@@ -145,11 +167,27 @@ function Main() {
         <Layout.Editor>
           <Editor />
         </Layout.Editor>
-        {modal === "SETTING_MODAL" && (
+        {/*modal === "SETTING_MODAL" && (
           <Layout.Modal>
             <Modal onClose={() => setModal("")}>
               <Setting onClose={() => setModal("")} />
             </Modal>
+          </Layout.Modal>
+        )*/}
+        {modal === "SETTING_MODAL" && (
+          <Layout.Modal>
+            <Dialog
+              title={<h3>Use Google's Iocation serviece?</h3>}
+              onClose={() => setModal("")}
+              actions={
+                <Button type="text" onClick={() => setModal("")}>
+                  CLOSE
+                </Button>
+              }
+            >
+              Let Google help apps determine location. This means sending
+              anonymous location data to Google, even when no apps are running.
+            </Dialog>
           </Layout.Modal>
         )}
         {modal === "POPUP_MODAL" && (
