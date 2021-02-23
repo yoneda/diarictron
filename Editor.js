@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { humanDate } from "./helper";
@@ -76,21 +76,31 @@ const ActionArea = styled.div`
 function Editor() {
   const [notes, ids] = useStoreState(state => [state.selecteds, state.ids]);
   const [text, setText] = useState("");
-  const [editNote, removeNote] = useStoreActions(actions => [
+  const [
+    editNote,
+    removeNote,
+    setModal,
+    setDropPoint
+  ] = useStoreActions(actions => [
     actions.editNote,
-    actions.removeNote
+    actions.removeNote,
+    actions.setModal,
+    actions.setDropPoint
   ]);
   useEffect(() => {
     if (notes.length === 1) {
       setText(notes[0].body);
     }
   }, [notes]);
+  const measuredRef = useCallback(node => {
+    console.log(node);
+    if (node !== null) {
+      const rect = node.getBoundingClientRect();
+      setDropPoint({ x: rect.x, y: rect.y });
+    }
+  }, []);
   if (notes.length === 0) {
-    return (
-      <CenterWrapper>
-        empty
-      </CenterWrapper>
-    );
+    return <CenterWrapper>empty</CenterWrapper>;
   } else if (notes.length === 1) {
     return (
       <Wrapper>
@@ -127,10 +137,12 @@ function Editor() {
           </span>
         </Control>
         <ActionArea>
-          <IconButton
-            icon={<MoreVert />}
-            onClick={() => console.log("click")}
-          />
+          <div ref={measuredRef}>
+            <IconButton
+              icon={<MoreVert />}
+              onClick={() => setModal("DROPDOWN_MENU")}
+            />
+          </div>
         </ActionArea>
       </Wrapper>
     );

@@ -5,8 +5,8 @@ import { isInside } from "./helper";
 const Container = styled.div`
   height: 100vh;
   display: grid;
-  grid-template-rows: ${props => props.y || 0}px 50px 1fr;
-  grid-template-columns: ${props => props.x || 0}px 50px 1fr;
+  grid-template-rows: ${props => props.y || 0}px auto 1fr;
+  grid-template-columns: ${props => props.x || 0}px auto 1fr;
 `;
 
 const Item = styled.div`
@@ -14,11 +14,7 @@ const Item = styled.div`
   grid-row: 2/3;
   grid-column: 2/3;
 
-  border: 1px black solid;
-  box-sizing: border-box;
   display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 function Popup(props) {

@@ -136,7 +136,7 @@ function NoteList() {
             key={key}
             onClick={event => (event.metaKey ? append({ id: note.id }) : touch({ id: note.id }))}
             onContextMenu={event => {
-              setModal("POPUP_MODAL");
+              setModal("CONTEXT_MODAL");
               touch({ id: note.id });
               setContextPoint({ x: event.clientX, y: event.clientY });
             }}

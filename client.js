@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useCallback } from "react";
 import ReactDOM from "react-dom";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { Reset } from "styled-reset";
@@ -112,6 +112,10 @@ const store = createStore({
   }),
   setContextPoint: action((state, payload) => {
     state.contextPoint = payload;
+  }),
+  dropPoint: { x: 0, y: 0 },
+  setDropPoint: action((state, payload) => {
+    state.dropPoint = payload;
   })
 });
 
@@ -129,13 +133,15 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function Main() {
-  const [ids, notes, user, modal, contextPoint] = useStoreState(state => [
+  const [ids, notes, user, modal, contextPoint, dropPoint] = useStoreState(state => [
     state.ids,
     state.notes,
     state.user,
     state.modal,
-    state.contextPoint
+    state.contextPoint,
+    state.dropPoint
   ]);
+  console.log({x:dropPoint.x, y:dropPoint.y});
   const [
     removeNote,
     getAll,
@@ -169,6 +175,29 @@ function Main() {
         <Layout.Editor>
           <Editor />
         </Layout.Editor>
+        {modal === "DROPDOWN_MENU" && (
+          <Layout.Modal>
+            <Popup
+              onClose={() => {
+                setModal("");
+              }}
+              left={dropPoint.x}
+              top={dropPoint.y}
+            >
+              <Menu>
+                <MenuItem>Markdown</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    removeNote({ ids: ids });
+                    setModal("");
+                  }}
+                >
+                  Delete
+                </MenuItem>
+              </Menu>
+            </Popup>
+          </Layout.Modal>
+        )}
         {modal === "SETTING_MODAL" && (
           <Layout.Modal>
             <Dialog
@@ -188,7 +217,7 @@ function Main() {
             </Dialog>
           </Layout.Modal>
         )}
-        {modal === "POPUP_MODAL" && (
+        {modal === "CONTEXT_MODAL" && (
           <Layout.Modal>
             <Popup
               onClose={() => {
@@ -198,15 +227,17 @@ function Main() {
               left={contextPoint.x}
               top={contextPoint.y}
             >
-              <button
-                onClick={() => {
-                  removeNote({ ids: ids });
-                  setModal("");
-                  setContextPoint({ x: 0, y: 0 });
-                }}
-              >
-                削除
-              </button>
+              <Menu>
+                <MenuItem
+                  onClick={() => {
+                    removeNote({ ids: ids });
+                    setModal("");
+                    setContextPoint({ x: 0, y: 0 });
+                  }}
+                >
+                  Delete
+                </MenuItem>
+              </Menu>
             </Popup>
           </Layout.Modal>
         )}

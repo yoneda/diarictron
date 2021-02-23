@@ -7,13 +7,13 @@ const Container = styled.li`
   display: flex;
   align-items: center;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: rgba(0, 0, 0, 0.06);
   }
 `;
 
 function MenuItem(props) {
-  const { children } = props;
-  return <Container>{children}</Container>;
+  const { children, onClick } = props;
+  return <Container onClick={() => onClick()}>{children}</Container>;
 }
 
 export default MenuItem;
