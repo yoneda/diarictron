@@ -23,6 +23,8 @@ import Modal from "./Modal";
 import Popup from "./Popup";
 import Dialog from "./Dialog";
 import Button from "./Button";
+import Menu from "./Menu";
+import MenuItem from "./MenuItem";
 const { ipcRenderer } = window.require("electron");
 
 const store = createStore({
@@ -174,7 +176,7 @@ function Main() {
             </Modal>
           </Layout.Modal>
         )*/}
-        {modal === "SETTING_MODAL" && (
+        {/*modal === "SETTING_MODAL" && (
           <Layout.Modal>
             <Dialog
               title={<h3>Use Google's Iocation serviece?</h3>}
@@ -187,6 +189,25 @@ function Main() {
             >
               Let Google help apps determine location. This means sending
               anonymous location data to Google, even when no apps are running.
+            </Dialog>
+          </Layout.Modal>
+            )*/}
+        {modal === "SETTING_MODAL" && (
+          <Layout.Modal>
+            <Dialog
+              title={<h3>Use Google's Iocation serviece?</h3>}
+              onClose={() => setModal("")}
+              actions={
+                <Button type="text" onClick={() => setModal("")}>
+                  CLOSE
+                </Button>
+              }
+            >
+              <Menu>
+                <MenuItem>Profile</MenuItem>
+                <MenuItem>My Account</MenuItem>
+                <MenuItem>Logout</MenuItem>
+              </Menu>
             </Dialog>
           </Layout.Modal>
         )}
