@@ -169,29 +169,6 @@ function Main() {
         <Layout.Editor>
           <Editor />
         </Layout.Editor>
-        {/*modal === "SETTING_MODAL" && (
-          <Layout.Modal>
-            <Modal onClose={() => setModal("")}>
-              <Setting onClose={() => setModal("")} />
-            </Modal>
-          </Layout.Modal>
-        )*/}
-        {/*modal === "SETTING_MODAL" && (
-          <Layout.Modal>
-            <Dialog
-              title={<h3>Use Google's Iocation serviece?</h3>}
-              onClose={() => setModal("")}
-              actions={
-                <Button type="text" onClick={() => setModal("")}>
-                  CLOSE
-                </Button>
-              }
-            >
-              Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are running.
-            </Dialog>
-          </Layout.Modal>
-            )*/}
         {modal === "SETTING_MODAL" && (
           <Layout.Modal>
             <Dialog
