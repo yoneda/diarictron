@@ -8,6 +8,7 @@ import Button from "./Button";
 import Menu from "./Menu";
 import IconButton from "./IconButton";
 import MoreVert from "./MoreVert";
+import Info from "./Info";
 
 const Wrapper = styled.div`
   border: 1px solid black;
@@ -132,9 +133,11 @@ function Editor() {
         </Main>
         <TagEditor />
         <Control>
-          <span onClick={() => removeNote({ ids: ids })}>
-            <TrashIcon />
-          </span>
+          {/* TODO: ここは IconButton ではなくてOutlitedButton に変更される可能性あり */}
+          <IconButton
+            icon={<Info />}
+            onClick={() => console.log("show about dialog")}
+          />
         </Control>
         <ActionArea>
           <div ref={measuredRef}>
