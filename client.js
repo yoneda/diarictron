@@ -25,6 +25,8 @@ import Dialog from "./Dialog";
 import Button from "./Button";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
+import List from "./List";
+import ListRow from "./ListRow";
 const { ipcRenderer } = window.require("electron");
 
 const store = createStore({
@@ -133,7 +135,14 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function Main() {
-  const [ids, notes, user, modal, contextPoint, dropPoint] = useStoreState(state => [
+  const [
+    ids,
+    notes,
+    user,
+    modal,
+    contextPoint,
+    dropPoint
+  ] = useStoreState(state => [
     state.ids,
     state.notes,
     state.user,
@@ -141,7 +150,6 @@ function Main() {
     state.contextPoint,
     state.dropPoint
   ]);
-  console.log({x:dropPoint.x, y:dropPoint.y});
   const [
     removeNote,
     getAll,
@@ -209,11 +217,17 @@ function Main() {
                 </Button>
               }
             >
-              <Menu>
-                <MenuItem>Profile</MenuItem>
-                <MenuItem>My Account</MenuItem>
-                <MenuItem>Logout</MenuItem>
-              </Menu>
+              <List>
+                <ListRow
+                  onClick={() => console.log("aaa")}
+                  control={<button>+</button>}
+                >
+                  Dark Mode
+                </ListRow>
+                <ListRow control={<button>+</button>}>UI Style</ListRow>
+                <ListRow control={<button>+</button>}>Font Size</ListRow>
+                <ListRow control={<button>+</button>}>Export Notes</ListRow>
+              </List>
             </Dialog>
           </Layout.Modal>
         )}
