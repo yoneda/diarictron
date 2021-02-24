@@ -33,6 +33,12 @@ const Tag = styled.div`
   align-items: center;
 `;
 
+const Input = styled.input`
+  outline: none;
+  border: none;
+  font-size: 18px;
+`;
+
 function TagEditor() {
   const notes = useStoreState(state => state.selecteds);
   const editNote = useStoreActions(actions => actions.editNote);
@@ -55,7 +61,7 @@ function TagEditor() {
             {tag}
           </Chip>
         ))}
-      <input
+      <Input
         type="text"
         value={text}
         placeholder="タグを追加…"
