@@ -15,6 +15,10 @@ const Wrapper = styled.div`
 
   display: flex;
   align-items: center;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Tag = styled.div`
