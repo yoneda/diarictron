@@ -48,7 +48,7 @@ function Dialog(props) {
       }}
     >
       <Wrapper ref={ref}>
-        <Title>{title}</Title>
+        {title && <Title>{title}</Title>}
         <Content>{children}</Content>
         <Actions>{actions}</Actions>
       </Wrapper>

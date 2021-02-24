@@ -136,7 +136,7 @@ function Editor() {
           {/* TODO: ここは IconButton ではなくてOutlitedButton に変更される可能性あり */}
           <IconButton
             icon={<Info />}
-            onClick={() => console.log("show about dialog")}
+            onClick={() => setModal("ABOUT_DIALOG")}
           />
         </Control>
         <ActionArea>

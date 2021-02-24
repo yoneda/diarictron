@@ -27,7 +27,8 @@ import Menu from "./Menu";
 import MenuItem from "./MenuItem";
 import List from "./List";
 import ListRow from "./ListRow";
-const { ipcRenderer } = window.require("electron");
+import Electron from "./Electron";
+const { ipcRenderer, shell } = window.require("electron");
 
 const store = createStore({
   notes: [],
@@ -183,6 +184,28 @@ function Main() {
         <Layout.Editor>
           <Editor />
         </Layout.Editor>
+        {modal === "ABOUT_DIALOG" && (
+          <Layout.Modal>
+            <Dialog
+              onClose={() => setModal("")}
+              actions={
+                <Button type="text" onClick={() => setModal("")}>
+                  CLOSE
+                </Button>
+              }
+            >
+              <h3>React Diary</h3>
+              <Electron />
+              <p>v1.0.0</p>
+              <button onClick={() => shell.openExternal("https://github.com")}>
+                利用規約
+              </button>
+              <button onClick={() => shell.openExternal("https://github.com")}>
+                プライバシポリシ
+              </button>
+            </Dialog>
+          </Layout.Modal>
+        )}
         {modal === "DROPDOWN_MENU" && (
           <Layout.Modal>
             <Popup
@@ -209,7 +232,7 @@ function Main() {
         {modal === "SETTING_MODAL" && (
           <Layout.Modal>
             <Dialog
-              title={<h3>Use Google's Iocation serviece?</h3>}
+              title={<h3>Setting</h3>}
               onClose={() => setModal("")}
               actions={
                 <Button type="text" onClick={() => setModal("")}>
