@@ -1,4 +1,4 @@
-const { ipcMain, app, BrowserWindow } = require("electron");
+const { ipcMain, app, Menu, BrowserWindow } = require("electron");
 const path = require("path");
 const dbPath = path.join(app.getPath("userData"), "db.json");
 const low = require("lowdb");
@@ -29,7 +29,12 @@ ipcMain.handle("add-note", async function (event, arg) {
 
 ipcMain.handle("edit-note", async function (event, arg) {
   const { id, body, tags } = arg;
-  await db.get("notes").find({ id }).set("body", body).set("tags", tags).write();
+  await db
+    .get("notes")
+    .find({ id })
+    .set("body", body)
+    .set("tags", tags)
+    .write();
   const notes = await db.get("notes").value();
   return notes;
 });
@@ -61,6 +66,35 @@ ipcMain.handle("update-user", async function (event, arg) {
 
 app.whenReady().then(() => {
   db.defaults({ notes: [], user: {} }).write();
+
+  const template = [
+    {
+      label: app.name,
+      submenu: [
+        {
+          label: `About ${app.name}`,
+          click: async () => {
+            console.log("test");
+          }
+        },
+        { type: "separator" },
+        { role: "services" },
+        { type: "separator" },
+        { role: "hide" },
+        { role: "hideothers" },
+        { role: "unhide" },
+        { type: "separator" },
+        { role: "quit" }
+      ]
+    },
+    {
+      label: "File",
+      submenu: [{ role: "close" }]
+    }
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
 
   const win = new BrowserWindow({
     width: 800,
