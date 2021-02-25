@@ -153,11 +153,13 @@ function Main() {
   ]);
   const [
     removeNote,
+    updateUser,
     getAll,
     setModal,
     setContextPoint
   ] = useStoreActions(actions => [
     actions.removeNote,
+    actions.updateUser,
     actions.getAll,
     actions.setModal,
     actions.setContextPoint
@@ -247,8 +249,35 @@ function Main() {
                 >
                   Dark Mode
                 </ListRow>
-                <ListRow control={<button>+</button>}>UI Style</ListRow>
-                <ListRow control={<button>+</button>}>Font Size</ListRow>
+                <ListRow
+                  control={
+                    <select
+                      id="uiStyle"
+                      onChange={e => updateUser({ uiStyle: e.target.value })}
+                      value={user.uiStyle}
+                    >
+                      <option value="normal">Normal</option>
+                      <option value="dayone">Dayone</option>
+                    </select>
+                  }
+                >
+                  <label htmlFor="uiStyle">UI Style</label>
+                </ListRow>
+                <ListRow
+                  control={
+                    <select
+                      id="fontSize"
+                      onChange={e => updateUser({ fontSize: e.target.value })}
+                      value={user.fontSize}
+                    >
+                      <option value="small">小</option>
+                      <option value="midium">中</option>
+                      <option value="large">大</option>
+                    </select>
+                  }
+                >
+                  <label htmlFor="fontSize">Font Size</label>
+                </ListRow>
                 <ListRow control={<button>+</button>}>Export Notes</ListRow>
               </List>
             </Dialog>
