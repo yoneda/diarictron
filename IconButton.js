@@ -10,15 +10,10 @@ const Container = styled.button`
   box-sizing: border-box;
   background-color: white;
   cursor: pointer;
-  ${({ hover }) => {
-    if (hover) {
-      return css`
-        &:hover {
-          background-color: rgba(0, 0, 0, 0.05);
-        }
-      `;
-    }
-  }}
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
   display: flex;
   align-items: center;
   justify-content: center;
