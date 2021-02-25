@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState, useCallback } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { humanDate } from "./helper";
@@ -9,6 +9,7 @@ import Menu from "./Menu";
 import IconButton from "./IconButton";
 import MoreVert from "./MoreVert";
 import Info from "./Info";
+import { useWindowSize } from "./hooks";
 
 const Wrapper = styled.div`
   border: 1px solid black;
@@ -88,6 +89,15 @@ function Editor() {
     actions.setModal,
     actions.setDropPoint
   ]);
+  const ref = useRef(null);
+  const size = useWindowSize(() => {
+    if (ref.current) {
+      // TODO: リファクタリング
+      const rect = ref.current.getBoundingClientRect();
+      setDropPoint({ x: rect.x - 80, y: rect.y + 40 });
+      console.log(rect);
+    }
+  });
   useEffect(() => {
     if (notes.length === 1) {
       setText(notes[0].body);
@@ -133,10 +143,12 @@ function Editor() {
           />
         </Control>
         <ActionArea>
-          <IconButton
-            icon={<MoreVert />}
-            onClick={() => setModal("DROPDOWN_MENU")}
-          />
+          <div ref={ref}>
+            <IconButton
+              icon={<MoreVert />}
+              onClick={() => setModal("DROPDOWN_MENU")}
+            />
+          </div>
         </ActionArea>
       </Wrapper>
     );
