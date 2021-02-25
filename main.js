@@ -6,6 +6,7 @@ const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync(dbPath);
 const db = low(adapter);
 const electronReload = require("electron-reload");
+const { createNativeMenu } = require("./electronHelper");
 const { chain } = require("lodash");
 
 electronReload(path.join(__dirname, "watch", "output"));
@@ -67,33 +68,7 @@ ipcMain.handle("update-user", async function (event, arg) {
 app.whenReady().then(() => {
   db.defaults({ notes: [], user: {} }).write();
 
-  const template = [
-    {
-      label: app.name,
-      submenu: [
-        {
-          label: `About ${app.name}`,
-          click: async () => {
-            console.log("test");
-          }
-        },
-        { type: "separator" },
-        { role: "services" },
-        { type: "separator" },
-        { role: "hide" },
-        { role: "hideothers" },
-        { role: "unhide" },
-        { type: "separator" },
-        { role: "quit" }
-      ]
-    },
-    {
-      label: "File",
-      submenu: [{ role: "close" }]
-    }
-  ];
-
-  const menu = Menu.buildFromTemplate(template);
+  const menu = createNativeMenu();
   Menu.setApplicationMenu(menu);
 
   const win = new BrowserWindow({
