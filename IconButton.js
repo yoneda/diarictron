@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Container = styled.button`
   border-radius: 50%;
@@ -10,18 +10,27 @@ const Container = styled.button`
   box-sizing: border-box;
   background-color: white;
   cursor: pointer;
-  &:hover{
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
+  ${({ hover }) => {
+    if (hover) {
+      return css`
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+      `;
+    }
+  }}
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 function IconButton(props) {
-  const { icon, onClick } = props;
-  return <Container onClick={() => onClick()}>{icon}</Container>;
+  const { icon, onClick, hover } = props;
+  return (
+    <Container onClick={() => onClick()} hover={hover}>
+      {icon}
+    </Container>
+  );
 }
 
 export default IconButton;

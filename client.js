@@ -28,6 +28,8 @@ import MenuItem from "./MenuItem";
 import List from "./List";
 import ListRow from "./ListRow";
 import Electron from "./Electron";
+import IconButton from "./IconButton";
+import OpenInNew from "./OpenInNew";
 const { ipcRenderer, shell } = window.require("electron");
 
 const store = createStore({
@@ -245,7 +247,7 @@ function Main() {
               <List>
                 <ListRow
                   onClick={() => updateUser({ dark: !user.dark })}
-                  clickable={true}
+                  clickable
                   control={
                     <input
                       id="dark"
@@ -286,7 +288,18 @@ function Main() {
                 >
                   <label htmlFor="fontSize">Font Size</label>
                 </ListRow>
-                <ListRow control={<button>+</button>}>Export Notes</ListRow>
+                <ListRow
+                  clickable
+                  onClick={() => console.log("export notes")}
+                  control={
+                    <IconButton
+                      icon={<OpenInNew />}
+                      onClick={() => console.log("export notes")}
+                    />
+                  }
+                >
+                  Export Notes
+                </ListRow>
               </List>
             </Dialog>
           </Layout.Modal>

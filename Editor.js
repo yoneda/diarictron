@@ -137,6 +137,7 @@ function Editor() {
           <IconButton
             icon={<Info />}
             onClick={() => setModal("ABOUT_DIALOG")}
+            hover
           />
         </Control>
         <ActionArea>
@@ -144,6 +145,7 @@ function Editor() {
             <IconButton
               icon={<MoreVert />}
               onClick={() => setModal("DROPDOWN_MENU")}
+              hover
             />
           </div>
         </ActionArea>
