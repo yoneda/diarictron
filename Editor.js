@@ -93,13 +93,6 @@ function Editor() {
       setText(notes[0].body);
     }
   }, [notes]);
-  const measuredRef = useCallback(node => {
-    console.log(node);
-    if (node !== null) {
-      const rect = node.getBoundingClientRect();
-      setDropPoint({ x: rect.x, y: rect.y });
-    }
-  }, []);
   if (notes.length === 0) {
     return <CenterWrapper>empty</CenterWrapper>;
   } else if (notes.length === 1) {
@@ -140,12 +133,10 @@ function Editor() {
           />
         </Control>
         <ActionArea>
-          <div ref={measuredRef}>
-            <IconButton
-              icon={<MoreVert />}
-              onClick={() => setModal("DROPDOWN_MENU")}
-            />
-          </div>
+          <IconButton
+            icon={<MoreVert />}
+            onClick={() => setModal("DROPDOWN_MENU")}
+          />
         </ActionArea>
       </Wrapper>
     );
