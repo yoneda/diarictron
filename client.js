@@ -244,10 +244,18 @@ function Main() {
             >
               <List>
                 <ListRow
-                  onClick={() => console.log("aaa")}
-                  control={<button>+</button>}
+                  onClick={() => updateUser({ dark: !user.dark })}
+                  clickable={true}
+                  control={
+                    <input
+                      id="dark"
+                      type="checkbox"
+                      checked={user.dark}
+                      onClick={() => updateUser({ dark: !user.dark })}
+                    />
+                  }
                 >
-                  Dark Mode
+                  <label htmlFor="dark">Dark Mode</label>
                 </ListRow>
                 <ListRow
                   control={
