@@ -68,9 +68,6 @@ ipcMain.handle("update-user", async function (event, arg) {
 app.whenReady().then(() => {
   db.defaults({ notes: [], user: {} }).write();
 
-  const menu = createNativeMenu();
-  Menu.setApplicationMenu(menu);
-
   const win = new BrowserWindow({
     width: 800,
     height: 600,
@@ -78,6 +75,34 @@ app.whenReady().then(() => {
       nodeIntegration: true
     }
   });
+  const template = [
+    {
+      label: app.name,
+      submenu: [
+        {
+          label: `About ${app.name}`,
+          click: async () => {
+            win.webContents.send("show-about");
+          }
+        },
+        { type: "separator" },
+        { role: "services" },
+        { type: "separator" },
+        { role: "hide" },
+        { role: "hideothers" },
+        { role: "unhide" },
+        { type: "separator" },
+        { role: "quit" }
+      ]
+    },
+    { role: "fileMenu" },
+    { role: "editMenu" },
+    { role: "viewMenu" },
+    { role: "windowMenu" },
+    { role: "help" }
+  ];
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
   win.loadFile("./watch/output/index.html");
 });
 

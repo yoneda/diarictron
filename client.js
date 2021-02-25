@@ -124,6 +124,10 @@ const store = createStore({
   })
 });
 
+ipcRenderer.on("show-about", () => {
+  store.getActions().setModal("ABOUT_DIALOG");
+});
+
 const GlobalStyle = createGlobalStyle`
   html{
     font-size: ${props => {
