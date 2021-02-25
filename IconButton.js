@@ -25,12 +25,8 @@ const Container = styled.button`
 `;
 
 function IconButton(props) {
-  const { icon, onClick, hover } = props;
-  return (
-    <Container onClick={() => onClick()} hover={hover}>
-      {icon}
-    </Container>
-  );
+  const { icon, onClick } = props;
+  return <Container onClick={() => onClick()}>{icon}</Container>;
 }
 
 export default IconButton;

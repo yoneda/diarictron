@@ -291,12 +291,7 @@ function Main() {
                 <ListRow
                   clickable
                   onClick={() => console.log("export notes")}
-                  control={
-                    <IconButton
-                      icon={<OpenInNew />}
-                      onClick={() => console.log("export notes")}
-                    />
-                  }
+                  control={<OpenInNew />}
                 >
                   Export Notes
                 </ListRow>
