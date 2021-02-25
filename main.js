@@ -6,7 +6,6 @@ const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync(dbPath);
 const db = low(adapter);
 const electronReload = require("electron-reload");
-const { createNativeMenu } = require("./electronHelper");
 const { chain } = require("lodash");
 
 electronReload(path.join(__dirname, "watch", "output"));
