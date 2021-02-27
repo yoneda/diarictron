@@ -118,9 +118,9 @@ const store = createStore({
   setContextPoint: action((state, payload) => {
     state.contextPoint = payload;
   }),
-  dropPoint: { x: 0, y: 0 },
-  setDropPoint: action((state, payload) => {
-    state.dropPoint = payload;
+  menuRect: { x: 0, y: 0, width: 0, height: 0 },
+  setMenuRect: action((state, payload) => {
+    state.menuRect = payload;
   })
 });
 
@@ -148,14 +148,14 @@ function Main() {
     user,
     modal,
     contextPoint,
-    dropPoint
+    menuRect
   ] = useStoreState(state => [
     state.ids,
     state.notes,
     state.user,
     state.modal,
     state.contextPoint,
-    state.dropPoint
+    state.menuRect
   ]);
   const [
     removeNote,
@@ -220,8 +220,8 @@ function Main() {
               onClose={() => {
                 setModal("");
               }}
-              left={dropPoint.x}
-              top={dropPoint.y}
+              left={menuRect.x - 125 /* current dropdown width */ + menuRect.width}
+              top={menuRect.y + menuRect.height}
             >
               <Menu>
                 <MenuItem>Markdown</MenuItem>

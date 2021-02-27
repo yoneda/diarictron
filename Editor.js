@@ -82,27 +82,32 @@ function Editor() {
     editNote,
     removeNote,
     setModal,
-    setDropPoint
+    setMenuRect
   ] = useStoreActions(actions => [
     actions.editNote,
     actions.removeNote,
     actions.setModal,
-    actions.setDropPoint
+    actions.setMenuRect
   ]);
   const ref = useRef(null);
-  const size = useWindowSize(() => {
-    if (ref.current) {
-      // TODO: リファクタリング
-      const rect = ref.current.getBoundingClientRect();
-      setDropPoint({ x: rect.x - 80, y: rect.y + 40 });
-      console.log(rect);
-    }
-  });
   useEffect(() => {
     if (notes.length === 1) {
       setText(notes[0].body);
     }
   }, [notes]);
+  useEffect(() => {
+    if (notes.length === 1) {
+      if (ref.current) {
+        const rect = ref.current.getBoundingClientRect();
+        setMenuRect({
+          x: rect.x,
+          y: rect.y,
+          width: rect.width,
+          height: rect.height
+        });
+      }
+    }
+  },[ref.current]);
   if (notes.length === 0) {
     return <CenterWrapper>empty</CenterWrapper>;
   } else if (notes.length === 1) {
