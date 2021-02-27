@@ -35,17 +35,25 @@ const Actions = styled.div`
   padding: 16px 24px;
 `;
 
+function useRange(onInside, onOutside) {
+  const ref = useRef(null);
+  function onClick({ x, y }) {
+    const rect = ref.current.getBoundingClientRect();
+    if (isInside({ x, y }, rect)) {
+      onInside();
+    } else {
+      onOutside();
+    }
+  }
+  return [ref, onClick];
+}
+
 function Dialog(props) {
   const { title, children, actions, onClose } = props;
-  const ref = useRef(null);
+  const [ref, onClick] = useRange(_, onClose);
   return (
     <Container
-      onMouseDown={event => {
-        const rect = ref.current.getBoundingClientRect();
-        if (!isInside({ x: event.clientX, y: event.clientY }, rect)) {
-          onClose();
-        }
-      }}
+      onMouseDown={event => onClick({ x: event.clientX, y: event.clientY })}
     >
       <Wrapper ref={ref}>
         {title && <Title>{title}</Title>}
