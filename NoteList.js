@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 const Wrapper = styled.div`
   box-sizing: border-box;
   overflow: scroll;
-  background: aliceblue;
+  height: calc(100vh - 140px);
 `;
 
 const NoteWrapper = styled.div`
