@@ -4,10 +4,8 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 import dayjs from "dayjs";
 
 const Wrapper = styled.div`
-  border: solid 1px black;
   box-sizing: border-box;
   overflow: scroll;
-  height: calc(100vh - 60px);
   background: aliceblue;
 `;
 

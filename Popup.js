@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { isInside } from "./helper";
 
 const Container = styled.div`
-  height: 100vh;
   display: grid;
   grid-template-rows: ${props => props.y || 0}px auto 1fr;
   grid-template-columns: ${props => props.x || 0}px auto 1fr;

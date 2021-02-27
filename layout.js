@@ -7,8 +7,8 @@ const Layout = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.1);
 
   display: grid;
-  grid-template-columns: 240px auto;
-  grid-template-rows: 60px auto 80px;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: 60px 1fr 80px;
 `;
 
 const TopLeft = styled.div`

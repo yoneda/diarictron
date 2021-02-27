@@ -11,8 +11,6 @@ import MoreVert from "./MoreVert";
 import Info from "./Info";
 
 const Wrapper = styled.div`
-  border: 1px solid black;
-  height: 100vh;
   box-sizing: border-box;
   padding: 20px;
 
@@ -22,8 +20,6 @@ const Wrapper = styled.div`
 `;
 
 const CenterWrapper = styled.div`
-  border: 1px solid black;
-  height: 100vh;
   display: flex;
   box-sizing: border-box;
   flex-flow: column nowrap;
