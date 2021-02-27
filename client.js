@@ -19,7 +19,6 @@ import Setting from "./Setting";
 import Layout from "./Layout";
 import Control from "./Control";
 import { isSame } from "./helper";
-import Modal from "./Modal";
 import Popup from "./Popup";
 import Dialog from "./Dialog";
 import Button from "./Button";

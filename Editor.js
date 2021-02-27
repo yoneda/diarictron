@@ -11,6 +11,7 @@ import MoreVert from "./MoreVert";
 import Info from "./Info";
 
 const Wrapper = styled.div`
+  height: 100%;
   box-sizing: border-box;
   padding: 20px;
 

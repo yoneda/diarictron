@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Layout = styled.div`
+  height: 100vh;
   background-color: white;
   box-sizing: border-box;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -17,14 +18,14 @@ const TopLeft = styled.div`
   background-color: white;
   box-sizing: border-box;
   border-right: 1px rgba(0, 0, 0, 0.1) solid;
-  -webkit-app-region: drag
+  -webkit-app-region: drag;
 `;
 
 const TopRight = styled.div`
   grid-column: 2/3;
   grid-row: 1/2;
   background-color: white;
-  -webkit-app-region: drag
+  -webkit-app-region: drag;
 `;
 
 const Notes = styled.div`
@@ -51,8 +52,8 @@ const Editor = styled.div`
 `;
 
 const FullView = styled.div`
-  grid-row: 1/3;
-  grid-column: 1/4;
+  grid-column: 1/3;
+  grid-row: 1/4;
   z-index: 1;
 `;
 
