@@ -40,9 +40,9 @@ function useRange(onInside, onOutside) {
   function onClick({ x, y }) {
     const rect = ref.current.getBoundingClientRect();
     if (isInside({ x, y }, rect)) {
-      onInside();
+      onInside && onInside();
     } else {
-      onOutside();
+      onOutside && onOutside();
     }
   }
   return [ref, onClick];
@@ -50,7 +50,7 @@ function useRange(onInside, onOutside) {
 
 function Dialog(props) {
   const { title, children, actions, onClose } = props;
-  const [ref, onClick] = useRange(_, onClose);
+  const [ref, onClick] = useRange(null, onClose);
   return (
     <Container
       onMouseDown={event => onClick({ x: event.clientX, y: event.clientY })}
