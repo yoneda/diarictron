@@ -9,7 +9,6 @@ import Menu from "./Menu";
 import IconButton from "./IconButton";
 import MoreVert from "./MoreVert";
 import Info from "./Info";
-import { useWindowSize } from "./hooks";
 
 const Wrapper = styled.div`
   border: 1px solid black;
@@ -107,7 +106,20 @@ function Editor() {
         });
       }
     }
-  },[ref.current]);
+  }, [ref.current]);
+  useEffect(() => {
+    function handle() {
+      const rect = ref.current.getBoundingClientRect();
+      setMenuRect({
+        x: rect.x,
+        y: rect.y,
+        width: rect.width,
+        height: rect.height
+      });
+    }
+    window.addEventListener("resize", handle);
+    return () => window.removeEventListener("resize", handle);
+  }, [ref.current]);
   if (notes.length === 0) {
     return <CenterWrapper>empty</CenterWrapper>;
   } else if (notes.length === 1) {
