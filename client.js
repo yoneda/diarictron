@@ -183,17 +183,19 @@ function Main() {
     >
       <GlobalStyle />
       <Layout>
+        <Layout.TopLeft />
+        <Layout.TopRight />
         <Layout.Notes>
           <NoteList />
         </Layout.Notes>
-        <Layout.Control>
+        <Layout.ButtonBar>
           <Control />
-        </Layout.Control>
+        </Layout.ButtonBar>
         <Layout.Editor>
           <Editor />
         </Layout.Editor>
         {modal === "ABOUT_DIALOG" && (
-          <Layout.Modal>
+          <Layout.FullView>
             <Dialog
               onClose={() => setModal("")}
               actions={
@@ -212,15 +214,17 @@ function Main() {
                 プライバシポリシ
               </button>
             </Dialog>
-          </Layout.Modal>
+          </Layout.FullView>
         )}
         {modal === "DROPDOWN_MENU" && (
-          <Layout.Modal>
+          <Layout.FullView>
             <Popup
               onClose={() => {
                 setModal("");
               }}
-              left={menuRect.x - 125 /* current dropdown width */ + menuRect.width}
+              left={
+                menuRect.x - 125 /* current dropdown width */ + menuRect.width
+              }
               top={menuRect.y + menuRect.height}
             >
               <Menu>
@@ -235,10 +239,10 @@ function Main() {
                 </MenuItem>
               </Menu>
             </Popup>
-          </Layout.Modal>
+          </Layout.FullView>
         )}
         {modal === "SETTING_MODAL" && (
-          <Layout.Modal>
+          <Layout.FullView>
             <Dialog
               title={<h3>Setting</h3>}
               onClose={() => setModal("")}
@@ -301,10 +305,10 @@ function Main() {
                 </ListRow>
               </List>
             </Dialog>
-          </Layout.Modal>
+          </Layout.FullView>
         )}
         {modal === "CONTEXT_MODAL" && (
-          <Layout.Modal>
+          <Layout.FullView>
             <Popup
               onClose={() => {
                 setModal("");
@@ -325,7 +329,7 @@ function Main() {
                 </MenuItem>
               </Menu>
             </Popup>
-          </Layout.Modal>
+          </Layout.FullView>
         )}
       </Layout>
     </ThemeProvider>
