@@ -68,7 +68,7 @@ function Control() {
       <Button type="contained" onClick={() => addNote({ body: "new" })}>
         NEW
       </Button>
-      <Button type="outlined" onClick={() => setModal("SETTING_MODAL")}>
+      <Button type="text" onClick={() => setModal("SETTING_MODAL")}>
         SETTING
       </Button>
     </Container>
