@@ -39,7 +39,7 @@ const Notes = styled.div`
 const ButtonBar = styled.div`
   grid-column: 1/2;
   grid-row: 3/4;
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: white;
   box-sizing: border-box;
   border-top: 1px rgba(0, 0, 0, 0.1) solid;
   border-right: 1px rgba(0, 0, 0, 0.1) solid;
