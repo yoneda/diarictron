@@ -5,7 +5,6 @@ const Layout = styled.div`
   height: 100vh;
   background-color: white;
   box-sizing: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.1);
 
   display: grid;
   grid-template-columns: 240px auto;
