@@ -10,14 +10,14 @@ const Wrapper = styled.button`
   font-size: 14px;
   cursor: pointer;
 
-  ${({ type }) => {
+  ${({ type, color }) => {
     if (type === "outlined") {
       return css`
-        border: 1px solid dodgerblue;
+        border: 1px solid ${color ? color : "dodgerblue"};
         background-color: white;
-        color: dodgerblue;
+        color: ${color ? color : "dodgerblue"};
         &:hover {
-          background-color: rgba(30, 144, 255, 0.05);
+          background-color: rgba(0, 0, 0, 0.02);
         }
       `;
     } else if (type === "contained") {
@@ -35,9 +35,9 @@ const Wrapper = styled.button`
       return css`
         border: none;
         background-color: white;
-        color: dodgerblue;
+        color: ${color ? color : "dodgerblue"};
         &:hover {
-          background-color: rgba(30, 144, 255, 0.05);
+          background-color: rgba(0, 0, 0, 0.02);
         }
       `;
     }
@@ -48,9 +48,9 @@ const Wrapper = styled.button`
 `;
 
 function Button(props) {
-  const { type, children, onClick } = props;
+  const { type, color, children, onClick } = props;
   return (
-    <Wrapper type={type} onClick={() => onClick()}>
+    <Wrapper type={type} onClick={() => onClick()} color={color}>
       {children}
     </Wrapper>
   );

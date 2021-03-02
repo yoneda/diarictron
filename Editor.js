@@ -9,6 +9,7 @@ import Menu from "./Menu";
 import IconButton from "./IconButton";
 import MoreVert from "./MoreVert";
 import Info from "./Info";
+import * as color from "./color";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -170,9 +171,13 @@ function Editor() {
     return (
       <CenterWrapper>
         {notes.length} notes selected
-        <span onClick={() => removeNote({ ids: ids })}>
-          <TrashIcon />
-        </span>
+        <Button
+          type="outlined"
+          color={color.RED_500}
+          onClick={() => removeNote({ ids: ids })}
+        >
+          DELETE
+        </Button>
       </CenterWrapper>
     );
   }
