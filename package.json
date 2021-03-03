@@ -37,7 +37,10 @@
   "devDependencies": {
     "electron-builder": "^22.9.1",
     "electron-reload": "^1.5.0",
+    "eslint": "^7.21.0",
+    "eslint-plugin-react": "^7.22.0",
     "faker": "^5.1.0",
-    "parcel-bundler": "^1.12.4"
+    "parcel-bundler": "^1.12.4",
+    "prop-types": "^15.7.2"
   }
 }

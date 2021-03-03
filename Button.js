@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
 
 const Wrapper = styled.button`
   border-radius: 4px;
@@ -55,5 +56,12 @@ function Button(props) {
     </Wrapper>
   );
 }
+
+Button.propTypes = {
+  type: PropTypes.oneOf(["outlined", "contained", "text"]).isRequired,
+  onClick: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
+  color: PropTypes.string
+};
 
 export default Button;
