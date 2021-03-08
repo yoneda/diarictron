@@ -1,10 +1,6 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
-import { isEmpty } from "lodash";
-import { humanDate } from "./helper";
-import ToolIcon from "./Tool";
-import Cancel from "./Cancel";
 import Chip from "./Chip";
 
 // TODO:
