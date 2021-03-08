@@ -19,19 +19,19 @@ export const humanDate = date =>
       match => {
         switch (match) {
           case "Monday":
-            return "月";
+            return "Mon";
           case "Tuesday":
-            return "火";
+            return "Tue";
           case "Wednesday":
-            return "水";
+            return "Wed";
           case "Thursday":
-            return "木";
+            return "Thu";
           case "Friday":
-            return "金";
+            return "Fri";
           case "Saturday":
-            return "土";
+            return "Sat";
           case "Sunday":
-            return "日";
+            return "Sun";
         }
       }
     );

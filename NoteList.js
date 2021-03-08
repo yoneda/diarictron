@@ -68,7 +68,7 @@ function Note(props) {
       case 5:
         return "Fri";
       case 6:
-        return "Stu";
+        return "Sat";
     }
   };
   return (
