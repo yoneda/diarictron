@@ -10,6 +10,7 @@ import IconButton from "./IconButton";
 import MoreVert from "./MoreVert";
 import Info from "./Info";
 import * as color from "./color";
+import dayjs from "dayjs";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -123,7 +124,9 @@ function Editor() {
   } else if (notes.length === 1) {
     return (
       <Wrapper>
-        <Datetime>{humanDate(notes[0].createdAt)}</Datetime>
+        <Datetime>
+          {dayjs(notes[0].createdAt).format("YYYY年MM月DD日(ddd) H:m")}
+        </Datetime>
         <Main>
           <EditArea
             cols={34}
