@@ -56,19 +56,19 @@ function Note(props) {
   const showDay = () => {
     switch (dayjs(date).get("day")) {
       case 0:
-        return "日";
+        return "Sun";
       case 1:
-        return "月";
+        return "Mon";
       case 2:
-        return "火";
+        return "Tue";
       case 3:
-        return "水";
+        return "Wed";
       case 4:
-        return "木";
+        return "Thu";
       case 5:
-        return "金";
+        return "Fri";
       case 6:
-        return "土";
+        return "Stu";
     }
   };
   return (

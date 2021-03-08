@@ -15,7 +15,6 @@ import {
 } from "easy-peasy";
 import Editor from "./Editor";
 import NoteList from "./NoteList";
-import Setting from "./Setting";
 import Layout from "./Layout";
 import Control from "./Control";
 import { isSame } from "./helper";
@@ -207,10 +206,10 @@ function Main() {
               <Electron />
               <p>v1.0.0</p>
               <button onClick={() => shell.openExternal("https://github.com")}>
-                利用規約
+                Terms
               </button>
               <button onClick={() => shell.openExternal("https://github.com")}>
-                プライバシポリシ
+                Privacy
               </button>
             </Dialog>
           </Layout.FullView>
@@ -287,9 +286,9 @@ function Main() {
                       onChange={e => updateUser({ fontSize: e.target.value })}
                       value={user.fontSize}
                     >
-                      <option value="small">小</option>
-                      <option value="midium">中</option>
-                      <option value="large">大</option>
+                      <option value="small">small</option>
+                      <option value="midium">midium</option>
+                      <option value="large">large</option>
                     </select>
                   }
                 >

@@ -64,7 +64,7 @@ function TagEditor() {
       <Input
         type="text"
         value={text}
-        placeholder="タグを追加…"
+        placeholder="Add a tag…"
         onChange={e => setText(e.target.value)}
         onKeyDown={e => {
           if (e.code === "Enter") {
