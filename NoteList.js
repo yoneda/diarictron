@@ -53,24 +53,6 @@ const MonthLabel = styled.div`
 
 function Note(props) {
   const { onClick, onContextMenu, light, isCard, date, children } = props;
-  const showDay = () => {
-    switch (dayjs(date).get("day")) {
-      case 0:
-        return "Sun";
-      case 1:
-        return "Mon";
-      case 2:
-        return "Tue";
-      case 3:
-        return "Wed";
-      case 4:
-        return "Thu";
-      case 5:
-        return "Fri";
-      case 6:
-        return "Sat";
-    }
-  };
   return (
     <NoteWrapper
       light={light}
@@ -79,8 +61,8 @@ function Note(props) {
     >
       {isCard && (
         <Card>
-          <div>{showDay()}</div>
-          <div>{dayjs(date).get("date")}</div>
+          <div>{dayjs(date).format("ddd")}</div>
+          <div>{dayjs(date).format("D")}</div>
         </Card>
       )}
       <Text isMin={isCard}>{children}</Text>
@@ -96,7 +78,13 @@ function NoteList() {
     state.creation,
     state.user
   ]);
-  const [touch, append, grep, setModal, setContextPoint] = useStoreActions(actions => [
+  const [
+    touch,
+    append,
+    grep,
+    setModal,
+    setContextPoint
+  ] = useStoreActions(actions => [
     actions.touch,
     actions.append,
     actions.grep,
@@ -118,7 +106,10 @@ function NoteList() {
           )}
           {user.uiStyle === "dayone" &&
             key > 0 &&
-            dayjs(array[key - 1].createdAt).isAfter(dayjs(array[key].createdAt), "month") && (
+            dayjs(array[key - 1].createdAt).isAfter(
+              dayjs(array[key].createdAt),
+              "month"
+            ) && (
               <MonthLabel onClick={() => grep({ date: note.createdAt })}>
                 {dayjs(note.createdAt).format("YYYY年MM月")}
               </MonthLabel>
@@ -127,12 +118,17 @@ function NoteList() {
             isCard={
               (user.uiStyle === "dayone" &&
                 key > 0 &&
-                dayjs(array[key - 1].createdAt).isAfter(dayjs(array[key].createdAt), "day")) ||
+                dayjs(array[key - 1].createdAt).isAfter(
+                  dayjs(array[key].createdAt),
+                  "day"
+                )) ||
               (user.uiStyle === "dayone" && key === 0)
             }
             date={note.createdAt}
             key={key}
-            onClick={event => (event.metaKey ? append({ id: note.id }) : touch({ id: note.id }))}
+            onClick={event =>
+              event.metaKey ? append({ id: note.id }) : touch({ id: note.id })
+            }
             onContextMenu={event => {
               setModal("CONTEXT_MODAL");
               touch({ id: note.id });
