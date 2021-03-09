@@ -14,7 +14,7 @@ import {
   thunk
 } from "easy-peasy";
 import Editor from "./Editor";
-import NoteList from "./NoteList";
+import NoteList from "./NoteList2";
 import Layout from "./Layout";
 import Control from "./Control";
 import { isSame } from "./helper";
