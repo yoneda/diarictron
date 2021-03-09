@@ -37,6 +37,7 @@ const store = createStore({
   selecteds: computed(state =>
     state.notes.filter(note => state.ids.some(id => id === note.id))
   ),
+  length: computed(state => state.selecteds.length),
   setNotes: action((state, payload) => {
     state.notes = payload;
   }),

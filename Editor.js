@@ -74,7 +74,7 @@ const ActionArea = styled.div`
 `;
 
 function Editor() {
-  const [notes, ids] = useStoreState(state => [state.selecteds, state.ids]);
+  const [notes, ids, length] = useStoreState(state => [state.selecteds, state.ids, state.length]);
   const [text, setText] = useState("");
   const [
     editNote,
@@ -89,12 +89,12 @@ function Editor() {
   ]);
   const ref = useRef(null);
   useEffect(() => {
-    if (notes.length === 1) {
+    if (length === 1) {
       setText(notes[0].body);
     }
   }, [notes]);
   useEffect(() => {
-    if (notes.length === 1) {
+    if (length === 1) {
       if (ref.current) {
         const rect = ref.current.getBoundingClientRect();
         setMenuRect({
@@ -119,9 +119,9 @@ function Editor() {
     window.addEventListener("resize", handle);
     return () => window.removeEventListener("resize", handle);
   }, [ref.current]);
-  if (notes.length === 0) {
+  if (length === 0) {
     return <CenterWrapper>empty</CenterWrapper>;
-  } else if (notes.length === 1) {
+  } else if (length === 1) {
     return (
       <Wrapper>
         <Datetime>
@@ -173,7 +173,7 @@ function Editor() {
   } else {
     return (
       <CenterWrapper>
-        {notes.length} notes selected
+        {length} notes selected
         <Button
           type="outlined"
           color={color.RED_500}
