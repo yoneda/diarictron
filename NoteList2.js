@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import dayjs from "dayjs";
 import { hasLabel } from "./helper";
@@ -7,8 +7,12 @@ import { hasLabel } from "./helper";
 const CardBox = styled.div`
   width: 40px;
   background-color: lightyellow;
-  flex-grow: 
   flex: 0 1 auto;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
 `;
 
 function Card(props) {
@@ -21,51 +25,42 @@ function Card(props) {
   );
 }
 
-const MetaBox = styled.div`
+const Meta = styled.div`
   width: 40px;
   background-color: salmon;
   flex: 0 1 auto;
 `;
 
-function Meta(props) {
-  const { date } = props;
-  return <MetaBox>{dayjs(date).format("H:m")}</MetaBox>;
-}
-
-const TextBox = styled.div`
-  background-color: azure;
+const Text = styled.div`
   flex: 1 1 auto;
 `;
 
-function Text(props) {
-  const { text } = props;
-  return <TextBox>{text}</TextBox>;
-}
-
-const MonthLabelBox = styled.div`
+const MonthLabel = styled.div`
   height: 20px;
   background-color: lavender;
+  border: 1px solid black;
+  box-sizing: border-box;
 `;
-
-function MonthLabel(props) {
-  const { date } = props;
-  return <MonthLabelBox>{dayjs(date).format("YYYY年MM月")}</MonthLabelBox>;
-}
 
 const NoteRow = styled.div`
   display: flex;
-  height: 60px;
+  height: 70px;
+  background-color: ${({ selected }) =>
+    selected ? "rgba(100,100,100,0.3)" : "white"};
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
 `;
 
 const Container = styled.div`
-  width: 200px;
+  height: calc(100vh - 140px);
+  overflow: scroll;
 `;
 
 function NoteList() {
   const options = {
-    showCard: true,
-    showMeta: true,
-    showMonth: true
+    showCard: false,
+    showMeta: false,
+    showMonth: false
   };
   const [notes, ids, creation, user] = useStoreState(state => [
     state.notes,
@@ -73,16 +68,47 @@ function NoteList() {
     state.creation,
     state.user
   ]);
+  const [
+    touch,
+    append,
+    grep,
+    setModal,
+    setContextPoint
+  ] = useStoreActions(actions => [
+    actions.touch,
+    actions.append,
+    actions.grep,
+    actions.setModal,
+    actions.setContextPoint
+  ]);
+
+  const getMonth = date => dayjs(date).format("YYYY年MM月");
+  const getTime = date => dayjs(date).format("H:m");
+  const onRowClick = (event, id) =>
+    event.metaKey ? append({ id }) : touch({ id });
+  const onRightClick = (event, id) => {
+    setModal("CONTEXT_MODAL");
+    touch({ id });
+    setContextPoint({ x: event.clientX, y: event.clientY });
+  };
 
   return (
     <Container>
       {notes.map((note, key, array) => (
         <>
-          {options.showMonth && hasLabel(array,key) && <MonthLabel date={note.createdAt} />}
-          <NoteRow>
+          {options.showMonth && hasLabel(array, key) && (
+            <MonthLabel onClick={() => grep({ date: note.createdAt })}>
+              {getMonth(note.createdAt)}
+            </MonthLabel>
+          )}
+          <NoteRow
+            selected={ids.includes(note.id)}
+            onClick={event => onRowClick(event, note.id)}
+            onContextMenu={event => onRightClick(event, note.id)}
+          >
             {options.showCard && <Card date={note.createdAt} />}
-            <Text text={note.body} />
-            {options.showMeta && <Meta date={note.createdAt} />}
+            <Text>{note.body}</Text>
+            {options.showMeta && <Meta>{getTime(note.createdAt)}</Meta>}
           </NoteRow>
         </>
       ))}
