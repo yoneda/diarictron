@@ -11,6 +11,7 @@ import MoreVert from "./MoreVert";
 import Info from "./Info";
 import * as color from "./color";
 import dayjs from "dayjs";
+import marked from "marked";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -64,6 +65,8 @@ const EditArea = styled.textarea`
   box-shadow: none;
 `;
 
+const PreviewArea = styled.div``;
+
 const ActionArea = styled.div`
   grid-row: 1/2;
   grid-column: 2/3;
@@ -74,7 +77,11 @@ const ActionArea = styled.div`
 `;
 
 function Editor() {
-  const [notes, ids, length] = useStoreState(state => [state.selecteds, state.ids, state.length]);
+  const [notes, ids, length] = useStoreState(state => [
+    state.selecteds,
+    state.ids,
+    state.length
+  ]);
   const [text, setText] = useState("");
   const [
     editNote,
@@ -87,6 +94,7 @@ function Editor() {
     actions.setModal,
     actions.setMenuRect
   ]);
+  const [preview, setPreview] = useState(false);
   const ref = useRef(null);
   useEffect(() => {
     if (length === 1) {
@@ -128,29 +136,33 @@ function Editor() {
           {dayjs(notes[0].createdAt).format("YYYY年MM月DD日(ddd) H:m")}
         </Datetime>
         <Main>
-          <EditArea
-            cols={34}
-            rows={6}
-            value={text}
-            onInput={e => {
-              if (e.nativeEvent.isComposing === false) {
-                return editNote({
+          {preview ? (
+            <EditArea
+              cols={34}
+              rows={6}
+              value={text}
+              onInput={e => {
+                if (e.nativeEvent.isComposing === false) {
+                  return editNote({
+                    id: notes[0].id,
+                    body: e.target.value,
+                    tags: ""
+                  });
+                } else {
+                  return setText(e.target.value);
+                }
+              }}
+              onCompositionEnd={e =>
+                editNote({
                   id: notes[0].id,
                   body: e.target.value,
                   tags: ""
-                });
-              } else {
-                return setText(e.target.value);
+                })
               }
-            }}
-            onCompositionEnd={e =>
-              editNote({
-                id: notes[0].id,
-                body: e.target.value,
-                tags: ""
-              })
-            }
-          />
+            />
+          ) : (
+            <div dangerouslySetInnerHTML={{ __html: marked(text) }} />
+          )}
         </Main>
         <TagEditor />
         <Control>
@@ -161,12 +173,15 @@ function Editor() {
           />
         </Control>
         <ActionArea>
+          {/*
           <div ref={ref}>
             <IconButton
               icon={<MoreVert />}
               onClick={() => setModal("DROPDOWN_MENU")}
             />
           </div>
+          */}
+          <button onClick={() => setPreview(!preview)}>+</button>
         </ActionArea>
       </Wrapper>
     );
