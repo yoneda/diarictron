@@ -111,7 +111,7 @@ function Editor() {
                 return editNote({
                   id: note.id,
                   body: e.target.value,
-                  tags: ""
+                  tags: note.tags
                 });
               } else {
                 return setText(e.target.value);
@@ -121,7 +121,7 @@ function Editor() {
               editNote({
                 id: note.id,
                 body: e.target.value,
-                tags: ""
+                tags: note.tags
               })
             }
           />
