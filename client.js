@@ -13,7 +13,7 @@ import {
   useStoreActions,
   thunk
 } from "easy-peasy";
-import Editor from "./Editor2";
+import Editor from "./Editor";
 import NoteList from "./NoteList";
 import Layout from "./Layout";
 import Control from "./Control";
@@ -49,6 +49,7 @@ const store = createStore({
     state.notes.filter(note => state.ids.some(id => id === note.id))
   ),
   length: computed(state => state.selecteds.length),
+  targetNote: computed(state => (state.length === 1 ? state.selecteds[0] : {})),
   setNotes: action((state, payload) => {
     state.notes = payload;
   }),

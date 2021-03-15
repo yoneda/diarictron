@@ -1,15 +1,10 @@
-import React, { Fragment, useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
-import { humanDate } from "./helper";
-import TrashIcon from "./TrashIcon";
 import TagEditor from "./TagEditor";
-import Button from "./Button";
-import Menu from "./Menu";
 import IconButton from "./IconButton";
 import MoreVert from "./MoreVert";
 import Info from "./Info";
-import * as color from "./color";
 import dayjs from "dayjs";
 import marked from "marked";
 
@@ -21,14 +16,6 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-rows: 40px 1fr 40px;
   grid-template-columns: 1fr 40px;
-`;
-
-const CenterWrapper = styled.div`
-  display: flex;
-  box-sizing: border-box;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
 `;
 
 const Datetime = styled.div`
@@ -76,129 +63,89 @@ const ActionArea = styled.div`
   justify-content: center;
 `;
 
-function Editor() {
-  const [notes, ids, length] = useStoreState(state => [
-    state.selecteds,
-    state.ids,
-    state.length
-  ]);
-  const [text, setText] = useState("");
-  const [
-    editNote,
-    removeNote,
-    setModal,
-    setMenuRect
-  ] = useStoreActions(actions => [
-    actions.editNote,
-    actions.removeNote,
-    actions.setModal,
-    actions.setMenuRect
-  ]);
-  const [preview, setPreview] = useState(false);
+function useDropDown() {
+  const setMenuRect = useStoreActions(actions => actions.setMenuRect);
   const ref = useRef(null);
+  function handle() {
+    const rect = ref.current.getBoundingClientRect();
+    setMenuRect({
+      x: rect.x,
+      y: rect.y,
+      width: rect.width,
+      height: rect.height
+    });
+  }
   useEffect(() => {
-    if (length === 1) {
-      setText(notes[0].body);
-    }
-  }, [notes]);
-  useEffect(() => {
-    if (length === 1) {
-      if (ref.current) {
-        const rect = ref.current.getBoundingClientRect();
-        setMenuRect({
-          x: rect.x,
-          y: rect.y,
-          width: rect.width,
-          height: rect.height
-        });
-      }
-    }
-  }, [ref.current]);
-  useEffect(() => {
-    function handle() {
-      const rect = ref.current.getBoundingClientRect();
-      setMenuRect({
-        x: rect.x,
-        y: rect.y,
-        width: rect.width,
-        height: rect.height
-      });
-    }
     window.addEventListener("resize", handle);
+    handle();
     return () => window.removeEventListener("resize", handle);
   }, [ref.current]);
-  if (length === 0) {
-    return <CenterWrapper>empty</CenterWrapper>;
-  } else if (length === 1) {
-    return (
-      <Wrapper>
-        <Datetime>
-          {dayjs(notes[0].createdAt).format("YYYY年MM月DD日(ddd) H:m")}
-        </Datetime>
-        <Main>
-          {preview ? (
-            <EditArea
-              cols={34}
-              rows={6}
-              value={text}
-              onInput={e => {
-                if (e.nativeEvent.isComposing === false) {
-                  return editNote({
-                    id: notes[0].id,
-                    body: e.target.value,
-                    tags: ""
-                  });
-                } else {
-                  return setText(e.target.value);
-                }
-              }}
-              onCompositionEnd={e =>
-                editNote({
-                  id: notes[0].id,
+  return ref;
+}
+
+function Editor() {
+  const note = useStoreState(state => state.targetNote);
+  const [editNote, setModal] = useStoreActions(actions => [
+    actions.editNote,
+    actions.setModal
+  ]);
+  const [text, setText] = useState("");
+  const [preview, setPreview] = useState(true);
+  useEffect(() => {
+    setText(note.body);
+  }, [note]);
+  const dropDownRef = useDropDown();
+  return (
+    <Wrapper>
+      <Datetime>
+        {dayjs(note.createdAt).format("YYYY年MM月DD日(ddd) H:m")}
+      </Datetime>
+      <Main>
+        {preview ? (
+          <EditArea
+            cols={34}
+            rows={6}
+            value={text}
+            onInput={e => {
+              if (e.nativeEvent.isComposing === false) {
+                return editNote({
+                  id: note.id,
                   body: e.target.value,
                   tags: ""
-                })
+                });
+              } else {
+                return setText(e.target.value);
               }
-            />
-          ) : (
-            <div dangerouslySetInnerHTML={{ __html: marked(text) }} />
-          )}
-        </Main>
-        <TagEditor />
-        <Control>
-          {/* TODO: ここは IconButton ではなくてOutlitedButton に変更される可能性あり */}
-          <IconButton
-            icon={<Info />}
-            onClick={() => setModal("ABOUT_DIALOG")}
+            }}
+            onCompositionEnd={e =>
+              editNote({
+                id: note.id,
+                body: e.target.value,
+                tags: ""
+              })
+            }
           />
-        </Control>
-        <ActionArea>
-          {/*
-          <div ref={ref}>
+        ) : (
+          <div dangerouslySetInnerHTML={{ __html: marked(text) }} />
+        )}
+      </Main>
+      <TagEditor />
+      <Control>
+        {/* TODO: ここは IconButton ではなくてOutlitedButton に変更される可能性あり */}
+        <IconButton icon={<Info />} onClick={() => setModal("ABOUT_DIALOG")} />
+      </Control>
+      <ActionArea>
+        {
+          <div ref={dropDownRef}>
             <IconButton
               icon={<MoreVert />}
               onClick={() => setModal("DROPDOWN_MENU")}
             />
           </div>
-          */}
-          <button onClick={() => setPreview(!preview)}>+</button>
-        </ActionArea>
-      </Wrapper>
-    );
-  } else {
-    return (
-      <CenterWrapper>
-        {length} notes selected
-        <Button
-          type="outlined"
-          color={color.RED_500}
-          onClick={() => removeNote({ ids: ids })}
-        >
-          DELETE
-        </Button>
-      </CenterWrapper>
-    );
-  }
+        }
+      </ActionArea>
+    </Wrapper>
+  );
 }
 
 export default Editor;
