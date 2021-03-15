@@ -13,7 +13,7 @@ import {
   useStoreActions,
   thunk
 } from "easy-peasy";
-import Editor from "./Editor";
+import Editor from "./Editor2";
 import NoteList from "./NoteList";
 import Layout from "./Layout";
 import Control from "./Control";
@@ -28,7 +28,18 @@ import ListRow from "./ListRow";
 import Electron from "./Electron";
 import IconButton from "./IconButton";
 import OpenInNew from "./OpenInNew";
+import * as color from "./color";
+import Acunit from "./Acunit";
 const { ipcRenderer, shell } = window.require("electron");
+
+const Center = styled.div`
+  height: 100%;
+  display: flex;
+  box-sizing: border-box;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+`;
 
 const store = createStore({
   notes: [],
@@ -147,14 +158,16 @@ function Main() {
     user,
     modal,
     contextPoint,
-    menuRect
+    menuRect,
+    length
   ] = useStoreState(state => [
     state.ids,
     state.notes,
     state.user,
     state.modal,
     state.contextPoint,
-    state.menuRect
+    state.menuRect,
+    state.length
   ]);
   const [
     removeNote,
@@ -191,7 +204,24 @@ function Main() {
           <Control />
         </Layout.ButtonBar>
         <Layout.Editor>
-          <Editor />
+          {length === 0 ? (
+            <Center>
+              <Acunit />
+            </Center>
+          ) : length === 1 ? (
+            <Editor />
+          ) : length >= 2 ? (
+            <Center>
+              {length} notes selected
+              <Button
+                type="outlined"
+                color={color.RED_500}
+                onClick={() => removeNote({ ids: ids })}
+              >
+                DELETE
+              </Button>
+            </Center>
+          ) : null}
         </Layout.Editor>
         {modal === "ABOUT_DIALOG" && (
           <Layout.FullView>
