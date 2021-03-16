@@ -367,6 +367,13 @@ function Main() {
 }
 
 function App() {
+  useEffect(() => {
+    function handler(event) {
+      console.log(`Key: ${event.key}, KeyCode: ${event.keyCode}`);
+    }
+    window.addEventListener("keydown", handler, true);
+    return () => window.removeEventListener("keydown", handler, true);
+  }, []);
   return (
     <Fragment>
       <StoreProvider store={store}>
