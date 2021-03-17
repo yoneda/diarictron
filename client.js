@@ -30,6 +30,7 @@ import IconButton from "./IconButton";
 import OpenInNew from "./OpenInNew";
 import * as color from "./color";
 import Acunit from "./Acunit";
+import mousetrap from "mousetrap";
 const { ipcRenderer, shell } = window.require("electron");
 
 const Center = styled.div`
@@ -366,14 +367,17 @@ function Main() {
   );
 }
 
-function App() {
+function useKeyboard() {
   useEffect(() => {
-    function handler(event) {
-      console.log(`Key: ${event.key}, KeyCode: ${event.keyCode}`);
-    }
-    window.addEventListener("keydown", handler, true);
-    return () => window.removeEventListener("keydown", handler, true);
+    mousetrap.bind("command+shift+n", function () {
+      console.log("新規ノート追加");
+    });
+    return () => mousetrap.unbind("command+shift+n");
   }, []);
+}
+
+function App() {
+  useKeyboard();
   return (
     <Fragment>
       <StoreProvider store={store}>
