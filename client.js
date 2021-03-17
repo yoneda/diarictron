@@ -133,6 +133,10 @@ const store = createStore({
   menuRect: { x: 0, y: 0, width: 0, height: 0 },
   setMenuRect: action((state, payload) => {
     state.menuRect = payload;
+  }),
+  preview: false,
+  setPreview: action((state, payload) => {
+    state.preview = payload;
   })
 });
 
@@ -369,22 +373,41 @@ function Main() {
 }
 
 function useKeyboard() {
-  const [modal] = useStoreState(state => [state.modal]);
-  const [addNote, setModal] = useStoreActions(actions => [
+  const [modal, user, preview] = useStoreState(state => [
+    state.modal,
+    state.user
+  ]);
+  const [
+    addNote,
+    setModal,
+    updateUser,
+    setPreview
+  ] = useStoreActions(actions => [
     actions.addNote,
-    actions.setModal
+    actions.setModal,
+    actions.updateUser,
+    actions.setPreview
   ]);
   useEffect(() => {
+    mousetrap.bind("command+/", () =>
+      modal === "" ? setModal("SETTING_MODAL") : setModal("")
+    );
+    mousetrap.bind("command+shift+/", () =>
+      modal === "" ? setModal("ABOUT_DIALOG") : setModal("")
+    );
     mousetrap.bind("command+shift+n", () => addNote({ body: "New" }));
-    mousetrap.bind("command+/", () => {
-      console.log(modal);
-      modal === "" ? setModal("SETTING_MODAL") : setModal("");
-    });
+    mousetrap.bind("command+shift+m", () => updateUser({ dark: !user.dark }));
+    mousetrap.bind("command+shift+p", () => setPreview(!preview));
+    mousetrap.bind("command+shift+o", () => console.log("output all notes"));
     return () => [
+      mousetrap.unbind("command+/"),
+      mousetrap.unbind("command+shift+/"),
       mousetrap.unbind("command+shift+n"),
-      mousetrap.unbind("command+/")
+      mousetrap.unbind("command+shift+m"),
+      mousetrap.unbind("command+shift+p"),
+      mousetrap.unbind("command+shift+o")
     ];
-  }, [modal]);
+  }, [modal, user, preview]);
 }
 
 function App() {
