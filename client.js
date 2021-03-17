@@ -373,20 +373,24 @@ function Main() {
 }
 
 function useKeyboard() {
-  const [modal, user, preview] = useStoreState(state => [
+  const [modal, user, preview, ids] = useStoreState(state => [
     state.modal,
-    state.user
+    state.user,
+    state.preview,
+    state.ids
   ]);
   const [
     addNote,
     setModal,
     updateUser,
-    setPreview
+    setPreview,
+    removeNote
   ] = useStoreActions(actions => [
     actions.addNote,
     actions.setModal,
     actions.updateUser,
-    actions.setPreview
+    actions.setPreview,
+    actions.removeNote
   ]);
   useEffect(() => {
     mousetrap.bind("command+/", () =>
@@ -399,15 +403,17 @@ function useKeyboard() {
     mousetrap.bind("command+shift+m", () => updateUser({ dark: !user.dark }));
     mousetrap.bind("command+shift+p", () => setPreview(!preview));
     mousetrap.bind("command+shift+o", () => console.log("output all notes"));
+    mousetrap.bind("backspace", () => removeNote({ ids: ids }));
     return () => [
       mousetrap.unbind("command+/"),
       mousetrap.unbind("command+shift+/"),
       mousetrap.unbind("command+shift+n"),
       mousetrap.unbind("command+shift+m"),
       mousetrap.unbind("command+shift+p"),
-      mousetrap.unbind("command+shift+o")
+      mousetrap.unbind("command+shift+o"),
+      mousetrap.unbind("backspace")
     ];
-  }, [modal, user, preview]);
+  }, [modal, user, preview, ids]);
 }
 
 function App() {
