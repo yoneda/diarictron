@@ -184,6 +184,7 @@ function Main() {
     actions.setModal,
     actions.setContextPoint
   ]);
+  useKeyboard();
   useEffect(() => {
     getAll();
   }, []);
@@ -368,16 +369,25 @@ function Main() {
 }
 
 function useKeyboard() {
+  const [modal] = useStoreState(state => [state.modal]);
+  const [addNote, setModal] = useStoreActions(actions => [
+    actions.addNote,
+    actions.setModal
+  ]);
   useEffect(() => {
-    mousetrap.bind("command+shift+n", function () {
-      console.log("新規ノート追加");
+    mousetrap.bind("command+shift+n", () => addNote({ body: "New" }));
+    mousetrap.bind("command+/", () => {
+      console.log(modal);
+      modal === "" ? setModal("SETTING_MODAL") : setModal("");
     });
-    return () => mousetrap.unbind("command+shift+n");
-  }, []);
+    return () => [
+      mousetrap.unbind("command+shift+n"),
+      mousetrap.unbind("command+/")
+    ];
+  }, [modal]);
 }
 
 function App() {
-  useKeyboard();
   return (
     <Fragment>
       <StoreProvider store={store}>
