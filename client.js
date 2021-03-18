@@ -25,7 +25,6 @@ import Menu from "./Menu";
 import MenuItem from "./MenuItem";
 import List from "./List";
 import ListRow from "./ListRow";
-import Electron from "./Electron";
 import IconButton from "./IconButton";
 import OpenInNew from "./OpenInNew";
 import * as color from "./color";
@@ -241,7 +240,7 @@ function Main() {
               }
             >
               <h3>React Diary</h3>
-              <Electron />
+              <Acunit />
               <p>v1.0.0</p>
               <button onClick={() => shell.openExternal("https://github.com")}>
                 Terms
