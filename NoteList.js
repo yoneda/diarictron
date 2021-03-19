@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import dayjs from "dayjs";
+import PropTypes from "prop-types";
 
 const Wrapper = styled.div`
   box-sizing: border-box;
@@ -70,6 +71,15 @@ function Note(props) {
   );
 }
 
+Note.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  onContextMenu: PropTypes.func.isRequired,
+  light: PropTypes.bool.isRequired,
+  isCard: PropTypes.bool.isRequired,
+  date: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired
+};
+
 function NoteList() {
   const ref = useRef(null);
   const [notes, ids, creation, user] = useStoreState(state => [
@@ -98,9 +108,12 @@ function NoteList() {
   return (
     <Wrapper ref={ref}>
       {notes.map((note, key, array) => (
-        <Fragment>
+        <Fragment key={key}>
           {user.uiStyle === "dayone" && key === 0 && (
-            <MonthLabel onClick={() => grep({ date: note.createdAt })}>
+            <MonthLabel
+              key={key}
+              onClick={() => grep({ date: note.createdAt })}
+            >
               {dayjs(note.createdAt).format("YYYY年MM月")}
             </MonthLabel>
           )}

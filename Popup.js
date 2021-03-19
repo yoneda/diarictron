@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 import { isInside } from "./helper";
+import PropTypes from "prop-types";
 
 const Container = styled.div`
   height: 100%;
@@ -34,6 +35,13 @@ function Popup(props) {
       <Item ref={ref}>{children}</Item>
     </Container>
   );
+}
+
+Popup.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
+  left: PropTypes.number,
+  top: PropTypes.number
 }
 
 export default Popup;

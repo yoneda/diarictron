@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const Container = styled.div`
   border-radius: 4px;
@@ -22,6 +23,10 @@ function Menu(props) {
       <MenuList>{children}</MenuList>
     </Container>
   );
+}
+
+Menu.propTypes = {
+  children: PropTypes.element.isRequired
 }
 
 export default Menu;

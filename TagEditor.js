@@ -17,18 +17,6 @@ const Wrapper = styled.div`
   }
 `;
 
-const Tag = styled.div`
-  height: 32px;
-  border-radius: 16px;
-  padding: 0 8px;
-  background-color: #dedede;
-  color: rgba(0, 0, 0, 0.87);
-  margin-right: 8px;
-
-  display: flex;
-  align-items: center;
-`;
-
 const Input = styled.input`
   outline: none;
   border: none;
@@ -46,6 +34,7 @@ function TagEditor() {
         notes[0].tags.map((tag, key) => (
           <Chip
             type="normal"
+            key={key}
             onClose={() =>
               editNote({
                 id: notes[0].id,

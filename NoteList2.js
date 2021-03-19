@@ -1,8 +1,9 @@
-import React, { Fragment, useEffect, useRef } from "react";
-import styled, { css } from "styled-components";
+import React from "react";
+import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import dayjs from "dayjs";
 import { hasLabel } from "./helper";
+import PropTypes from "prop-types";
 
 const CardBox = styled.div`
   width: 40px;
@@ -23,6 +24,10 @@ function Card(props) {
       <div>{dayjs(date).format("D")}</div>
     </CardBox>
   );
+}
+
+Card.propTypes = {
+  date: PropTypes.string.isRequired
 }
 
 const Meta = styled.div`
@@ -62,12 +67,7 @@ function NoteList() {
     showMeta: false,
     showMonth: false
   };
-  const [notes, ids, creation, user] = useStoreState(state => [
-    state.notes,
-    state.ids,
-    state.creation,
-    state.user
-  ]);
+  const [notes, ids] = useStoreState(state => [state.notes, state.ids]);
   const [
     touch,
     append,

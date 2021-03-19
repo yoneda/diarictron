@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const Container = styled.li`
   cursor: pointer;
@@ -15,5 +16,10 @@ function MenuItem(props) {
   const { children, onClick } = props;
   return <Container onClick={() => onClick()}>{children}</Container>;
 }
+
+MenuItem.propTypes = {
+  children: PropTypes.element.isRequired,
+  onClick: PropTypes.func.isRequired
+};
 
 export default MenuItem;

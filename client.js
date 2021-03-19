@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState, useCallback } from "react";
+import React, { Fragment, useEffect } from "react";
 import ReactDOM from "react-dom";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { Reset } from "styled-reset";
@@ -25,7 +25,6 @@ import Menu from "./Menu";
 import MenuItem from "./MenuItem";
 import List from "./List";
 import ListRow from "./ListRow";
-import IconButton from "./IconButton";
 import OpenInNew from "./OpenInNew";
 import * as color from "./color";
 import Acunit from "./Acunit";
@@ -63,7 +62,7 @@ const store = createStore({
       0
     )
   ),
-  getAll: thunk((actions, payload) => {
+  getAll: thunk((actions) => {
     ipcRenderer.invoke("all").then(({ notes, user }) => {
       actions.setNotes(notes);
       actions.setUser(user);
@@ -159,7 +158,6 @@ const GlobalStyle = createGlobalStyle`
 function Main() {
   const [
     ids,
-    notes,
     user,
     modal,
     contextPoint,
