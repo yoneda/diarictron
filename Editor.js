@@ -52,8 +52,6 @@ const EditArea = styled.textarea`
   box-shadow: none;
 `;
 
-const PreviewArea = styled.div``;
-
 const ActionArea = styled.div`
   grid-row: 1/2;
   grid-column: 2/3;
@@ -84,13 +82,15 @@ function useDropDown() {
 }
 
 function Editor() {
-  const note = useStoreState(state => state.targetNote);
+  const [note, preview] = useStoreState(state => [
+    state.targetNote,
+    state.preview
+  ]);
   const [editNote, setModal] = useStoreActions(actions => [
     actions.editNote,
     actions.setModal
   ]);
   const [text, setText] = useState("");
-  const [preview, setPreview] = useState(true);
   useEffect(() => {
     setText(note.body);
   }, [note]);

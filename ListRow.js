@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const Container = styled.li`
   padding: 10px 20px;
@@ -18,5 +19,12 @@ function ListRow(props) {
     </Container>
   );
 }
+
+ListRow.propTypes = {
+  children: PropTypes.element.isRequired,
+  control: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  clickable: PropTypes.bool.isRequired
+};
 
 export default ListRow;

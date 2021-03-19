@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 import { isInside } from "./helper";
+import PropTypes from "prop-types";
 
 const Container = styled.div`
   background: rgba(0, 0, 0, 0.5);
@@ -63,5 +64,12 @@ function Dialog(props) {
     </Container>
   );
 }
+
+Dialog.propTypes = {
+  title: PropTypes.string,
+  children: PropTypes.element.isRequired,
+  actions: PropTypes.element,
+  onClose: PropTypes.func.isRequired
+};
 
 export default Dialog;

@@ -1,5 +1,6 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const Container = styled.button`
   border-radius: 50%;
@@ -22,6 +23,11 @@ const Container = styled.button`
 function IconButton(props) {
   const { icon, onClick } = props;
   return <Container onClick={() => onClick()}>{icon}</Container>;
+}
+
+IconButton.propTypes = {
+  icon: PropTypes.element.isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 export default IconButton;
