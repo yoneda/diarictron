@@ -158,7 +158,6 @@ const GlobalStyle = createGlobalStyle`
 function Main() {
   const [
     ids,
-    notes,
     user,
     modal,
     contextPoint,
@@ -166,7 +165,6 @@ function Main() {
     length
   ] = useStoreState(state => [
     state.ids,
-    state.notes,
     state.user,
     state.modal,
     state.contextPoint,
