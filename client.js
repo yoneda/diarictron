@@ -158,6 +158,7 @@ const GlobalStyle = createGlobalStyle`
 function Main() {
   const [
     ids,
+    notes,
     user,
     modal,
     contextPoint,
