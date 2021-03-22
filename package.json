@@ -21,8 +21,7 @@
     "electron": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "start": "npm run build && npm run electron",
-    "lint" : "eslint *.js"
+    "start": "npm run build && npm run electron"
   },
   "dependencies": {
     "dayjs": "^1.9.7",
