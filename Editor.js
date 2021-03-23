@@ -102,6 +102,8 @@ function Editor() {
       </Datetime>
       <Main>
         {preview ? (
+          <div dangerouslySetInnerHTML={{ __html: marked(text) }} />
+        ) : (
           <EditArea
             cols={34}
             rows={6}
@@ -125,8 +127,6 @@ function Editor() {
               })
             }
           />
-        ) : (
-          <div dangerouslySetInnerHTML={{ __html: marked(text) }} />
         )}
       </Main>
       <TagEditor />
