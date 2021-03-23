@@ -29,7 +29,8 @@ import OpenInNew from "./OpenInNew";
 import * as color from "./color";
 import Acunit from "./Acunit";
 import mousetrap from "mousetrap";
-const { ipcRenderer, shell } = window.require("electron");
+import dbClient from "./dbClient";
+// const { ipcRenderer, shell } = window.require("electron");
 
 const Center = styled.div`
   height: 100%;
@@ -62,11 +63,15 @@ const store = createStore({
       0
     )
   ),
-  getAll: thunk((actions) => {
+  getAll: thunk(actions => {
+    /*
     ipcRenderer.invoke("all").then(({ notes, user }) => {
       actions.setNotes(notes);
       actions.setUser(user);
-    });
+    });*/
+    const { notes, user } = dbClient.getAll();
+    actions.setNotes(notes);
+    actions.setUser(user);
   }),
   touch: action((state, payload) => {
     const { id } = payload;
@@ -93,32 +98,47 @@ const store = createStore({
       body,
       createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss")
     };
+    const notes = dbClient.addNote({ note });
+    actions.setCreation();
+    actions.setNotes(notes);
+    actions.touch({ id: note.id });
+    /*
     ipcRenderer.invoke("add-note", { note }).then(notes => {
       actions.setCreation();
       actions.setNotes(notes);
       actions.touch({ id: note.id });
-    });
+    });*/
   }),
   editNote: thunk((actions, payload) => {
     const { id, body, tags } = payload;
+    const notes = dbClient.editNote({ id, body, tags });
+    actions.setNotes(notes);
+    /*
     ipcRenderer
       .invoke("edit-note", { id, body, tags })
-      .then(notes => actions.setNotes(notes));
+      .then(notes => actions.setNotes(notes));*/
   }),
   removeNote: thunk((actions, payload) => {
     const { ids } = payload;
+    const notes = dbClient.removeNote({ ids });
+    actions.setNotes(notes);
+    /*
     ipcRenderer
       .invoke("remove-note", { ids })
-      .then(notes => actions.setNotes(notes));
+      .then(notes => actions.setNotes(notes));*/
   }),
   user: {},
   setUser: action((state, payload) => {
     state.user = payload;
   }),
   updateUser: thunk((actions, payload) => {
+    const user = dbClient.updateUser(payload);
+    actions.setUser(user);
+    /*
     ipcRenderer
       .invoke("update-user", payload)
       .then(user => actions.setUser(user));
+      */
   }),
   modal: "",
   contextPoint: { x: 0, y: 0 },
@@ -138,9 +158,11 @@ const store = createStore({
   })
 });
 
+/*
 ipcRenderer.on("show-about", () => {
   store.getActions().setModal("ABOUT_DIALOG");
 });
+*/
 
 const GlobalStyle = createGlobalStyle`
   html{
@@ -239,12 +261,14 @@ function Main() {
               <h3>React Diary</h3>
               <Acunit />
               <p>v1.0.0</p>
+              {/*
               <button onClick={() => shell.openExternal("https://github.com")}>
                 Terms
               </button>
               <button onClick={() => shell.openExternal("https://github.com")}>
                 Privacy
               </button>
+              */}
             </Dialog>
           </Layout.FullView>
         )}
