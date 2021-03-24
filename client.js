@@ -31,6 +31,7 @@ import Acunit from "./Acunit";
 import mousetrap from "mousetrap";
 import dbClient from "./dbClient";
 // const { ipcRenderer, shell } = window.require("electron");
+import { Router, Link, navigate } from "@reach/router";
 
 const Center = styled.div`
   height: 100%;
@@ -436,14 +437,24 @@ function useKeyboard() {
   }, [modal, user, preview, ids]);
 }
 
+function Top() {
+  return (
+    <div>
+      <h2>This is top page</h2>
+      <button onClick={() => navigate("/app")}>DEMO</button>
+    </div>
+  );
+}
+
 function App() {
   return (
-    <Fragment>
-      <StoreProvider store={store}>
-        <Reset />
-        <Main />
-      </StoreProvider>
-    </Fragment>
+    <StoreProvider store={store}>
+      <Reset />
+      <Router>
+        <Top path="/" />
+        <Main path="/app" />
+      </Router>
+    </StoreProvider>
   );
 }
 
