@@ -32,6 +32,7 @@ import mousetrap from "mousetrap";
 import dbClient from "./dbClient";
 // const { ipcRenderer, shell } = window.require("electron");
 import { Router, Link, navigate } from "@reach/router";
+import Top from "./Top";
 
 const Center = styled.div`
   height: 100%;
@@ -435,15 +436,6 @@ function useKeyboard() {
       mousetrap.unbind("backspace")
     ];
   }, [modal, user, preview, ids]);
-}
-
-function Top() {
-  return (
-    <div>
-      <h2>This is top page</h2>
-      <button onClick={() => navigate("/app")}>DEMO</button>
-    </div>
-  );
 }
 
 function App() {
