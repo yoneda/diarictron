@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect } from "react";
-import { Router, Link, navigate } from "@reach/router";
+import { Router, navigate } from "@reach/router";
 import Button from "./Button";
 import Acunit from "./Acunit";
 import styled from "styled-components";
 import Logo from "./Logo";
+import Link from "./Link";
 
 const Container = styled.div`
   height: 100vh;
@@ -15,7 +16,6 @@ const Container = styled.div`
 `;
 
 const Footer = styled.footer`
-  font-size: 20px;
   flex: 0 1 auto;
   padding: 10px;
 
@@ -43,8 +43,7 @@ const Description = styled.div`
   margin-bottom: 40px;
 `;
 
-const Actions = styled.div`
-`;
+const Actions = styled.div``;
 
 const H2 = styled.h2`
   font-size: 48px;
@@ -94,7 +93,15 @@ function Top() {
         </Actions>
       </Main>
       <Footer>
-        <div>ソースコード | 利用規約 | プライバシーポリシー</div>
+        <Link path="https://google.com" color="white">
+          ソースコード
+        </Link>
+        <Link path="https://google.com" color="white">
+          利用規約
+        </Link>
+        <Link path="https://google.com" color="white">
+          プライバシーポリシー
+        </Link>
       </Footer>
     </Container>
   );
