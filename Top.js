@@ -33,31 +33,61 @@ const Main = styled.main`
   justify-content: center;
 `;
 
+const Title = styled.div`
+  margin-bottom: 40px;
+
+  display: flex;
+`;
+
+const Description = styled.div`
+  margin-bottom: 40px;
+`;
+
+const Actions = styled.div`
+`;
+
 const H2 = styled.h2`
-  font-weight: bold;
+  font-size: 48px;
+  font-weight: 700;
+  margin-left: 10px;
+`;
+
+const P = styled.p`
+  font-size: 38px;
+  font-weight: 600;
+  margin-bottom: 20px;
+`;
+
+const Li = styled.li`
+  font-size: 28px;
+  font-weight: 500;
 `;
 
 function Top() {
   return (
     <Container>
       <Main>
-        <H2>
+        <Title>
           <Logo color="white" size={48} />
-          Diarictron
-        </H2>
-        <p>毎日を記録しよう✋</p>
-        <ul>
-          <li>✓ダークモード</li>
-          <li>✓キーボードショートカット</li>
-          <li>✓マークダウン対応</li>
-          <li>✓オープンソース</li>
-        </ul>
-        <Button type="outlined" onClick={() => navigate("/app")}>
-          VIEW DEMO
-        </Button>
-        <Button type="outlined" onClick={() => navigate("/app")}>
-          DOWNLOAD
-        </Button>
+          <H2>Diarictron</H2>
+        </Title>
+        <Description>
+          <P>毎日を記録しよう✋</P>
+          <ul>
+            <Li>✓ダークモード</Li>
+            <Li>✓キーボードショートカット</Li>
+            <Li>✓マークダウン対応</Li>
+            <Li>✓オープンソース</Li>
+          </ul>
+        </Description>
+        <Actions>
+          <Button type="outlined" onClick={() => navigate("/app")}>
+            VIEW DEMO
+          </Button>
+          <Button type="outlined" onClick={() => navigate("/app")}>
+            DOWNLOAD
+          </Button>
+        </Actions>
       </Main>
       <Footer>
         <div>ソースコード | 利用規約 | プライバシーポリシー</div>
