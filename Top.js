@@ -58,6 +58,10 @@ const P = styled.p`
   margin-bottom: 20px;
 `;
 
+const Ul = styled.ul`
+  line-height: 34px;
+`;
+
 const Li = styled.li`
   font-size: 28px;
   font-weight: 500;
@@ -73,12 +77,12 @@ function Top() {
         </Title>
         <Description>
           <P>毎日を記録しよう✋</P>
-          <ul>
+          <Ul>
             <Li>✓ダークモード</Li>
             <Li>✓キーボードショートカット</Li>
             <Li>✓マークダウン対応</Li>
             <Li>✓オープンソース</Li>
-          </ul>
+          </Ul>
         </Description>
         <Actions>
           <Button type="outlined" onClick={() => navigate("/app")}>
