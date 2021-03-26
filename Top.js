@@ -11,6 +11,7 @@ const Container = styled.div`
   height: 100vh;
   background-color: dodgerblue;
   color: white;
+  font-family: 'Roboto', sans-serif;
 
   display: flex;
   flex-flow: column nowrap;
