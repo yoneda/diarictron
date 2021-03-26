@@ -5,6 +5,7 @@ import Acunit from "./Acunit";
 import styled from "styled-components";
 import Logo from "./Logo";
 import Link from "./Link";
+import Fab from "./Fab";
 
 const Container = styled.div`
   height: 100vh;
@@ -43,7 +44,9 @@ const Description = styled.div`
   margin-bottom: 40px;
 `;
 
-const Actions = styled.div``;
+const Actions = styled.div`
+  display: flex;
+`;
 
 const H2 = styled.h2`
   font-size: 48px;
@@ -84,12 +87,17 @@ function Top() {
           </Ul>
         </Description>
         <Actions>
-          <Button type="outlined" onClick={() => navigate("/app")}>
-            VIEW DEMO
-          </Button>
-          <Button type="outlined" onClick={() => navigate("/app")}>
-            DOWNLOAD
-          </Button>
+          <Fab type="outlined" primary="white" onClick={() => navigate("/app")}>
+            Live Demo
+          </Fab>
+          <Fab
+            type="contained"
+            primary="white"
+            onPrimary="dodgerblue"
+            onClick={() => navigate("/app")}
+          >
+            Download for Mac
+          </Fab>
         </Actions>
       </Main>
       <Footer>
