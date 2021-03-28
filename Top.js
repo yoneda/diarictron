@@ -1,7 +1,5 @@
-import React, { Fragment, useEffect } from "react";
-import { Router, navigate } from "@reach/router";
-import Button from "./Button";
-import Acunit from "./Acunit";
+import React from "react";
+import { navigate } from "@reach/router";
 import styled from "styled-components";
 import Logo from "./Logo";
 import Link from "./Link";

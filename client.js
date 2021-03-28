@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { Reset } from "styled-reset";
@@ -31,7 +31,7 @@ import Acunit from "./Acunit";
 import mousetrap from "mousetrap";
 import dbClient from "./dbClient";
 // const { ipcRenderer, shell } = window.require("electron");
-import { Router, Link, navigate } from "@reach/router";
+import { Router } from "@reach/router";
 import Top from "./Top";
 
 const Center = styled.div`
