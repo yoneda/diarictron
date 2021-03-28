@@ -21,4 +21,10 @@ function Link(props) {
   );
 }
 
+Link.propTypes = {
+  children: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
+  color: PropTypes.string
+};
+
 export default Link;
