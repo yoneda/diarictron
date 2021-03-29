@@ -1,2 +1,5 @@
 main.js
 cli.js
+node_modules
+out
+watch

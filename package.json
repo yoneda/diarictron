@@ -21,7 +21,8 @@
     "electron": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "start": "npm run build && npm run electron"
+    "start": "npm run build && npm run electron",
+    "lint": "eslint ./ --ext .js"
   },
   "dependencies": {
     "@reach/router": "^1.3.4",
