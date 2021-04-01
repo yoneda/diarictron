@@ -100,13 +100,13 @@ function Top() {
         </Actions>
       </Main>
       <Footer>
-        <Link path="https://google.com" color="white">
+        <Link path="https://github.com/yoneda/easy-diary" color="white">
           ソースコード
         </Link>
         <Link path="https://google.com" color="white">
           利用規約
         </Link>
-        <Link path="https://google.com" color="white">
+        <Link path="https://github.com/yoneda/easy-diary/blob/master/privacy.md" color="white">
           プライバシーポリシー
         </Link>
       </Footer>
