@@ -302,13 +302,8 @@ function Main() {
         {modal === "SETTING_MODAL" && (
           <Layout.FullView>
             <Dialog
-              title={<h3>Setting</h3>}
+              title={<h3>設定</h3>}
               onClose={() => setModal("")}
-              actions={
-                <Button type="text" onClick={() => setModal("")}>
-                  CLOSE
-                </Button>
-              }
             >
               <List>
                 <ListRow

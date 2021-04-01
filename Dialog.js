@@ -23,7 +23,16 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-  padding: 16px 24px;
+  height: 60px;
+  box-sizing: border-box;
+  border-bottom: 1px solid gray;
+
+  font-size: 24px;
+  font-weight: 500;
+  padding: 0px 20px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 `;
 
 const Content = styled.div`
@@ -59,7 +68,7 @@ function Dialog(props) {
       <Wrapper ref={ref}>
         {title && <Title>{title}</Title>}
         <Content>{children}</Content>
-        <Actions>{actions}</Actions>
+        {actions && <Actions>{actions}</Actions>}
       </Wrapper>
     </Container>
   );
