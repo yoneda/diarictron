@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { Reset } from "styled-reset";
@@ -36,6 +36,7 @@ import Top from "./Top";
 import Cancel from "./Cancel";
 import Logo from "./Logo";
 import Link from "./Link";
+import Banner from "./Banner";
 
 const Center = styled.div`
   height: 100%;
@@ -215,12 +216,16 @@ function Main() {
   useEffect(() => {
     getAll();
   }, []);
+  const [banner, setBanner] = useState("");
+  useEffect(() => {
+    setBanner("USERDATA_WARNING");
+  }, []);
   return (
     <ThemeProvider
       theme={{
         fontSize: user.fontSize,
         dark: user.dark,
-        showCal: user.showCal
+        showBanner: !(banner==="")
       }}
     >
       <GlobalStyle />
@@ -229,6 +234,20 @@ function Main() {
         <Layout.TopLeft />
         <Layout.TopRight />
         */}
+        {banner === "USERDATA_WARNING" && (
+          <Layout.Banner>
+            <Banner
+              color="orange"
+              close={
+                <span onClick={() => setBanner("")}>
+                  <Cancel />
+                </span>
+              }
+            >
+              <h3>デモのため、データはブラウザ終了後に削除されます。</h3>
+            </Banner>
+          </Layout.Banner>
+        )}
         <Layout.Notes>
           <NoteList />
         </Layout.Notes>

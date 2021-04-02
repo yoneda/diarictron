@@ -28,6 +28,11 @@ const TopRight = styled.div`
 `;
 */
 
+const Banner = styled.div`
+  grid-column: 1/3;
+  grid-row: 1/2;
+`;
+
 const Notes = styled.div`
   grid-column: 1/2;
   grid-row: 2/3;
@@ -62,6 +67,7 @@ Layout.TopLeft = TopLeft;
 Layout.TopRight = TopRight;
 */
 
+Layout.Banner = Banner;
 Layout.Notes = Notes;
 Layout.ButtonBar = ButtonBar;
 Layout.Editor = Editor;
