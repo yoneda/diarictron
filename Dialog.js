@@ -36,12 +36,6 @@ const Content = styled.div`
   padding: 8px 24px;
 `;
 
-const Buttons = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding: 16px 24px;
-`;
-
 const ActionBar = styled.div`
   height: 60px;
   box-sizing: border-box;
