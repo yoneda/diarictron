@@ -42,6 +42,15 @@ const Buttons = styled.div`
   padding: 16px 24px;
 `;
 
+const ActionBar = styled.div`
+  height: 60px;
+  box-sizing: border-box;
+  border-top: 1px solid gray;
+
+  display: flex;
+  justify-content: flex-end;
+`;
+
 function useRange(onInside, onOutside) {
   const ref = useRef(null);
   function onClick({ x, y }) {
@@ -71,7 +80,7 @@ function Dialog(props) {
           </TitleBar>
         )}
         <Content>{children}</Content>
-        {buttons && <Buttons>{buttons}</Buttons>}
+        {buttons && <ActionBar>{buttons}</ActionBar>}
       </Wrapper>
     </Container>
   );

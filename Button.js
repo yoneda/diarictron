@@ -36,9 +36,9 @@ const Wrapper = styled.button`
       return css`
         border: none;
         background-color: white;
-        color: ${color ? color : "dodgerblue"};
+        color: ${color ? color : "rgba(0,0,0,1)"};
         &:hover {
-          background-color: rgba(0, 0, 0, 0.02);
+          background-color: rgba(0,0,0,0.1);
         }
       `;
     }

@@ -34,6 +34,8 @@ import dbClient from "./dbClient";
 import { Router } from "@reach/router";
 import Top from "./Top";
 import Cancel from "./Cancel";
+import Logo from "./Logo";
+import Link from "./Link";
 
 const Center = styled.div`
   height: 100%;
@@ -261,17 +263,20 @@ function Main() {
                 </Button>
               }
             >
-              <h3>React Diary</h3>
-              <Acunit />
-              <p>v1.0.0</p>
-              {/*
-              <button onClick={() => shell.openExternal("https://github.com")}>
-                Terms
-              </button>
-              <button onClick={() => shell.openExternal("https://github.com")}>
-                Privacy
-              </button>
-              */}
+              <Center>
+                <Logo size="100" color="dodgerblue" />
+                <h3>Diarictron</h3>
+                <p>v1.0.0</p>
+                <Link path="https://github.com/yoneda/easy-diary" color="black">
+                  利用規約
+                </Link>
+                <Link
+                  path="https://github.com/yoneda/easy-diary/blob/master/privacy.md"
+                  color="black"
+                >
+                  プライバシーポリシー
+                </Link>
+              </Center>
             </Dialog>
           </Layout.FullView>
         )}
