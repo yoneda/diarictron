@@ -22,14 +22,11 @@ const Wrapper = styled.div`
     0px 24px 38px 3px rgb(0 0 0 / 14%), 0px 9px 46px 8px rgb(0 0 0 / 12%);
 `;
 
-const Title = styled.div`
+const TitleBar = styled.div`
   height: 60px;
   box-sizing: border-box;
   border-bottom: 1px solid gray;
 
-  font-size: 24px;
-  font-weight: 500;
-  padding: 0px 20px;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -39,7 +36,7 @@ const Content = styled.div`
   padding: 8px 24px;
 `;
 
-const Actions = styled.div`
+const Buttons = styled.div`
   display: flex;
   justify-content: flex-end;
   padding: 16px 24px;
@@ -59,25 +56,32 @@ function useRange(onInside, onOutside) {
 }
 
 function Dialog(props) {
-  const { title, children, actions, onClose } = props;
+  const { title, close, children, buttons, onClose } = props;
   const [ref, onClick] = useRange(null, onClose);
+
   return (
     <Container
       onMouseDown={event => onClick({ x: event.clientX, y: event.clientY })}
     >
       <Wrapper ref={ref}>
-        {title && <Title>{title}</Title>}
+        {(title || close) && (
+          <TitleBar>
+            {title && title}
+            {close && close}
+          </TitleBar>
+        )}
         <Content>{children}</Content>
-        {actions && <Actions>{actions}</Actions>}
+        {buttons && <Buttons>{buttons}</Buttons>}
       </Wrapper>
     </Container>
   );
 }
 
 Dialog.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.element,
+  close: PropTypes.element,
   children: PropTypes.element.isRequired,
-  actions: PropTypes.element,
+  buttons: PropTypes.element,
   onClose: PropTypes.func.isRequired
 };
 

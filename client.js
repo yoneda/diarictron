@@ -33,6 +33,7 @@ import dbClient from "./dbClient";
 // const { ipcRenderer, shell } = window.require("electron");
 import { Router } from "@reach/router";
 import Top from "./Top";
+import Cancel from "./Cancel";
 
 const Center = styled.div`
   height: 100%;
@@ -254,7 +255,7 @@ function Main() {
           <Layout.FullView>
             <Dialog
               onClose={() => setModal("")}
-              actions={
+              buttons={
                 <Button type="text" onClick={() => setModal("")}>
                   CLOSE
                 </Button>
@@ -303,6 +304,11 @@ function Main() {
           <Layout.FullView>
             <Dialog
               title={<h3>設定</h3>}
+              close={
+                <span onClick={() => setModal("")}>
+                  <Cancel onClick={() => setModal("")} />
+                </span>
+              }
               onClose={() => setModal("")}
             >
               <List>
