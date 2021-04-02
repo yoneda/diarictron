@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 const Wrapper = styled.div`
   box-sizing: border-box;
   overflow: scroll;
-  height: calc(99.9vh - 140px);
+  height: calc(100vh - 100px);
 `;
 
 const NoteWrapper = styled.div`

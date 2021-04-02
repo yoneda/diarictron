@@ -11,7 +11,7 @@ import marked from "marked";
 const Wrapper = styled.div`
   height: 100%;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 60px;
 
   display: grid;
   grid-template-rows: 40px 1fr 40px;

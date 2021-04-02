@@ -7,9 +7,10 @@ const Layout = styled.div`
 
   display: grid;
   grid-template-columns: 240px auto;
-  grid-template-rows: 60px auto 80px;
+  grid-template-rows: auto auto 100px;
 `;
 
+/*
 const TopLeft = styled.div`
   grid-column: 1/2;
   grid-row: 1/2;
@@ -25,6 +26,7 @@ const TopRight = styled.div`
   background-color: white;
   -webkit-app-region: drag;
 `;
+*/
 
 const Notes = styled.div`
   grid-column: 1/2;
@@ -55,8 +57,11 @@ const FullView = styled.div`
   z-index: 1;
 `;
 
+/*
 Layout.TopLeft = TopLeft;
 Layout.TopRight = TopRight;
+*/
+
 Layout.Notes = Notes;
 Layout.ButtonBar = ButtonBar;
 Layout.Editor = Editor;

@@ -225,8 +225,10 @@ function Main() {
     >
       <GlobalStyle />
       <Layout>
+        {/*
         <Layout.TopLeft />
         <Layout.TopRight />
+        */}
         <Layout.Notes>
           <NoteList />
         </Layout.Notes>
