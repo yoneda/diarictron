@@ -143,6 +143,7 @@ function NoteList() {
               event.metaKey ? append({ id: note.id }) : touch({ id: note.id })
             }
             onContextMenu={event => {
+              event.preventDefault();
               setModal("CONTEXT_MODAL");
               touch({ id: note.id });
               setContextPoint({ x: event.clientX, y: event.clientY });

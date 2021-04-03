@@ -90,6 +90,7 @@ function NoteList() {
   const onRowClick = (event, id) =>
     event.metaKey ? append({ id }) : touch({ id });
   const onRightClick = (event, id) => {
+    event.preventDefault();
     setModal("CONTEXT_MODAL");
     touch({ id });
     setContextPoint({ x: event.clientX, y: event.clientY });
