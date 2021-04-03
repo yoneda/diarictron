@@ -34,6 +34,7 @@ const RightControl = styled.div`
   grid-column: 3/4;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 `;
 
 const RightBottomControl = styled.div`
@@ -41,6 +42,7 @@ const RightBottomControl = styled.div`
   grid-column: 3/4;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 `;
 
 const Datetime = styled.div`

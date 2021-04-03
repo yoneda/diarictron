@@ -57,15 +57,15 @@ const NoteRow = styled.div`
 `;
 
 const Container = styled.div`
-  height: calc(100vh - 140px);
+  height: calc(100vh - ${({ theme }) => (theme.showBanner ? 200 : 100)}px);
   overflow: scroll;
 `;
 
 function NoteList() {
   const options = {
-    showCard: false,
-    showMeta: false,
-    showMonth: false
+    showCard: true,
+    showMeta: true,
+    showMonth: true
   };
   const [notes, ids] = useStoreState(state => [state.notes, state.ids]);
   const [
