@@ -3,17 +3,20 @@ const data = {
     {
       id: "esr11Pg6",
       body: "ratione",
-      createdAt: "2021-03-23T21:07:59"
+      createdAt: "2021-03-23T21:07:59",
+      favorite: false,
     },
     {
       id: "q69VppzW",
       body: "enim",
-      createdAt: "2021-03-23T21:07:59"
+      createdAt: "2021-03-23T21:07:59",
+      favorite: false,
     },
     {
       id: "KcKuERJh",
       body: "neque",
-      createdAt: "2021-03-23T21:07:59"
+      createdAt: "2021-03-23T21:07:59",
+      favorite: false,
     }
   ],
   user: {

@@ -313,14 +313,14 @@ function Main() {
               top={menuRect.y + menuRect.height}
             >
               <Menu>
-                <MenuItem>Markdown</MenuItem>
+                <MenuItem>お気に入り</MenuItem>
                 <MenuItem
                   onClick={() => {
                     removeNote({ ids: ids });
                     setModal("");
                   }}
                 >
-                  Delete
+                  削除
                 </MenuItem>
               </Menu>
             </Popup>
