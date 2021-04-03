@@ -24,22 +24,22 @@ const Input = styled.input`
 `;
 
 function TagEditor() {
-  const notes = useStoreState(state => state.selecteds);
+  const note = useStoreState(state => state.targetNote);
   const editNote = useStoreActions(actions => actions.editNote);
   const [text, setText] = useState("");
   return (
     <Wrapper>
-      {notes[0].tags !== undefined &&
-        notes[0].tags.length > 0 &&
-        notes[0].tags.map((tag, key) => (
+      {note.tags !== undefined &&
+        note.tags.length > 0 &&
+        note.tags.map((tag, key) => (
           <Chip
             type="normal"
             key={key}
             onClose={() =>
               editNote({
-                id: notes[0].id,
-                body: notes[0].body,
-                tags: notes[0].tags.filter((_, index) => key !== index)
+                id: note.id,
+                body: note.body,
+                tags: note.tags.filter((_, index) => key !== index)
               })
             }
           >
@@ -49,17 +49,18 @@ function TagEditor() {
       <Input
         type="text"
         value={text}
-        placeholder="Add a tag…"
+        placeholder="タグを入力…"
         onChange={e => setText(e.target.value)}
+        onInput={e => setText(e.target.value)}
         onKeyDown={e => {
-          if (e.code === "Enter") {
+          if (e.code === "Enter" && e.nativeEvent.isComposing===false) {
             editNote({
-              id: notes[0].id,
-              body: notes[0].body,
+              id: note.id,
+              body: note.body,
               tags:
-                notes[0].tags === undefined
+                note.tags === undefined
                   ? [e.target.value]
-                  : [...notes[0].tags, e.target.value]
+                  : [...note.tags, e.target.value]
             });
             setText("");
           }
