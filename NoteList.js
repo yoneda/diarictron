@@ -8,7 +8,6 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   overflow: scroll;
   height: calc(100vh - ${({ theme }) => (theme.showBanner ? 200 : 100)}px);
-  ${({ theme }) => console.log(theme)}
 `;
 
 const NoteWrapper = styled.div`
