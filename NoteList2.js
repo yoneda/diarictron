@@ -4,6 +4,7 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 import dayjs from "dayjs";
 import { hasLabel } from "./helper";
 import PropTypes from "prop-types";
+import Text from "./Text";
 
 const CardBox = styled.div`
   width: 40px;
@@ -28,7 +29,7 @@ function Card(props) {
 
 Card.propTypes = {
   date: PropTypes.string.isRequired
-}
+};
 
 const Meta = styled.div`
   width: 40px;
@@ -36,15 +37,13 @@ const Meta = styled.div`
   flex: 0 1 auto;
 `;
 
-const Text = styled.div`
-  flex: 1 1 auto;
-`;
-
 const MonthLabel = styled.div`
-  height: 20px;
-  background-color: lavender;
-  border: 1px solid black;
+  height: 50px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
 `;
 
 const NoteRow = styled.div`
@@ -62,7 +61,11 @@ const Container = styled.div`
 `;
 
 function NoteList() {
-  const [notes, ids, user] = useStoreState(state => [state.notes, state.ids, state.user]);
+  const [notes, ids, user] = useStoreState(state => [
+    state.notes,
+    state.ids,
+    state.user
+  ]);
   const [
     touch,
     append,
@@ -77,9 +80,9 @@ function NoteList() {
     actions.setContextPoint
   ]);
   const options = {
-    showCard: user.uiStyle==="dayone",
-    showMeta: user.uiStyle==="dayone",
-    showMonth: user.uiStyle==="dayone",
+    showCard: user.uiStyle === "dayone",
+    showMeta: user.uiStyle === "dayone",
+    showMonth: user.uiStyle === "dayone"
   };
 
   const getMonth = date => dayjs(date).format("YYYY年MM月");
@@ -98,7 +101,11 @@ function NoteList() {
         <>
           {options.showMonth && hasLabel(array, key) && (
             <MonthLabel onClick={() => grep({ date: note.createdAt })}>
-              {getMonth(note.createdAt)}
+              {
+                <Text size="20" weight="400" color="black">
+                  {getMonth(note.createdAt)}
+                </Text>
+              }
             </MonthLabel>
           )}
           <NoteRow
