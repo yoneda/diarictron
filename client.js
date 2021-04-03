@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styled, {
   createGlobalStyle,
-  ThemeProvider,
-  css
+  ThemeProvider
 } from "styled-components";
 import { Reset } from "styled-reset";
 import dayjs from "dayjs";

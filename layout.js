@@ -6,7 +6,7 @@ const Layout = styled.div`
   box-sizing: border-box;
 
   display: grid;
-  grid-template-columns: 240px auto;
+  grid-template-columns: 400px auto;
   grid-template-rows: auto auto 100px;
 `;
 
