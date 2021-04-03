@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import styled, {
-  createGlobalStyle,
-  ThemeProvider
-} from "styled-components";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { Reset } from "styled-reset";
 import dayjs from "dayjs";
 import { nanoid } from "nanoid";
@@ -45,6 +42,8 @@ import IconButton from "./IconButton";
 import Batu from "./Batu";
 import Flex from "./Flex";
 import Text from "./Text";
+import Favorite from "./Favorite";
+import DeleteForever from "./DeleteForever";
 
 const Center = styled.div`
   height: 100%;
@@ -322,19 +321,33 @@ function Main() {
                 setModal("");
               }}
               left={
-                menuRect.x - 125 /* current dropdown width */ + menuRect.width
+                menuRect.x -
+                192 /* current dropdown width. TODO: ドロップダウンメニューの横幅を計算してポップアップ表示位置を調整する*/ +
+                menuRect.width
               }
               top={menuRect.y + menuRect.height}
             >
               <Menu>
-                <MenuItem>お気に入り</MenuItem>
+                <MenuItem>
+                  <>
+                    <Favorite size="40" color="gray" type="filled" />
+                    <Text size="24" weight="400">
+                      お気に入り
+                    </Text>
+                  </>
+                </MenuItem>
                 <MenuItem
                   onClick={() => {
                     removeNote({ ids: ids });
                     setModal("");
                   }}
                 >
-                  削除
+                  <>
+                    <DeleteForever size="40" color="gray" />
+                    <Text size="24" weight="400">
+                      削除
+                    </Text>
+                  </>
                 </MenuItem>
               </Menu>
             </Popup>
