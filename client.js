@@ -44,6 +44,8 @@ import Banner from "./Banner";
 import Warning from "./Warning";
 import IconButton from "./IconButton";
 import Batu from "./Batu";
+import Flex from "./Flex";
+import Text from "./Text";
 
 const Center = styled.div`
   height: 100%;
@@ -52,22 +54,6 @@ const Center = styled.div`
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-`;
-
-const Flex = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-`;
-
-const Text = styled.div`
-  ${({ size, color, weight }) => {
-    return css`
-      font-size: ${size ? size : 16}px;
-      color: ${color ? color : "black"};
-      font-weight: ${weight ? weight : 400};
-    `;
-  }}
 `;
 
 const store = createStore({
