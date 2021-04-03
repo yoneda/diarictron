@@ -127,8 +127,8 @@ const store = createStore({
     });*/
   }),
   editNote: thunk((actions, payload) => {
-    const { id, body, tags } = payload;
-    const notes = dbClient.editNote({ id, body, tags });
+    const { id, body, tags, favorite } = payload;
+    const notes = dbClient.editNote({ id, body, tags, favorite });
     actions.setNotes(notes);
     /*
     ipcRenderer
@@ -201,27 +201,31 @@ function Main() {
     modal,
     contextPoint,
     menuRect,
-    length
+    length,
+    targetNote
   ] = useStoreState(state => [
     state.ids,
     state.user,
     state.modal,
     state.contextPoint,
     state.menuRect,
-    state.length
+    state.length,
+    state.targetNote
   ]);
   const [
     removeNote,
     updateUser,
     getAll,
     setModal,
-    setContextPoint
+    setContextPoint,
+    editNote
   ] = useStoreActions(actions => [
     actions.removeNote,
     actions.updateUser,
     actions.getAll,
     actions.setModal,
-    actions.setContextPoint
+    actions.setContextPoint,
+    actions.editNote
   ]);
   useKeyboard();
   useEffect(() => {
@@ -328,9 +332,17 @@ function Main() {
               top={menuRect.y + menuRect.height}
             >
               <Menu>
-                <MenuItem>
+                <MenuItem
+                  onClick={() =>
+                    editNote({ ...targetNote, favorite: !targetNote.favorite })
+                  }
+                >
                   <>
-                    <Favorite size="40" color="gray" type="filled" />
+                    <Favorite
+                      size="40"
+                      color={targetNote.favorite ? "dodgerblue" : "gray"}
+                      type={targetNote.favorite ? "filled" : "border"}
+                    />
                     <Text size="24" weight="400">
                       お気に入り
                     </Text>

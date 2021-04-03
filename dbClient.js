@@ -32,9 +32,9 @@ const dbClient = {
     data.notes = [note, ...data.notes];
     return data.notes;
   },
-  editNote: function ({ id, body, tags }) {
+  editNote: function ({ id, body, tags, favorite}) {
     data.notes = data.notes.map(note =>
-      note.id === id ? { ...note, id, body, tags } : note
+      note.id === id ? { ...note, id, body, tags, favorite} : note
     );
     return data.notes;
   },
