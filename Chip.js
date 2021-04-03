@@ -5,10 +5,10 @@ import PropTypes from "prop-types";
 
 const Wrapper = styled.div`
   display: flex;
+  flex-flow: row nowrap;
   align-items: center;
-  height: 32px;
-  border-radius: 16px;
-  padding: 0 8px;
+  border-radius: 24px;
+  padding: 14px;
   background-color: #dedede;
   color: rgba(0, 0, 0, 0.87);
 

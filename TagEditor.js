@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import Chip from "./Chip";
+import Text from "./Text";
 
 // TODO:
 // 分割されたコンポーネントがGridLayoutの子要素になっているのは少し読みづらい気がするので後で修正
@@ -10,6 +11,7 @@ const Wrapper = styled.div`
   grid-column: 1/3;
 
   display: flex;
+  flex-flow: row nowrap;
   align-items: center;
   overflow: scroll;
   &::-webkit-scrollbar {
@@ -20,7 +22,8 @@ const Wrapper = styled.div`
 const Input = styled.input`
   outline: none;
   border: none;
-  font-size: 18px;
+  font-size: 28px;
+  font-weight: 500;
 `;
 
 function TagEditor() {
@@ -43,7 +46,9 @@ function TagEditor() {
               })
             }
           >
-            {tag}
+            <Text size="24" color="black" weight="500">
+              {tag}
+            </Text>
           </Chip>
         ))}
       <Input
@@ -53,7 +58,7 @@ function TagEditor() {
         onChange={e => setText(e.target.value)}
         onInput={e => setText(e.target.value)}
         onKeyDown={e => {
-          if (e.code === "Enter" && e.nativeEvent.isComposing===false) {
+          if (e.code === "Enter" && e.nativeEvent.isComposing === false) {
             editNote({
               id: note.id,
               body: note.body,

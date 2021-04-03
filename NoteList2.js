@@ -49,7 +49,7 @@ const MonthLabel = styled.div`
 
 const NoteRow = styled.div`
   display: flex;
-  height: 70px;
+  height: 110px;
   background-color: ${({ selected }) =>
     selected ? "rgba(100,100,100,0.3)" : "white"};
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -62,12 +62,7 @@ const Container = styled.div`
 `;
 
 function NoteList() {
-  const options = {
-    showCard: true,
-    showMeta: true,
-    showMonth: true
-  };
-  const [notes, ids] = useStoreState(state => [state.notes, state.ids]);
+  const [notes, ids, user] = useStoreState(state => [state.notes, state.ids, state.user]);
   const [
     touch,
     append,
@@ -81,6 +76,11 @@ function NoteList() {
     actions.setModal,
     actions.setContextPoint
   ]);
+  const options = {
+    showCard: user.uiStyle==="dayone",
+    showMeta: user.uiStyle==="dayone",
+    showMonth: user.uiStyle==="dayone",
+  };
 
   const getMonth = date => dayjs(date).format("YYYY年MM月");
   const getTime = date => dayjs(date).format("H:m");
