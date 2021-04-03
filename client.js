@@ -106,6 +106,10 @@ const store = createStore({
     const { id } = payload;
     state.ids = [id];
   }),
+  detouch: action((state, payload) => {
+    const { id } = payload;
+    state.ids = state.ids.filter(targetId => !targetId === id);
+  }),
   append: action((state, payload) => {
     const { id } = payload;
     state.ids.push(id);
@@ -266,7 +270,10 @@ function Main() {
                   デモのため、データはブラウザ終了後に削除されます。
                 </Text>
               </Flex>
-              <IconButton icon={<Batu />} onClick={() => setBanner("")} />
+              <IconButton
+                icon={<Batu size={48} />}
+                onClick={() => setBanner("")}
+              />
             </Banner>
           </Layout.Banner>
         )}

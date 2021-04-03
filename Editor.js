@@ -3,43 +3,56 @@ import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import TagEditor from "./TagEditor";
 import IconButton from "./IconButton";
+import Batu from "./Batu";
 import MoreVert from "./MoreVert";
 import Info from "./Info";
 import dayjs from "dayjs";
 import marked from "marked";
 
-const Wrapper = styled.div`
+// TODO: GridLayoutをコンポーネント化する
+const Container = styled.div`
   height: 100%;
   box-sizing: border-box;
   padding: 60px;
 
   display: grid;
-  grid-template-rows: 40px 1fr 40px;
-  grid-template-columns: 1fr 40px;
+  grid-template-rows: 50px 1fr 50px;
+  grid-template-columns: 50px 1fr 50px;
+`;
+
+const LeftControl = styled.div`
+  grid-row: 1/2;
+  grid-column: 1/2;
+  display: flex;
+  align-items: center;
+`;
+
+const RightControl = styled.div`
+  grid-row: 1/2;
+  grid-column: 3/4;
+  display: flex;
+  align-items: center;
+`;
+
+const RightBottomControl = styled.div`
+  grid-row: 3/4;
+  grid-column: 3/4;
+  display: flex;
+  align-items: center;
 `;
 
 const Datetime = styled.div`
   grid-row: 1/2;
-  grid-column: 1/3;
-
+  grid-column: 2/3;
   display: flex;
   align-items: center;
 `;
 
 const Main = styled.div`
   grid-row: 2/3;
-  grid-column: 1/3;
+  grid-column: 1/4;
 
   display: flex;
-`;
-
-const Control = styled.div`
-  grid-row: 3/4;
-  grid-column: 2/3;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const EditArea = styled.textarea`
@@ -50,15 +63,6 @@ const EditArea = styled.textarea`
   border: none;
   outline: none;
   box-shadow: none;
-`;
-
-const ActionArea = styled.div`
-  grid-row: 1/2;
-  grid-column: 2/3;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 function useDropDown() {
@@ -86,9 +90,10 @@ function Editor() {
     state.targetNote,
     state.preview
   ]);
-  const [editNote, setModal] = useStoreActions(actions => [
+  const [editNote, setModal, detouch] = useStoreActions(actions => [
     actions.editNote,
-    actions.setModal
+    actions.setModal,
+    actions.detouch
   ]);
   const [text, setText] = useState("");
   useEffect(() => {
@@ -96,7 +101,13 @@ function Editor() {
   }, [note]);
   const dropDownRef = useDropDown();
   return (
-    <Wrapper>
+    <Container>
+      <LeftControl>
+        <IconButton
+          icon={<Batu size={24} />}
+            onClick={() => detouch(note.id)}
+        ></IconButton>
+        </LeftControl>
       <Datetime>
         {dayjs(note.createdAt).format("YYYY年MM月DD日(ddd) H:m")}
       </Datetime>
@@ -130,11 +141,11 @@ function Editor() {
         )}
       </Main>
       <TagEditor />
-      <Control>
+      <RightBottomControl>
         {/* TODO: ここは IconButton ではなくてOutlitedButton に変更される可能性あり */}
         <IconButton icon={<Info />} onClick={() => setModal("ABOUT_DIALOG")} />
-      </Control>
-      <ActionArea>
+      </RightBottomControl>
+      <RightControl>
         {
           <div ref={dropDownRef}>
             <IconButton
@@ -143,8 +154,8 @@ function Editor() {
             />
           </div>
         }
-      </ActionArea>
-    </Wrapper>
+      </RightControl>
+    </Container>
   );
 }
 

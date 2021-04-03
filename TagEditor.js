@@ -7,7 +7,7 @@ import Chip from "./Chip";
 // 分割されたコンポーネントがGridLayoutの子要素になっているのは少し読みづらい気がするので後で修正
 const Wrapper = styled.div`
   grid-row: 3/4;
-  grid-column: 1/2;
+  grid-column: 1/3;
 
   display: flex;
   align-items: center;
