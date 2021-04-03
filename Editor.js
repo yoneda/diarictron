@@ -8,6 +8,8 @@ import MoreVert from "./MoreVert";
 import Info from "./Info";
 import dayjs from "dayjs";
 import marked from "marked";
+import Text from "./Text";
+import Button from "./Button";
 
 // TODO: GridLayoutをコンポーネント化する
 const Container = styled.div`
@@ -16,8 +18,8 @@ const Container = styled.div`
   padding: 60px;
 
   display: grid;
-  grid-template-rows: 50px 1fr 50px;
-  grid-template-columns: 50px 1fr 50px;
+  grid-template-rows: 50px 1fr 100px;
+  grid-template-columns: 50px 1fr 200px;
 `;
 
 const LeftControl = styled.div`
@@ -105,9 +107,9 @@ function Editor() {
       <LeftControl>
         <IconButton
           icon={<Batu size={24} />}
-            onClick={() => detouch(note.id)}
+          onClick={() => detouch(note.id)}
         ></IconButton>
-        </LeftControl>
+      </LeftControl>
       <Datetime>
         {dayjs(note.createdAt).format("YYYY年MM月DD日(ddd) H:m")}
       </Datetime>
@@ -142,8 +144,14 @@ function Editor() {
       </Main>
       <TagEditor />
       <RightBottomControl>
-        {/* TODO: ここは IconButton ではなくてOutlitedButton に変更される可能性あり */}
-        <IconButton icon={<Info />} onClick={() => setModal("ABOUT_DIALOG")} />
+        <Button type="text" onClick={() => setModal("ABOUT_DIALOG")}>
+          <>
+            <Info size="48" color="gray" />
+            <Text size="27" color="gray" weight="500">
+              Info
+            </Text>
+          </>
+        </Button>
       </RightBottomControl>
       <RightControl>
         {
