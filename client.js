@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
+import styled, {
+  createGlobalStyle,
+  ThemeProvider,
+  css
+} from "styled-components";
 import { Reset } from "styled-reset";
 import dayjs from "dayjs";
 import { nanoid } from "nanoid";
@@ -37,6 +41,9 @@ import Cancel from "./Cancel";
 import Logo from "./Logo";
 import Link from "./Link";
 import Banner from "./Banner";
+import Warning from "./Warning";
+import IconButton from "./IconButton";
+import Batu from "./Batu";
 
 const Center = styled.div`
   height: 100%;
@@ -45,6 +52,22 @@ const Center = styled.div`
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+`;
+
+const Flex = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+`;
+
+const Text = styled.div`
+  ${({ size, color, weight }) => {
+    return css`
+      font-size: ${size ? size : 16}px;
+      color: ${color ? color : "black"};
+      font-weight: ${weight ? weight : 400};
+    `;
+  }}
 `;
 
 const store = createStore({
@@ -225,7 +248,7 @@ function Main() {
       theme={{
         fontSize: user.fontSize,
         dark: user.dark,
-        showBanner: !(banner==="")
+        showBanner: !(banner === "")
       }}
     >
       <GlobalStyle />
@@ -236,15 +259,14 @@ function Main() {
         */}
         {banner === "USERDATA_WARNING" && (
           <Layout.Banner>
-            <Banner
-              color="orange"
-              close={
-                <span onClick={() => setBanner("")}>
-                  <Cancel />
-                </span>
-              }
-            >
-              <h3>デモのため、データはブラウザ終了後に削除されます。</h3>
+            <Banner color="orange">
+              <Flex>
+                <Warning />
+                <Text size="24" weight="500" color="white">
+                  デモのため、データはブラウザ終了後に削除されます。
+                </Text>
+              </Flex>
+              <IconButton icon={<Batu />} onClick={() => setBanner("")} />
             </Banner>
           </Layout.Banner>
         )}

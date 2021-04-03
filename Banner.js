@@ -6,6 +6,11 @@ const Container = styled.div`
   height: 100px;
   background-color: ${({ color }) => (color ? color : "lightgray")};
   color: white;
+
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 function Banner(props) {
