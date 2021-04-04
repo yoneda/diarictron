@@ -280,13 +280,13 @@ function Main() {
             <Editor />
           ) : length >= 2 ? (
             <Center>
-              {length} notes selected
+              <Text size="24" weight="500" color="black">{length} notes selected</Text>
               <Button
                 type="outlined"
                 color={color.RED_500}
                 onClick={() => removeNote({ ids: ids })}
               >
-                DELETE
+                <Text size="20" weight="500" color={color.RED_500}>削除</Text>
               </Button>
             </Center>
           ) : null}
