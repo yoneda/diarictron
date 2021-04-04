@@ -27,7 +27,6 @@ import List from "./List";
 import ListRow from "./ListRow";
 import OpenInNew from "./OpenInNew";
 import * as color from "./color";
-import Acunit from "./Acunit";
 import mousetrap from "mousetrap";
 import dbClient from "./dbClient";
 // const { ipcRenderer, shell } = window.require("electron");
@@ -274,7 +273,8 @@ function Main() {
         <Layout.Editor>
           {length === 0 ? (
             <Center>
-              <Acunit />
+              <Logo size={96} color="rgba(100,100,100,0.2)" />
+              {/* TODO: シンプルすぎるのでここで操作方法の説明などをするとよい */}
             </Center>
           ) : length === 1 ? (
             <Editor />
