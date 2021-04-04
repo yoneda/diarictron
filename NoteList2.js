@@ -6,9 +6,8 @@ import { hasLabel } from "./helper";
 import PropTypes from "prop-types";
 import Text from "./Text";
 
-const CardBox = styled.div`
-  width: 40px;
-  background-color: lightyellow;
+const CardContainer = styled.div`
+  width: 90px;
   flex: 0 1 auto;
 
   display: flex;
@@ -17,13 +16,22 @@ const CardBox = styled.div`
   align-items: center;
 `;
 
+const CardBox = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  border: 1px solid black;
+`;
+
 function Card(props) {
   const { date } = props;
   return (
-    <CardBox>
-      <div>{dayjs(date).format("ddd")}</div>
-      <div>{dayjs(date).format("D")}</div>
-    </CardBox>
+    <CardContainer>
+      <CardBox>
+        <div>{dayjs(date).format("ddd")}</div>
+        <div>{dayjs(date).format("D")}</div>
+      </CardBox>
+    </CardContainer>
   );
 }
 
@@ -32,14 +40,16 @@ Card.propTypes = {
 };
 
 const Meta = styled.div`
-  width: 40px;
-  background-color: salmon;
+  width: 90px;
   flex: 0 1 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const MonthLabel = styled.div`
   height: 50px;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
   display: flex;
@@ -58,6 +68,13 @@ const NoteRow = styled.div`
 const Container = styled.div`
   height: calc(100vh - ${({ theme }) => (theme.showBanner ? 200 : 100)}px);
   overflow: scroll;
+`;
+
+const Body = styled.div`
+  width: 220px;
+  flex: 1 1 auto;
+  flex-flow: row nowrap;
+  overflow: hidden;
 `;
 
 function NoteList() {
@@ -115,7 +132,7 @@ function NoteList() {
             onContextMenu={event => onRightClick(event, note.id)}
           >
             {options.showCard && <Card date={note.createdAt} />}
-            <Text>{note.body}</Text>
+            <Body>{note.body}</Body>
             {options.showMeta && <Meta>{getTime(note.createdAt)}</Meta>}
           </NoteRow>
         </>

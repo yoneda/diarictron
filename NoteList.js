@@ -22,8 +22,8 @@ const NoteWrapper = styled.div`
 `;
 
 const Card = styled.div`
-  width: 60px;
-  height: 60px;
+  width: 90px;
+  height: 110px;
   box-sizing: border-box;
   border-radius: 10px;
   border: 1px solid black;
