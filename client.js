@@ -280,13 +280,17 @@ function Main() {
             <Editor />
           ) : length >= 2 ? (
             <Center>
-              <Text size="24" weight="500" color="black">{length} notes selected</Text>
+              <Text size="24" weight="500" color="black">
+                {length} notes selected
+              </Text>
               <Button
                 type="outlined"
                 color={color.RED_500}
                 onClick={() => removeNote({ ids: ids })}
               >
-                <Text size="20" weight="500" color={color.RED_500}>削除</Text>
+                <Text size="20" weight="500" color={color.RED_500}>
+                  削除
+                </Text>
               </Button>
             </Center>
           ) : null}
@@ -449,7 +453,12 @@ function Main() {
                     setContextPoint({ x: 0, y: 0 });
                   }}
                 >
-                  Delete
+                  <>
+                    <DeleteForever size="40" color="gray" />
+                    <Text size="24" weight="400">
+                      削除
+                    </Text>
+                  </>
                 </MenuItem>
               </Menu>
             </Popup>
