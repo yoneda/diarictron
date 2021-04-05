@@ -28,7 +28,7 @@ import ListRow from "./ListRow";
 import OpenInNew from "./OpenInNew";
 import * as color from "./color";
 import mousetrap from "mousetrap";
-import dbClient from "./dbClient";
+import dbconnector from "./dbconnector";
 // const { ipcRenderer, shell } = window.require("electron");
 import { Router } from "@reach/router";
 import Top from "./Top";
@@ -81,7 +81,7 @@ const store = createStore({
       actions.setNotes(notes);
       actions.setUser(user);
     });*/
-    const { notes, user } = dbClient.getAll();
+    const { notes, user } = dbconnector.getAll();
     actions.setNotes(notes);
     actions.setUser(user);
   }),
@@ -114,7 +114,7 @@ const store = createStore({
       body,
       createdAt: dayjs().format("YYYY-MM-DDTHH:mm:ss")
     };
-    const notes = dbClient.addNote({ note });
+    const notes = dbconnector.addNote({ note });
     actions.setCreation();
     actions.setNotes(notes);
     actions.touch({ id: note.id });
@@ -127,7 +127,7 @@ const store = createStore({
   }),
   editNote: thunk((actions, payload) => {
     const { id, body, tags, favorite } = payload;
-    const notes = dbClient.editNote({ id, body, tags, favorite });
+    const notes = dbconnector.editNote({ id, body, tags, favorite });
     actions.setNotes(notes);
     /*
     ipcRenderer
@@ -136,7 +136,7 @@ const store = createStore({
   }),
   removeNote: thunk((actions, payload) => {
     const { ids } = payload;
-    const notes = dbClient.removeNote({ ids });
+    const notes = dbconnector.removeNote({ ids });
     actions.setNotes(notes);
     /*
     ipcRenderer
@@ -148,7 +148,7 @@ const store = createStore({
     state.user = payload;
   }),
   updateUser: thunk((actions, payload) => {
-    const user = dbClient.updateUser(payload);
+    const user = dbconnector.updateUser(payload);
     actions.setUser(user);
     /*
     ipcRenderer
