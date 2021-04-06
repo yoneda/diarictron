@@ -81,9 +81,10 @@ const store = createStore({
       actions.setNotes(notes);
       actions.setUser(user);
     });*/
-    const { notes, user } = dbconnector.getAll();
+    const { notes, user, app } = dbconnector.getAll();
     actions.setNotes(notes);
     actions.setUser(user);
+    actions.setBanner(app.showBanner);
   }),
   touch: action((state, payload) => {
     const { id } = payload;
@@ -171,6 +172,14 @@ const store = createStore({
   preview: false,
   setPreview: action((state, payload) => {
     state.preview = payload;
+  }),
+  showBanner: false,
+  setBanner: action((state, payload) => {
+    state.showBanner = payload;
+  }),
+  updateBanner: thunk((actions, payload) => {
+    const app = dbconnector.setApp({ showBanner: payload });
+    actions.setBanner(app.showBanner);
   })
 });
 
@@ -201,7 +210,8 @@ function Main() {
     contextPoint,
     menuRect,
     length,
-    targetNote
+    targetNote,
+    showBanner
   ] = useStoreState(state => [
     state.ids,
     state.user,
@@ -209,7 +219,8 @@ function Main() {
     state.contextPoint,
     state.menuRect,
     state.length,
-    state.targetNote
+    state.targetNote,
+    state.showBanner
   ]);
   const [
     removeNote,
@@ -217,29 +228,27 @@ function Main() {
     getAll,
     setModal,
     setContextPoint,
-    editNote
+    editNote,
+    updateBanner
   ] = useStoreActions(actions => [
     actions.removeNote,
     actions.updateUser,
     actions.getAll,
     actions.setModal,
     actions.setContextPoint,
-    actions.editNote
+    actions.editNote,
+    actions.updateBanner
   ]);
   useKeyboard();
   useEffect(() => {
     getAll();
-  }, []);
-  const [banner, setBanner] = useState("");
-  useEffect(() => {
-    setBanner("USERDATA_WARNING");
   }, []);
   return (
     <ThemeProvider
       theme={{
         fontSize: user.fontSize,
         dark: user.dark,
-        showBanner: !(banner === "")
+        showBanner
       }}
     >
       <GlobalStyle />
@@ -248,7 +257,7 @@ function Main() {
         <Layout.TopLeft />
         <Layout.TopRight />
         */}
-        {banner === "USERDATA_WARNING" && (
+        {showBanner && (
           <Layout.Banner>
             <Banner color="orange">
               <Flex>
@@ -259,7 +268,7 @@ function Main() {
               </Flex>
               <IconButton
                 icon={<Batu size={48} />}
-                onClick={() => setBanner("")}
+                onClick={() => updateBanner(false)}
               />
             </Banner>
           </Layout.Banner>

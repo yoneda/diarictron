@@ -81,6 +81,12 @@ const dbconnector = {
     const user = localStorageGet("user");
     localStorageSet("user", { ...user, ...payload });
     return localStorageGet("user");
+  },
+  getApp: () => localStorageGet("app"),
+  setApp: function (payload) {
+    const app = localStorageGet("app");
+    localStorageSet("app", { ...app, ...payload });
+    return localStorageGet("app");
   }
 };
 
