@@ -38,6 +38,8 @@ const Title = styled.div`
   margin-bottom: 40px;
 
   display: flex;
+  cursor: pointer;
+  user-select: none;
 `;
 
 const Description = styled.div`
@@ -77,7 +79,7 @@ function Top() {
   return (
     <Container>
       <Main>
-        <Title>
+        <Title onClick={() => navigate("/")}>
           <Logo color="white" size={48} />
           <H2>Diarictron</H2>
         </Title>
