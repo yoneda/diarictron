@@ -4,12 +4,13 @@ import styled from "styled-components";
 import Logo from "./Logo";
 import Link from "./Link";
 import Fab from "./Fab";
+import CheckMark from "./CheckMark";
 
 const Container = styled.div`
   height: 100vh;
   background-color: dodgerblue;
   color: white;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 
   display: flex;
   flex-flow: column nowrap;
@@ -66,6 +67,10 @@ const Ul = styled.ul`
 const Li = styled.li`
   font-size: 28px;
   font-weight: 500;
+
+  svg {
+    margin-right: 10px;
+  }
 `;
 
 function Top() {
@@ -79,10 +84,22 @@ function Top() {
         <Description>
           <P>毎日を記録しよう✋</P>
           <Ul>
-            <Li>✓安全にデータを保管</Li>
-            <Li>✓シンプルで使いやすい操作性</Li>
-            <Li>✓キーボードショートカット対応</Li>
-            <Li>✓オープンソース</Li>
+            <Li>
+              <CheckMark size={24} color="white" />
+              安全にデータを保管
+            </Li>
+            <Li>
+              <CheckMark size={24} color="white" />
+              シンプルで使いやすい操作性
+            </Li>
+            <Li>
+              <CheckMark size={24} color="white" />
+              キーボードショートカット対応
+            </Li>
+            <Li>
+              <CheckMark size={24} color="white" />
+              オープンソース
+            </Li>
           </Ul>
         </Description>
         <Actions>
@@ -106,7 +123,10 @@ function Top() {
         <Link path="https://google.com" color="white">
           利用規約
         </Link>
-        <Link path="https://github.com/yoneda/easy-diary/blob/master/privacy.md" color="white">
+        <Link
+          path="https://github.com/yoneda/easy-diary/blob/master/privacy.md"
+          color="white"
+        >
           プライバシーポリシー
         </Link>
       </Footer>
