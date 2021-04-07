@@ -1,7 +1,7 @@
 {
   "name": "easy-diary",
   "productName": "Easy Diary",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "simple diary application for your mac.",
   "homepage": "https://github.com/yoneda/easy-diary#readme",
   "license": "MIT",
@@ -40,6 +40,7 @@
     "nanoid": "^3.1.20",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "semver": "^7.3.5",
     "styled-components": "^5.2.1",
     "styled-reset": "^4.3.2"
   },

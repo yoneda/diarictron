@@ -43,6 +43,8 @@ import Flex from "./Flex";
 import Text from "./Text";
 import Favorite from "./Favorite";
 import DeleteForever from "./DeleteForever";
+import { version } from "./package.json";
+import semver from "semver";
 
 const Center = styled.div`
   height: 100%;
@@ -317,7 +319,7 @@ function Main() {
               <Center>
                 <Logo size="100" color="dodgerblue" />
                 <h3>Diarictron</h3>
-                <p>v0.5.0</p>
+                <p>version {semver.valid(version)}</p>
                 <Link path="https://github.com/yoneda/easy-diary" color="black">
                   利用規約
                 </Link>
