@@ -317,7 +317,7 @@ function Main() {
               <Center>
                 <Logo size="100" color="dodgerblue" />
                 <h3>Diarictron</h3>
-                <p>v1.0.0</p>
+                <p>v0.5.0</p>
                 <Link path="https://github.com/yoneda/easy-diary" color="black">
                   利用規約
                 </Link>
