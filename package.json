@@ -22,11 +22,12 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "start": "npm run build && npm run electron",
-    "lint": "eslint ./ --ext .js"
+    "lint": "eslint ./ --ext .js",
+    "prettier": "pretty-quick --staged"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && npm run lint"
+      "pre-commit": "npm run prettier && npm run lint"
     }
   },
   "dependencies": {
