@@ -42,7 +42,6 @@ const localStorageSet = function (key, value) {
   if (!window.localStorage.getItem(key)) {
     window.localStorage.setItem(key, JSON.stringify(initData[key]));
   }
-  console.log(value);
   return window.localStorage.setItem(key, JSON.stringify(value));
 };
 
@@ -55,7 +54,6 @@ const dbconnector = {
   },
   addNote: function ({ note }) {
     const notes = localStorageGet("notes");
-    console.log([note, ...notes]);
     localStorageSet("notes", [note, ...notes]);
     return localStorageGet("notes");
   },
