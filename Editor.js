@@ -148,7 +148,7 @@ function Editor() {
       <RightBottomControl>
         <Button type="text" onClick={() => setModal("ABOUT_DIALOG")}>
           <>
-            <Info size="48" color="gray" />
+            <Info size={48} color="gray" />
             <Text size="27" color="gray" weight="500">
               Info
             </Text>

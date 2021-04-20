@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import dayjs from "dayjs";
@@ -116,7 +116,7 @@ function NoteList() {
   return (
     <Container>
       {notes.map((note, key, array) => (
-        <>
+        <Fragment key={key}>
           {options.showMonth && hasLabel(array, key) && (
             <MonthLabel onClick={() => grep({ date: note.createdAt })}>
               {
@@ -135,7 +135,7 @@ function NoteList() {
             <Body>{note.body}</Body>
             {options.showMeta && <Meta>{getTime(note.createdAt)}</Meta>}
           </NoteRow>
-        </>
+        </Fragment>
       ))}
     </Container>
   );
