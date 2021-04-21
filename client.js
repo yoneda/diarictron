@@ -440,7 +440,7 @@ function Main() {
                   onClick={() => console.log("export notes")}
                   control={<OpenInNew />}
                 >
-                  Export Notes
+                  <span>Export Notes</span>
                 </ListRow>
               </List>
             </Dialog>
