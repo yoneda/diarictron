@@ -32,7 +32,6 @@ import dbconnector from "./dbconnector";
 // const { ipcRenderer, shell } = window.require("electron");
 import { Router } from "@reach/router";
 import Top from "./Top";
-import Cancel from "./Cancel";
 import Logo from "./Logo";
 import Link from "./Link";
 import Banner from "./Banner";
