@@ -25,8 +25,7 @@ const Wrapper = styled.div`
 const TitleBar = styled.div`
   height: 60px;
   box-sizing: border-box;
-  border-bottom: 1px solid gray;
-
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -39,8 +38,7 @@ const Content = styled.div`
 const ActionBar = styled.div`
   height: 60px;
   box-sizing: border-box;
-  border-top: 1px solid gray;
-
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: flex-end;
 `;
