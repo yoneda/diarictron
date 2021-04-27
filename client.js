@@ -383,11 +383,16 @@ function Main() {
         {modal === "SETTING_MODAL" && (
           <Layout.FullView>
             <Dialog
-              title={<h3>設定</h3>}
+              title={
+                <Text size={20} weight={400}>
+                  設定
+                </Text>
+              }
               close={
-                <span onClick={() => setModal("")}>
-                  <Cancel onClick={() => setModal("")} />
-                </span>
+                <IconButton
+                  icon={<Batu size={24} />}
+                  onClick={() => setModal("")}
+                ></IconButton>
               }
               onClose={() => setModal("")}
             >

@@ -29,6 +29,9 @@ const TitleBar = styled.div`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
 `;
 
 const Content = styled.div`
