@@ -33,6 +33,8 @@ const TitleBar = styled.div`
 
 const Content = styled.div`
   padding: 8px 24px;
+  display: flex;
+  justify-content: center;
 `;
 
 const ActionBar = styled.div`

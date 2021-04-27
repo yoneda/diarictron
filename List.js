@@ -8,7 +8,7 @@ const Container = styled.ul`
   margin-block-start: 0.6rem;
   margin-block-end: 0.6rem;
   background-color: white;
-  width: 320px;
+  width: 400px;
 `;
 
 function List(props) {
