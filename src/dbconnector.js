@@ -6,13 +6,25 @@ const initData = {
       id: "esr11Pg6",
       body:
         "Diarictronは日記を書くことに特化したウェブ上で動作するノートアプリです。左下のNewボタンから新規のノートを追加できます。",
-      createdAt: dayjs().subtract(1, "day").format("YYYY-MM-DDTHH:mm:ss"),
+      createdAt: dayjs()
+        .subtract(1, "day")
+        .hour(10)
+        .minute(0)
+        .second(0)
+        .millisecond(0)
+        .format("YYYY-MM-DDTHH:mm:ss"),
       favorite: false
     },
     {
       id: "q69VppzW",
       body: "ようこそ！Diarictronへ",
-      createdAt: dayjs().subtract(2, "day").format("YYYY-MM-DDTHH:mm:ss"),
+      createdAt: dayjs()
+        .subtract(2, "day")
+        .hour(10)
+        .minute(0)
+        .second(0)
+        .millisecond(0)
+        .format("YYYY-MM-DDTHH:mm:ss"),
       favorite: false
     }
   ],
