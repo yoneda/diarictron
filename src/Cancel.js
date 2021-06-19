@@ -5,7 +5,6 @@ const Svg = styled.svg`
   cursor: pointer;
 `;
 
-
 function Cancel() {
   return (
     <Svg

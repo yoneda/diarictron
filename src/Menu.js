@@ -27,6 +27,6 @@ function Menu(props) {
 
 Menu.propTypes = {
   children: PropTypes.element.isRequired
-}
+};
 
 export default Menu;

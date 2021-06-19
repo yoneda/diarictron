@@ -42,7 +42,7 @@ import Flex from "./Flex";
 import Text from "./Text";
 import Favorite from "./Favorite";
 import DeleteForever from "./DeleteForever";
-import { version } from "./package.json";
+import { version } from "../package.json";
 import semver from "semver";
 
 const Center = styled.div`

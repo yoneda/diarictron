@@ -38,7 +38,7 @@ const Wrapper = styled.button`
         background-color: white;
         color: ${color ? color : "rgba(0,0,0,1)"};
         &:hover {
-          background-color: rgba(0,0,0,0.1);
+          background-color: rgba(0, 0, 0, 0.1);
         }
       `;
     }

@@ -42,6 +42,6 @@ Popup.propTypes = {
   children: PropTypes.element.isRequired,
   left: PropTypes.number,
   top: PropTypes.number
-}
+};
 
 export default Popup;

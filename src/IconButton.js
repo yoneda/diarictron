@@ -28,6 +28,6 @@ function IconButton(props) {
 IconButton.propTypes = {
   icon: PropTypes.element.isRequired,
   onClick: PropTypes.func.isRequired
-}
+};
 
 export default IconButton;

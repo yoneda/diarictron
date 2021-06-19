@@ -18,7 +18,7 @@ function DeleteForever(props) {
 
 DeleteForever.propTypes = {
   size: PropTypes.number.isRequired,
-  color: PropTypes.string.isRequired,
-}
+  color: PropTypes.string.isRequired
+};
 
 export default DeleteForever;

@@ -18,7 +18,7 @@ function NoteAdd(props) {
 
 NoteAdd.propTypes = {
   color: PropTypes.string.isRequired,
-  size: PropTypes.number.isRequired,
-}
+  size: PropTypes.number.isRequired
+};
 
 export default NoteAdd;

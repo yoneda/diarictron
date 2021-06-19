@@ -16,7 +16,7 @@ function Batu(props) {
 }
 
 Batu.propTypes = {
-  size: PropTypes.number.isRequired,
-}
+  size: PropTypes.number.isRequired
+};
 
 export default Batu;
