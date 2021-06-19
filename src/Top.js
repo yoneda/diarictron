@@ -108,14 +108,6 @@ function Top() {
           <Fab type="outlined" primary="white" onClick={() => navigate("/app")}>
             Live Demo
           </Fab>
-          <Fab
-            type="contained"
-            primary="white"
-            onPrimary="dodgerblue"
-            onClick={() => navigate("/app")}
-          >
-            Download for Mac
-          </Fab>
         </Actions>
       </Main>
       <Footer>
