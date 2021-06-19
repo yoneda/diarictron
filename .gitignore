@@ -11,3 +11,5 @@ output
 out
 watch
 dist
+
+deploy.sh
