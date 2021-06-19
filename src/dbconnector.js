@@ -1,21 +1,18 @@
+import dayjs from "dayjs";
+
 const initData = {
   notes: [
     {
       id: "esr11Pg6",
-      body: "ratione",
-      createdAt: "2021-03-23T21:07:59",
+      body:
+        "Diarictronは日記を書くことに特化したウェブ上で動作するノートアプリです。左下のNewボタンから新規のノートを追加できます。",
+      createdAt: dayjs().subtract(1, "day").format("YYYY-MM-DDTHH:mm:ss"),
       favorite: false
     },
     {
       id: "q69VppzW",
-      body: "enim",
-      createdAt: "2021-03-23T21:07:59",
-      favorite: false
-    },
-    {
-      id: "KcKuERJh",
-      body: "neque",
-      createdAt: "2021-03-23T21:07:59",
+      body: "ようこそ！Diarictronへ",
+      createdAt: dayjs().subtract(2, "day").format("YYYY-MM-DDTHH:mm:ss"),
       favorite: false
     }
   ],
@@ -25,7 +22,7 @@ const initData = {
     dark: false
   },
   app: {
-    showBanner: true
+    showBanner: false
   }
 };
 
