@@ -23,7 +23,8 @@
     "dist": "electron-builder",
     "start": "npm run build && npm run electron",
     "lint": "eslint ./ --ext .js",
-    "prettier": "pretty-quick --staged"
+    "prettier": "pretty-quick --staged",
+    "test": "jest"
   },
   "husky": {
     "hooks": {
@@ -52,6 +53,7 @@
     "eslint-plugin-react": "^7.22.0",
     "faker": "^5.1.0",
     "husky": "^4.3.8",
+    "jest": "^27.0.6",
     "parcel-bundler": "^1.12.4",
     "prettier": "^2.2.1",
     "pretty-quick": "^3.1.0",
