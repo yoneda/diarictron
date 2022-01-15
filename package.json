@@ -37,7 +37,7 @@
     "easy-peasy": "^4.0.1",
     "electron": "^11.1.0",
     "lowdb": "^1.0.0",
-    "marked": "^2.0.1",
+    "marked": "^4.0.10",
     "mousetrap": "^1.6.5",
     "nanoid": "^3.1.20",
     "react": "^17.0.1",
